@@ -7,7 +7,9 @@ Scenario('Buy a diamond', ({ I }) => {
         caratTo = 4,
         priceFrom = 2000,
         priceTo = 10000,
-        reports = ["IGI", "GIA", "GCAL"];
+        reports = ["IGI", "GIA", "GCAL"],
+        ratioFrom = 1.26,
+        ratioTo = 2.00;
     // Checking the shape filter.
     function checkShape() {
         for(const shape of shapes) {
@@ -41,7 +43,6 @@ Scenario('Buy a diamond', ({ I }) => {
         I.pressKey('Enter');
         const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)')
         for (const elem of prices) {
-            console.log(Number((elem.slice(elem.indexOf('$')+1)).replace(',', '')));
             if(((elem.slice(elem.indexOf('$')+1)).replace(',', '')) < priceFrom || ((elem.slice(elem.indexOf('$')+1)).replace(',', '')) > priceTo) {
                 console.log('Error in the values obtained from the Price filter');
             }
@@ -56,6 +57,12 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
+    // Check the compare option
+    function compareDiamonds() {
+        I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
+        I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
+        I.click("#to_compare_diamonds_from_diamond_list");
+    };    
     
 
     
@@ -67,19 +74,45 @@ Scenario('Buy a diamond', ({ I }) => {
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
-    // I.click('.round-shape');
+    I.click('.round-shape');
 
-    checkShape();
+    // checkShape();
     //------------------------------------------------------------------------------
-    checkCarat();
+    // checkCarat();
     //------------------------------------------------------------------------------
-    checkPrice();
+    // checkPrice();
     //------------------------------------------------------------------------------
-    I.click("#advanced_filters_button");
-    for (let i = 0; i < reports.length; i++) {
-        I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-        checkReport(reports[i]);
-        I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    }
+    // I.click("#advanced_filters_button");
+    // for (let i = 0; i < reports.length; i++) {
+    //     I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    //     checkReport(reports[i]);
+    //     I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    // }
+    //------------------------------------------------------------------------------
+    // Reset filters
+    // I.click('#search_form Clear .container_advanced_filters_button .clear-filter-btn');
+    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    //------------------------------------------------------------------------------
+    compareDiamonds();
     
+    
+    pause();
+    // I.click("tbody tr td:nth-child(9) .compare_diamond_unselected_icon");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// INPUTS TYPE RANGE
+// I.dragSlider("#search_form .diamond_filter_color_content .from", 100)
