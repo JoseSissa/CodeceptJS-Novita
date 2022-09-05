@@ -1,6 +1,0 @@
-
-
-<<< Recorded commands on Mon Sep 05 2022 11:37:50 GMT-0500 (hora estándar de Colombia)
-I.click("#advanced_filters_content .diamond_filter_certificate_content ul li:first-child label")
-I.click("#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(2) label")
-I.click("#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(3) label")

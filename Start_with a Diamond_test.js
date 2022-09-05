@@ -7,7 +7,7 @@ Scenario('Buy a diamond', ({ I }) => {
         caratTo = 4,
         priceFrom = 2000,
         priceTo = 10000,
-        report = ["IGI", "GIA", "GCAL"];
+        reports = ["IGI", "GIA", "GCAL"];
     // Checking the shape filter.
     function checkShape() {
         for(const shape of shapes) {
@@ -46,30 +46,16 @@ Scenario('Buy a diamond', ({ I }) => {
                 console.log('Error in the values obtained from the Price filter');
             }
         }
-    }
+    };
     // Check the Report filter
-    async function checkReport() {
-        let i = 1;
-        for (const elem of report) {
-            I.click(elem, `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i}) label`);
-            // pause();
-            I.click(elem, `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i}) label`);
-            // pause();
-            i++;
+    async function checkReport(report) {
+        const records = await I.grabTextFromAll('tbody tr td:nth-child(7)');
+        for (const elem of records) {
+            if(elem != report) {
+                console.log('Error in the values obtained from the Report filter');
+            }
         }
-        
-        // for(let i = 1; i < 4; i++) {
-        //     I.click(`#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i}) label`);
-        //     const results = await I.grabTextFromAll('tbody tr td:nth-child(7)');
-        //     for (const elem of results) {
-        //         console.log(elem);
-        //         // if(elem != report[i]) {
-        //         //     console.log('Error in the values obtained from the Report filter');
-        //         // }
-        //     }
-        //     I.click(`#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i}) label`);
-        // }
-    }
+    };
     
 
     
@@ -83,20 +69,17 @@ Scenario('Buy a diamond', ({ I }) => {
 
     // I.click('.round-shape');
 
-    // checkShape();
+    checkShape();
     //------------------------------------------------------------------------------
-    // checkCarat();
+    checkCarat();
     //------------------------------------------------------------------------------
-    // checkPrice();
+    checkPrice();
     //------------------------------------------------------------------------------
     I.click("#advanced_filters_button");
-    checkReport();
-    
-
-
-
-    // I.click(".oval-shape")
-    // I.dontSee("Round")
-    pause();
+    for (let i = 0; i < reports.length; i++) {
+        I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+        checkReport(reports[i]);
+        I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    }
     
 });
