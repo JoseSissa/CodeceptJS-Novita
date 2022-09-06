@@ -36,3 +36,8 @@ I.dragSlider("#search_form .diamond_filter_cut_content .to", -140)
 I.dragSlider("#search_form .diamond_filter_cut_content .to", 150)
 I.dragSlider("#search_form .diamond_filter_cut_content .from", 150)
 I.exir
+
+<<< Recorded commands on Tue Sep 06 2022 18:01:01 GMT-0500 (hora estándar de Colombia)
+I.dragSlider("#search_form .diamond_filter_clarity_content .from", 57)
+I.dragSlider("#search_form .diamond_filter_clarity_content .from", 300)
+I.dragSlider("#search_form .diamond_filter_clarity_content .to", -100)

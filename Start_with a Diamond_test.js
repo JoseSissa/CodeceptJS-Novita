@@ -65,16 +65,6 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
-    // Check the cut option
-    function checkCut() {
-        I.wait(1);
-        I.dragSlider("#search_form .diamond_filter_cut_content .from", 57);
-        I.dragSlider("#search_form .diamond_filter_cut_content .to", -200);
-        I.dontSee('Ideal', 'td');
-        I.dontSee('Very Good', 'td');
-        I.dontSee('Good', 'td');
-
-    };
     // Check the price filter
     async function checkPrice() {
         I.fillField("#from_price_value_input", params.priceFrom);
@@ -88,6 +78,28 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
+    // Check the cut option
+    function checkCut() {
+        I.wait(1);
+        I.dragSlider("#search_form .diamond_filter_cut_content .from", 57);
+        I.dragSlider("#search_form .diamond_filter_cut_content .to", -200);
+        I.dontSee('Ideal', 'td');
+        I.dontSee('Very Good', 'td');
+        I.dontSee('Good', 'td');
+
+    };
+    // Check the clarity option
+    async function checkClarity() {
+        I.wait(1);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .from", 300);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .to", -100);
+        const clarity = await I.grabTextFromAll('tbody tr td:nth-child(5)');
+        for (const elem of clarity) {
+            if(elem !== "SI1") {
+                console.log('Error in the values obtained from the Clarity filter');
+            }
+        }
+    }
     // Check the Report filter
     async function checkReport(report) {
         const records = await I.grabTextFromAll('tbody tr td:nth-child(7)');
@@ -127,7 +139,8 @@ Scenario('Buy a diamond', ({ I }) => {
     //------------------------------------------------------------------------------
     // checkCut();
     //------------------------------------------------------------------------------
-    
+    // I.wait(1);
+    checkClarity();
     //------------------------------------------------------------------------------
     // I.click("#advanced_filters_button");
     // for (let i = 0; i < params.reports.length; i++) {
