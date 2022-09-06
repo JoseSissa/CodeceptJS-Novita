@@ -2,19 +2,34 @@ Feature('Start with a Diamond');
 
 Scenario('Buy a diamond', ({ I }) => {
 
-    const shapes = ["Round", "Oval", "Cushion", "Princess", "Emerald", "Pear", "Radiant", "Asscher", "Marquise"],
-        caratFrom = 2,
-        caratTo = 4,
-        priceFrom = 2000,
-        priceTo = 10000,
-        reports = ["IGI", "GIA", "GCAL"],
-        ratioFrom = 1.26,
-        ratioTo = 2.00;
+    const params = {
+        "shapes" : ["Round", "Oval", "Cushion", "Princess", "Emerald", "Pear", "Radiant", "Asscher", "Marquise"],
+        "caratFrom" : 2,
+        "caratTo" : 4,
+        "colour" : {
+            "D" : [0, 450],
+            "E" : [50, 400],
+            "F" : [100, 350],
+            "G" : [150, 300],
+            "H" : [200, 250],
+            "I" : [250, 200],
+            "J" : [300, 150],
+            "K" : [350, 100],
+            "L" : [400, 50],
+            "M" : [450, 0],
+        },
+        "priceFrom" : 2000,
+        "priceTo" : 10000,
+        "reports" : ["IGI", "GIA", "GCAL"],
+        "ratioFrom" : 1.26,
+        "ratioTo" : 2.00
+    }
+
     // Checking the shape filter.
     function checkShape() {
-        for(const shape of shapes) {
+        for(const shape of params.shapes) {
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
-            for(const elem of shapes) {
+            for(const elem of params.shapes) {
                 if(elem != shape) {
                     I.dontSee(elem);
                 };
@@ -24,39 +39,41 @@ Scenario('Buy a diamond', ({ I }) => {
     }
     // Checking the carat filter.
     async function checkCarat() {
-        I.fillField("#from_carat_value_input", caratFrom);
+        I.wait(1);
+        I.fillField("#from_carat_value_input", params.caratFrom);
         I.pressKey("Enter");
-        I.fillField("#to_carat_value_input", caratTo);
+        I.fillField("#to_carat_value_input", params.caratTo);
         I.pressKey("Enter");
         const carat = await I.grabTextFromAll('tbody tr td:nth-child(3)');
         for (const elem of carat) {
-            if(parseFloat(elem) < parseFloat(caratFrom) || parseFloat(elem) > parseFloat(caratTo)) {
+            if(parseFloat(elem) < parseFloat(params.caratFrom) || parseFloat(elem) > parseFloat(params.caratTo)) {
                 console.log('Error in the values obtained from the Carat filter');
             }
         }
     };
     // Check the color filter
-    async function checkColour() {
+    async function checkColour(option) {
         I.wait(1);
-        I.dragSlider("#search_form .diamond_filter_color_content .from", 150);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", -300);
+        I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", -(params.colour[option][1]));
         I.wait(1);
         const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
         for (const elem of colors) {
-            if(elem !== "G") {
+            console.log(elem);
+            if(elem !== option) {
                 console.log('Error in the values obtained from the Colour filter');
             }
         }
     };
     // Check the price filter
     async function checkPrice() {
-        I.fillField("#from_price_value_input", priceFrom);
+        I.fillField("#from_price_value_input", params.priceFrom);
         I.pressKey('Enter');
-        I.fillField("#to_price_value_input", priceTo);
+        I.fillField("#to_price_value_input", params.priceTo);
         I.pressKey('Enter');
         const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
         for (const elem of prices) {
-            if(((elem.slice(elem.indexOf('$')+1)).replace(',', '')) < priceFrom || ((elem.slice(elem.indexOf('$')+1)).replace(',', '')) > priceTo) {
+            if(((elem.slice(elem.indexOf('$')+1)).replace(',', '')) < params.priceFrom || ((elem.slice(elem.indexOf('$')+1)).replace(',', '')) > params.priceTo) {
                 console.log('Error in the values obtained from the Price filter');
             }
         }
@@ -83,34 +100,36 @@ Scenario('Buy a diamond', ({ I }) => {
     // ----------------------------------------------------
     // ----------------------------------------------------
 
-    I.amOnPage("/");
+    I.amOnPage("/contact");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
     // I.click('.round-shape');
     I.wait(1);
-    I.scrollTo("#body_table_results", 0,100);
+    I.scrollTo("#body_table_results", 0, 100);
     // checkShape();
     //------------------------------------------------------------------------------
     // checkCarat();
     //------------------------------------------------------------------------------
-    checkColour();
+    checkColour("G");
     //------------------------------------------------------------------------------
     // checkPrice();
     //------------------------------------------------------------------------------
     // I.click("#advanced_filters_button");
-    // for (let i = 0; i < reports.length; i++) {
-    //     I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    //     checkReport(reports[i]);
-    //     I.click(reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    // for (let i = 0; i < params.reports.length; i++) {
+    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    //     checkReport(params.reports[i]);
+    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
     // }
     //------------------------------------------------------------------------------
     // Reset filters
     // I.click('//*[@id="search_form"]/div[5]/a[2]');
     //------------------------------------------------------------------------------
-    I.wait(1);
-    compareDiamonds();
-    pause();
+    // I.wait(1);
+    // compareDiamonds();
+    //------------------------------------------------------------------------------
+
+    // pause();
 });
 
 
