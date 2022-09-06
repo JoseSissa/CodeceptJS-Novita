@@ -35,13 +35,26 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
-    // Checking the price filter
+    // Check the color filter
+    async function checkColour() {
+        I.wait(1);
+        I.dragSlider("#search_form .diamond_filter_color_content .from", 150);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", -300);
+        I.wait(1);
+        const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
+        for (const elem of colors) {
+            if(elem !== "G") {
+                console.log('Error in the values obtained from the Colour filter');
+            }
+        }
+    };
+    // Check the price filter
     async function checkPrice() {
         I.fillField("#from_price_value_input", priceFrom);
         I.pressKey('Enter');
         I.fillField("#to_price_value_input", priceTo);
         I.pressKey('Enter');
-        const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)')
+        const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
         for (const elem of prices) {
             if(((elem.slice(elem.indexOf('$')+1)).replace(',', '')) < priceFrom || ((elem.slice(elem.indexOf('$')+1)).replace(',', '')) > priceTo) {
                 console.log('Error in the values obtained from the Price filter');
@@ -74,11 +87,14 @@ Scenario('Buy a diamond', ({ I }) => {
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
-    I.click('.round-shape');
-
+    // I.click('.round-shape');
+    I.wait(1);
+    I.scrollTo("#body_table_results", 0,100);
     // checkShape();
     //------------------------------------------------------------------------------
     // checkCarat();
+    //------------------------------------------------------------------------------
+    checkColour();
     //------------------------------------------------------------------------------
     // checkPrice();
     //------------------------------------------------------------------------------
@@ -90,14 +106,11 @@ Scenario('Buy a diamond', ({ I }) => {
     // }
     //------------------------------------------------------------------------------
     // Reset filters
-    // I.click('#search_form Clear .container_advanced_filters_button .clear-filter-btn');
-    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    // I.click('//*[@id="search_form"]/div[5]/a[2]');
     //------------------------------------------------------------------------------
+    I.wait(1);
     compareDiamonds();
-    
-    
     pause();
-    // I.click("tbody tr td:nth-child(9) .compare_diamond_unselected_icon");
 });
 
 
