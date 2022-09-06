@@ -41,3 +41,8 @@ I.exir
 I.dragSlider("#search_form .diamond_filter_clarity_content .from", 57)
 I.dragSlider("#search_form .diamond_filter_clarity_content .from", 300)
 I.dragSlider("#search_form .diamond_filter_clarity_content .to", -100)
+
+<<< Recorded commands on Tue Sep 06 2022 18:23:26 GMT-0500 (hora estándar de Colombia)
+I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 50)
+I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150)
+I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150)

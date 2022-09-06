@@ -99,7 +99,13 @@ Scenario('Buy a diamond', ({ I }) => {
                 console.log('Error in the values obtained from the Clarity filter');
             }
         }
-    }
+    };
+    // Check the Polish filter
+    function checkPolish() {
+        I.wait(1);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150);
+    };
     // Check the Report filter
     async function checkReport(report) {
         const records = await I.grabTextFromAll('tbody tr td:nth-child(7)');
@@ -108,6 +114,10 @@ Scenario('Buy a diamond', ({ I }) => {
                 console.log('Error in the values obtained from the Report filter');
             }
         }
+    };
+    // Check the Symmetry filter
+    function checkSymmetry() {
+
     };
     // Check the compare option
     function compareDiamonds() {
@@ -129,31 +139,36 @@ Scenario('Buy a diamond', ({ I }) => {
     // I.click('.round-shape');
     I.wait(1);
     I.scrollTo("#body_table_results", 0, 100);
-    // checkShape();
+
     //------------------------------------------------------------------------------
-    // checkCarat();
+    checkShape();
     //------------------------------------------------------------------------------
-    // checkColour("G");
+    checkCarat();
     //------------------------------------------------------------------------------
-    // checkPrice();
+    checkColour("G");
     //------------------------------------------------------------------------------
-    // checkCut();
+    checkPrice();
     //------------------------------------------------------------------------------
-    // I.wait(1);
+    checkCut();
+    //------------------------------------------------------------------------------
     checkClarity();
     //------------------------------------------------------------------------------
-    // I.click("#advanced_filters_button");
-    // for (let i = 0; i < params.reports.length; i++) {
-    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    //     checkReport(params.reports[i]);
-    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    // }
+    I.click("#advanced_filters_button");
+    I.wait(1);
+    checkPolish();
+    //------------------------------------------------------------------------------
+    I.wait(1);
+    for (let i = 0; i < params.reports.length; i++) {
+        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+        checkReport(params.reports[i]);
+        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    }
     //------------------------------------------------------------------------------
     // Reset filters
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
+    I.click('//*[@id="search_form"]/div[5]/a[2]');
     //------------------------------------------------------------------------------
-    // I.wait(1);
-    // compareDiamonds();
+    I.wait(1);
+    compareDiamonds();
     //------------------------------------------------------------------------------
 
     pause();
