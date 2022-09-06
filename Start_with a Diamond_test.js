@@ -65,6 +65,16 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
+    // Check the cut option
+    function checkCut() {
+        I.wait(1);
+        I.dragSlider("#search_form .diamond_filter_cut_content .from", 57);
+        I.dragSlider("#search_form .diamond_filter_cut_content .to", -200);
+        I.dontSee('Ideal', 'td');
+        I.dontSee('Very Good', 'td');
+        I.dontSee('Good', 'td');
+
+    };
     // Check the price filter
     async function checkPrice() {
         I.fillField("#from_price_value_input", params.priceFrom);
@@ -111,9 +121,13 @@ Scenario('Buy a diamond', ({ I }) => {
     //------------------------------------------------------------------------------
     // checkCarat();
     //------------------------------------------------------------------------------
-    checkColour("G");
+    // checkColour("G");
     //------------------------------------------------------------------------------
     // checkPrice();
+    //------------------------------------------------------------------------------
+    // checkCut();
+    //------------------------------------------------------------------------------
+    
     //------------------------------------------------------------------------------
     // I.click("#advanced_filters_button");
     // for (let i = 0; i < params.reports.length; i++) {
@@ -129,7 +143,7 @@ Scenario('Buy a diamond', ({ I }) => {
     // compareDiamonds();
     //------------------------------------------------------------------------------
 
-    // pause();
+    pause();
 });
 
 
