@@ -17,7 +17,7 @@ exports.config = {
       // url: 'https://manmadediamonds.com.au',
       show: true,
       browser: 'chromium',
-      waitForAction: Number('1500'),
+      // waitForAction: Number('1500'),
     }
   },
   include: {

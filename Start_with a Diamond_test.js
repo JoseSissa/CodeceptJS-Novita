@@ -12,14 +12,14 @@ Scenario('Buy a diamond', ({ I }) => {
             "F" : [100, 350],
             "G" : [150, 300],
             "H" : [200, 250],
-            "I" : [250, 200],
-            "J" : [300, 150],
-            "K" : [350, 100],
-            "L" : [400, 50],
-            "M" : [450, 0],
+            "I" : [210, 200],
+            "J" : [250, 150],
+            "K" : [300, 100],
+            "L" : [350, 50],
+            "M" : [400, 0],
         },
-        "priceFrom" : 2000,
-        "priceTo" : 10000,
+        "priceFrom" : 15000,
+        "priceTo" : 30000,
         "reports" : ["IGI", "GIA", "GCAL"],
         "ratioFrom" : 1.26,
         "ratioTo" : 2.00
@@ -32,11 +32,13 @@ Scenario('Buy a diamond', ({ I }) => {
             for(const elem of params.shapes) {
                 if(elem != shape) {
                     I.dontSee(elem);
+                }else {
+                    I.see(elem);
                 };
             };
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
         };
-    }
+    };
     // Checking the carat filter.
     async function checkCarat() {
         I.wait(1);
@@ -48,20 +50,24 @@ Scenario('Buy a diamond', ({ I }) => {
         for (const elem of carat) {
             if(parseFloat(elem) < parseFloat(params.caratFrom) || parseFloat(elem) > parseFloat(params.caratTo)) {
                 console.log('Error in the values obtained from the Carat filter');
+                I.dontSee(elem);
+                break;
             }
         }
     };
     // Check the color filter
-    async function checkColour(option) {
+    async function checkColour() {
+        const option = "J";
         I.wait(1);
-        I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", -(params.colour[option][1]));
+        I.dragSlider("#search_form .diamond_filter_color_content .from", 150);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", -300);
         I.wait(1);
         const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
         for (const elem of colors) {
-            console.log(elem);
             if(elem !== option) {
+                I.see(option, 'td');
                 console.log('Error in the values obtained from the Colour filter');
+                break;
             }
         }
     };
@@ -75,6 +81,8 @@ Scenario('Buy a diamond', ({ I }) => {
         for (const elem of prices) {
             if(((elem.slice(elem.indexOf('$')+1)).replace(',', '')) < params.priceFrom || ((elem.slice(elem.indexOf('$')+1)).replace(',', '')) > params.priceTo) {
                 console.log('Error in the values obtained from the Price filter');
+                I.dontSee(elem);
+                break;
             }
         }
     };
@@ -86,7 +94,6 @@ Scenario('Buy a diamond', ({ I }) => {
         I.dontSee('Ideal', 'td');
         I.dontSee('Very Good', 'td');
         I.dontSee('Good', 'td');
-
     };
     // Check the clarity option
     async function checkClarity() {
@@ -112,19 +119,30 @@ Scenario('Buy a diamond', ({ I }) => {
         for (const elem of records) {
             if(elem != report) {
                 console.log('Error in the values obtained from the Report filter');
+                break;
             }
         }
     };
     // Check the Symmetry filter
     function checkSymmetry() {
-
+        I.wait(1);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150);
+    };
+    // Check the Ratio filter 
+    function checkRatio() {
+        I.wait(1);
+        I.fillField('#from_ratio_value_input', 1.5);
+        I.pressKey('Enter');
+        I.fillField('#to_ratio_value_input', 2);
+        I.pressKey('Enter');
     };
     // Check the compare option
     function compareDiamonds() {
         I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
         I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
         I.click("#to_compare_diamonds_from_diamond_list");
-    };    
+    };
     
 
     
@@ -141,34 +159,39 @@ Scenario('Buy a diamond', ({ I }) => {
     I.scrollTo("#body_table_results", 0, 100);
 
     //------------------------------------------------------------------------------
-    checkShape();
+    // checkShape();
     //------------------------------------------------------------------------------
-    checkCarat();
+    // checkCarat();
     //------------------------------------------------------------------------------
-    checkColour("G");
+    // checkColour();
     //------------------------------------------------------------------------------
-    checkPrice();
+    // checkPrice();
     //------------------------------------------------------------------------------
-    checkCut();
+    // checkCut();
     //------------------------------------------------------------------------------
-    checkClarity();
+    // checkClarity();
     //------------------------------------------------------------------------------
     I.click("#advanced_filters_button");
-    I.wait(1);
-    checkPolish();
     //------------------------------------------------------------------------------
-    I.wait(1);
-    for (let i = 0; i < params.reports.length; i++) {
-        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-        checkReport(params.reports[i]);
-        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    }
+    // I.wait(1);
+    // checkPolish();
+    //------------------------------------------------------------------------------
+    // I.wait(1);
+    // for (let i = 0; i < params.reports.length; i++) {
+    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    //     checkReport(params.reports[i]);
+    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    // }
+    //------------------------------------------------------------------------------
+    checkSymmetry();
+    //------------------------------------------------------------------------------
+    checkRatio();
     //------------------------------------------------------------------------------
     // Reset filters
-    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    // I.click('//*[@id="search_form"]/div[5]/a[2]');
     //------------------------------------------------------------------------------
-    I.wait(1);
-    compareDiamonds();
+    // I.wait(1);
+    // compareDiamonds();
     //------------------------------------------------------------------------------
 
     pause();
