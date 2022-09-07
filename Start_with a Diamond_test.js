@@ -34,14 +34,13 @@ Scenario('Buy a diamond', ({ I }) => {
                     I.dontSee(elem);
                 }else {
                     I.see(elem);
-                };
+                }
             };
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
         };
     };
     // Checking the carat filter.
     async function checkCarat() {
-        I.wait(1);
         I.fillField("#from_carat_value_input", params.caratFrom);
         I.pressKey("Enter");
         I.fillField("#to_carat_value_input", params.caratTo);
@@ -51,7 +50,6 @@ Scenario('Buy a diamond', ({ I }) => {
             if(parseFloat(elem) < parseFloat(params.caratFrom) || parseFloat(elem) > parseFloat(params.caratTo)) {
                 console.log('Error in the values obtained from the Carat filter');
                 I.dontSee(elem);
-                break;
             }
         }
     };
@@ -126,8 +124,8 @@ Scenario('Buy a diamond', ({ I }) => {
     // Check the Symmetry filter
     function checkSymmetry() {
         I.wait(1);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150);
+        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", 150);
+        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", -150);
     };
     // Check the Ratio filter 
     function checkRatio() {
@@ -155,7 +153,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
     // I.click('.round-shape');
-    I.wait(1);
+    I.wait(2);
     I.scrollTo("#body_table_results", 0, 100);
 
     //------------------------------------------------------------------------------
@@ -171,7 +169,7 @@ Scenario('Buy a diamond', ({ I }) => {
     //------------------------------------------------------------------------------
     // checkClarity();
     //------------------------------------------------------------------------------
-    I.click("#advanced_filters_button");
+    // I.click("#advanced_filters_button");
     //------------------------------------------------------------------------------
     // I.wait(1);
     // checkPolish();
@@ -183,15 +181,15 @@ Scenario('Buy a diamond', ({ I }) => {
     //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
     // }
     //------------------------------------------------------------------------------
-    checkSymmetry();
+    // checkSymmetry();
     //------------------------------------------------------------------------------
-    checkRatio();
+    // checkRatio();
     //------------------------------------------------------------------------------
     // Reset filters
     // I.click('//*[@id="search_form"]/div[5]/a[2]');
     //------------------------------------------------------------------------------
-    // I.wait(1);
-    // compareDiamonds();
+    // I.wait(2);
+    compareDiamonds();
     //------------------------------------------------------------------------------
 
     pause();
