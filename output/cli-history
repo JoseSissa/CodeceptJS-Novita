@@ -1,1 +1,25 @@
 
+
+
+<<< Recorded commands on Thu Sep 08 2022 12:25:00 GMT-0500 (hora estándar de Colombia)
+I.click('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
+
+<<< Recorded commands on Thu Sep 08 2022 14:49:44 GMT-0500 (hora estándar de Colombia)
+I.click('Browse settings')
+I.click('Browse settings')
+I.click('#diamond_list_section .container_steps_title .step_2 .description_2 a')
+
+<<< Recorded commands on Thu Sep 08 2022 15:19:58 GMT-0500 (hora estándar de Colombia)
+I.see('Ring Design')
+I.see('18ct White Gold')
+I.see('18ct White Gold', 'label')
+I.forceClick('18ct White Gold')
+I.forceClick('18ct White Gold')
+I.forceClick('18ct Yellow Gold')
+
+<<< Recorded commands on Thu Sep 08 2022 15:29:30 GMT-0500 (hora estándar de Colombia)
+I.forceClick('#metal_type_3')
+I.forceClick('#metal_type_3')
+
+<<< Recorded commands on Thu Sep 08 2022 17:50:21 GMT-0500 (hora estándar de Colombia)
+I.forceClick('#metal_type_2')
