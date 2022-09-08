@@ -155,6 +155,7 @@ Scenario('Buy a diamond', ({ I }) => {
     // I.click('.round-shape');
     I.wait(2);
     I.scrollTo("#body_table_results", 0, 100);
+    I.wait(2);
 
     //------------------------------------------------------------------------------
     // checkShape();
@@ -189,10 +190,44 @@ Scenario('Buy a diamond', ({ I }) => {
     // I.click('//*[@id="search_form"]/div[5]/a[2]');
     //------------------------------------------------------------------------------
     // I.wait(2);
-    compareDiamonds();
+    // compareDiamonds();
     //------------------------------------------------------------------------------
 
+    // Choose Diamond
+    // I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //In the results table
+    I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');   //In the comparison table
+    
+    // Diamond detail
+    I.see('Choose this diamond', 'a');
+    // Video
+    I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
+    I.see('Actual video of the diamond');
+    // Certificate
+    I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
+    
+    I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    I.click('20% Deposit Available');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    I.click('Choose this diamond');
+    I.see('CREATE YOUR RING');
     pause();
+
+    // Select Ring Design
+    // Filter metal type
+
+
 });
 
 
