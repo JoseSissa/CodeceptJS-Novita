@@ -218,6 +218,17 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
+    // Search input Ring design
+    async function searchInput() {
+        I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', 'Allegro accent');
+        I.pressKey('Enter');
+        const results = await I.grabTextFromAll('#ring_list_section .ring_item .name');
+        for (const elem of results) {
+            if(!(elem.includes('Allegro Accent'))) {
+                console.log('Error in values obtained from input search in Ring Design.');
+            }
+        }
+    };
 
 
     
@@ -323,16 +334,19 @@ Scenario('Buy a diamond', ({ I }) => {
     
 
     // Filter Price
-    I.forceClick('#setting_price_range_2');
-    checkPrice1000andUnder();
-    I.forceClick('#setting_price_range_2');
-    I.forceClick('#setting_price_range_3');
-    checkPrice1000To2000();
-    I.forceClick('#setting_price_range_3');
-    I.forceClick('#setting_price_range_4');
-    checkPrice2000andOver();
-    I.forceClick('#setting_price_range_4');
+    // I.forceClick('#setting_price_range_2');
+    // checkPrice1000andUnder();
+    // I.forceClick('#setting_price_range_2');
+    // I.forceClick('#setting_price_range_3');
+    // checkPrice1000To2000();
+    // I.forceClick('#setting_price_range_3');
+    // I.forceClick('#setting_price_range_4');
+    // checkPrice2000andOver();
+    // I.forceClick('#setting_price_range_4');
+    // Search input
+    searchInput();
 
+    pause();
 
 
 });
