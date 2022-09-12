@@ -135,6 +135,72 @@ Scenario('Buy a diamond', ({ I }) => {
         I.fillField('#to_ratio_value_input', 2);
         I.pressKey('Enter');
     };
+    // SORT TABLE FOR PRICE
+    async function sortByPrice(order) {
+        const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
+        let previousNumber;
+        if (order == "higher") {
+            previousNumber = Number.MAX_SAFE_INTEGER;
+        }else if(order == "smaller") {
+            previousNumber = 0;
+        }
+        for (const elem of prices) {
+            let actualNumber = Number(elem.slice((elem.indexOf('$')+1)).replace(',', ''));
+            if(!isNaN(actualNumber)) {
+                if(order == "higher") {
+                    if(actualNumber > previousNumber) {
+                        console.log("Error in the values obtained when organizing the list by major price.");
+                    }
+                }else if(order == "smaller") {
+                    if(actualNumber < previousNumber) {
+                        console.log("Error in the values obtained when organizing the list by minor price.");
+                    }
+                }
+            }
+            previousNumber = actualNumber;
+        };
+    };
+    // SORT TABLE FOR CARAT
+    async function sortByCarat(order) {
+        const carat = await I.grabTextFromAll('tbody tr td:nth-child(3)');
+        let previousNumber;
+        if (order == "higher") {
+            previousNumber = Number.MAX_SAFE_INTEGER;
+        }else if(order == "smaller") {
+            previousNumber = 0;
+        };
+        for (const elem of carat) {
+            let actualNumber = Number(elem);
+            if(!isNaN(actualNumber)) {
+                if(order == "higher") {
+                    if(actualNumber > previousNumber) {
+                        console.log("Error in the values obtained when organizing the list by major carats.");
+                    }
+                }else if(order == "smaller") {
+                    if(actualNumber < previousNumber) {
+                        console.log("Error in the values obtained when organizing the list by minor carats.");
+                    }
+                }
+            }
+            previousNumber = actualNumber;
+        };
+    };
+    // SORT TABLE FOR REPORT
+    async function sortByReport(order) {
+        const report = await I.grabTextFromAll('tbody tr td:nth-child(7)');
+        for (const elem of report) {
+            if(order == "higher") {
+                if(elem != "IGI") {
+                    console.log("Error in the values obtained when organizing the list by Report.");
+                }
+            }else if(order == "smaller") {
+                if(elem != "GCAL") {
+                    console.log("Error in the values obtained when organizing the list by Report.");
+                }
+            }
+        };
+    };
+
     // Check the compare option
     function compareDiamonds() {
         I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
@@ -239,7 +305,6 @@ Scenario('Buy a diamond', ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
-    I.waitForResponse('https://novitadiamonds.com/api/product/diamonds');
 
     // CHECKING RING GUIDE BAR
     // I.forceClick('Browse settings');
@@ -275,21 +340,34 @@ Scenario('Buy a diamond', ({ I }) => {
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
+    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    
+    
+    // SORT RESULTS
+    //------------------------------------------------------------------------------
+    I.click('#price_table_header_img');
+    sortByPrice('higher');
+    I.click('#price_table_header_img');
+    sortByPrice('smaller');
+    I.click('#carat_table_header');
+    sortByCarat('higher');
+    I.click('#carat_table_header');
+    sortByCarat('smaller');
+    I.click('#report_table_header');
+    sortByReport('higher');
+    I.click('#report_table_header');
+    sortByReport('smaller');
+
+    // sortForCarat();
+    // sortForReport();
+    // sortForCompare();
+
+
+
 
     // TO COMPARE DIAMONDS
     //------------------------------------------------------------------------------
     // compareDiamonds();
-
-
-
-
-
-    // Probando el tema de la respuesta:
-    I.click('.emerald-shape');
-    checkPolish();
-    I.click('GIA', `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(2) label`);
-    I.waitForResponse('https://novitadiamonds.com/api/product/diamonds');
     
 
 
