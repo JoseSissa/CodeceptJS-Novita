@@ -55,10 +55,10 @@ Scenario('Buy a diamond', ({ I }) => {
     };
     // Check the color filter
     async function checkColour() {
-        const option = "J";
+        const option = "G";
         I.wait(1);
-        I.dragSlider("#search_form .diamond_filter_color_content .from", 150);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", -300);
+        I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", -(params.colour[option][1]));
         I.wait(1);
         const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
         for (const elem of colors) {
@@ -219,7 +219,7 @@ Scenario('Buy a diamond', ({ I }) => {
         }
     };
     // Search input Ring design
-    async function searchInput() {
+    async function searchInputRingDesign() {
         I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', 'Allegro accent');
         I.pressKey('Enter');
         const results = await I.grabTextFromAll('#ring_list_section .ring_item .name');
@@ -236,50 +236,67 @@ Scenario('Buy a diamond', ({ I }) => {
     // ----------------------------------------------------
     // ----------------------------------------------------
 
-    I.amOnPage("/contact");
+    I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
+    I.waitForResponse('https://novitadiamonds.com/api/product/diamonds');
 
-    // I.click('.round-shape');
-    // I.wait(2);
+    // CHECKING RING GUIDE BAR
+    // I.forceClick('Browse settings');
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/ring');
+    // I.forceClick('Browse diamonds');
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/diamond');
+
     // I.scrollTo("#body_table_results", 0, 100);
-    // I.wait(2);
 
+    // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
     // checkShape();
-    //------------------------------------------------------------------------------
     // checkCarat();
-    //------------------------------------------------------------------------------
     // checkColour();
-    //------------------------------------------------------------------------------
     // checkPrice();
-    //------------------------------------------------------------------------------
     // checkCut();
-    //------------------------------------------------------------------------------
     // checkClarity();
+
+    // BUTTON ADVANCED FILTERS
     //------------------------------------------------------------------------------
-    // I.click("#advanced_filters_button");
+    I.click("#advanced_filters_button");
+
+    // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
-    // I.wait(1);
     // checkPolish();
-    //------------------------------------------------------------------------------
-    // I.wait(1);
     // for (let i = 0; i < params.reports.length; i++) {
     //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
     //     checkReport(params.reports[i]);
     //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
     // }
-    //------------------------------------------------------------------------------
     // checkSymmetry();
-    //------------------------------------------------------------------------------
     // checkRatio();
+
+    // RESET FILTERS
     //------------------------------------------------------------------------------
-    // Reset filters
     // I.click('//*[@id="search_form"]/div[5]/a[2]');
+
+    // TO COMPARE DIAMONDS
     //------------------------------------------------------------------------------
-    // I.wait(2);
     // compareDiamonds();
-    //------------------------------------------------------------------------------
+
+
+
+
+
+    // Probando el tema de la respuesta:
+    I.click('.emerald-shape');
+    checkPolish();
+    I.click('GIA', `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(2) label`);
+    I.waitForResponse('https://novitadiamonds.com/api/product/diamonds');
+    
+
+
+
+
+
+
 
     // Choose Diamond
     // I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //In the results table
@@ -314,7 +331,7 @@ Scenario('Buy a diamond', ({ I }) => {
     // Select Ring Design
     // pause();
     // I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
-    I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
+    // I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
 
     // Filter metal type
     // I.forceClick('#metal_type_1');
@@ -344,10 +361,22 @@ Scenario('Buy a diamond', ({ I }) => {
     // checkPrice2000andOver();
     // I.forceClick('#setting_price_range_4');
     // Search input
-    searchInput();
+    // searchInputRingDesign();
+    // pause();
+    // I.click('#ring_list_section .ring_item .ring_detail_link');
+
+    // 20% Deposit Available
+    // I.click('#express_job_option .pink_checkbox_box_legend a');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+
+    // Filters right
+    // I.see('#setting_video_tag');
+    // cs
 
     pause();
-
 
 });
 
