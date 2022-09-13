@@ -18,6 +18,9 @@ exports.config = {
       show: true,
       browser: 'chromium',
       waitForAction: Number('2000'),
+    },
+    JSONResponse: {
+      requestHelper: 'Playwright',
     }
   },
   include: {
