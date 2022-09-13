@@ -211,58 +211,58 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
     // CHECKING RING GUIDE BAR
-    // I.forceClick('Browse settings');
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/ring');
-    // I.forceClick('Browse diamonds');
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/diamond');
+    I.forceClick('Browse settings');
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/ring');
+    I.forceClick('Browse diamonds');
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
-    // checkShape();
-    // checkCarat();
-    // checkColour();
-    // checkPrice();
-    // checkCut();
-    // checkClarity();
+    checkShape();
+    checkCarat();
+    checkColour();
+    checkPrice();
+    checkCut();
+    checkClarity();
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
+    I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // BUTTON ADVANCED FILTERS
     //------------------------------------------------------------------------------
     I.click("#advanced_filters_button");
-    // I.scrollTo("#body_table_results", 0, 100);
+    I.scrollTo("#body_table_results", 0, 100);
 
     // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
-    // checkPolish();
-    // for (let i = 0; i < params.reports.length; i++) {
-    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    //     checkReport(params.reports[i]);
-    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    // }
-    // checkSymmetry();
-    // checkRatio();
+    checkPolish();
+    for (let i = 0; i < params.reports.length; i++) {
+        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+        checkReport(params.reports[i]);
+        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    }
+    checkSymmetry();
+    checkRatio();
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
+    I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
-    // I.click('#price_table_header_img');
-    // sortByPrice('higher');
-    // I.click('#price_table_header_img');
-    // sortByPrice('smaller');
-    // I.click('#carat_table_header');
-    // sortByCarat('higher');
-    // I.click('#carat_table_header');
-    // sortByCarat('smaller');
-    // I.click('#report_table_header');
-    // sortByReport('higher');
-    // I.click('#report_table_header');
-    // sortByReport('smaller');
+    I.click('#price_table_header_img');
+    sortByPrice('higher');
+    I.click('#price_table_header_img');
+    sortByPrice('smaller');
+    I.click('#carat_table_header');
+    sortByCarat('higher');
+    I.click('#carat_table_header');
+    sortByCarat('smaller');
+    I.click('#report_table_header');
+    sortByReport('higher');
+    I.click('#report_table_header');
+    sortByReport('smaller');
 
     // SELECT A DIAMOND
     I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a');
@@ -305,6 +305,12 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
+
+    I.click('#checkbox_bank_wire_description');
+    pause();
+    console.log('ACTIVATED THE CAPTCHA.');
+    I.click('#bank_wire_submit');
+    I.seeInCurrentUrl('/cart/review');
 
     pause();
 });
