@@ -218,8 +218,9 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('#medium_height_link');
     I.see('Diamond Setting: Medium-Low');
     I.click('#save_store_personalisation');
+    pause();
     // Button cancel
-    I.click('#personalise_ring_link .pink_checkbox_icon');
+    I.click('Personalise your ring');
     I.see('PERSONALISE YOUR RING');
     I.click('#cancel_store_personalisation');
 
@@ -232,9 +233,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.closeCurrentTab();
     I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
 
-    // Filters right
-    // I.see('#setting_video_tag');
-    // cs
+    
 
     pause();
 

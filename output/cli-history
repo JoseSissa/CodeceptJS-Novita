@@ -1,20 +1,6 @@
 
 
-
-<<< Recorded commands on Tue Sep 13 2022 15:13:16 GMT-0500 (hora estándar de Colombia)
-I.seeInCurrentUrl('/cart/review')
-
-<<< Recorded commands on Tue Sep 13 2022 15:31:27 GMT-0500 (hora estándar de Colombia)
-I.see('CHOOSE THIS DIAMOND')
-I.see('SHOPPING CART')
-
-<<< Recorded commands on Wed Sep 14 2022 08:34:31 GMT-0500 (hora estándar de Colombia)
-I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
-I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a')
-I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
-I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a')
-I.forceClick('Browse diamonds')
-I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a')
-I.click('//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a')
-I.forceClick('//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a')
-I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
+<<< Recorded commands on Wed Sep 14 2022 10:21:58 GMT-0500 (hora estándar de Colombia)
+I.click('Personalise your ring')
+I.see('PERSONALISE YOUR RING')
+I.click('#cancel_store_personalisation')
