@@ -10,7 +10,7 @@ Scenario('Buy a diamond', ({ I }) => {
     };
 
     function checkVideo() {
-        if(!(I.seeCssPropertiesOnElements('#diamond_detail_section .diamond_detail_tabs .video_tab', {'display':"none"}))) {
+        if(I.seeElement('#diamond_detail_section .diamond_detail_tabs .video_tab', {'display':"none"})) {
             I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
             I.see('Actual video of the diamond');
         }
@@ -126,7 +126,6 @@ Scenario('Buy a diamond', ({ I }) => {
     
     // Diamond detail
     I.see('Choose this diamond', 'a');
-    pause();
     // Video
     checkVideo();
     
@@ -153,7 +152,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.see('CREATE YOUR RING');
 
     // Select Ring Design
-    pause();
+    // pause();
     I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
     I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
 
