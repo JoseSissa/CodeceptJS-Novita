@@ -4,3 +4,7 @@
 I.click('Personalise your ring')
 I.see('PERSONALISE YOUR RING')
 I.click('#cancel_store_personalisation')
+
+<<< Recorded commands on Wed Sep 14 2022 10:50:30 GMT-0500 (hora estándar de Colombia)
+I.click('Choose this design')
+I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div')

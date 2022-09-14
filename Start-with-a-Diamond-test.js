@@ -121,8 +121,8 @@ Scenario('Buy a diamond', ({ I }) => {
     compareDiamonds();
 
     // Choose Diamond
-    I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //In the results table
-    // I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');   //In the comparison table
+    I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //Select a diamond from the results table
+    // I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');//Select a diamond from the comparison table
     
     // Diamond detail
     I.see('Choose this diamond', 'a');
@@ -152,8 +152,8 @@ Scenario('Buy a diamond', ({ I }) => {
     I.see('CREATE YOUR RING');
 
     // Select Ring Design
-    I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
-    I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
+    // I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
+    // I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
 
     // Filter metal type
     I.forceClick('#metal_type_1');
@@ -218,13 +218,11 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('#medium_height_link');
     I.see('Diamond Setting: Medium-Low');
     I.click('#save_store_personalisation');
-    pause();
+    
     // Button cancel
     I.click('Personalise your ring');
     I.see('PERSONALISE YOUR RING');
     I.click('#cancel_store_personalisation');
-
-
 
     // 20% Deposit Available
     I.click('#express_job_option .pink_checkbox_box_legend a');
@@ -232,6 +230,29 @@ Scenario('Buy a diamond', ({ I }) => {
     I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
     I.closeCurrentTab();
     I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    
+    // More information
+    I.click('#more_info_link');
+    I.see('PRODUCT DETAILS', 'h2');
+    I.click('#ring_more_details_box button')
+
+    pause();
+    I.click('Choose this design');
+    I.see('Review Your Ring', 'h2');
+
+
+    // Options below of ADD TO CART
+    I.click('.social_network_icons .drop_a_hint a');
+    I.see('DROP A HINT', 'h3');
+    I.fillField('#drop_hint_recipientName', 'Recipient example');
+    I.fillField('#drop_hint_recipientEmail', 'Recipient@example.com');
+    I.fillField('#drop_hint_message', 'Message here.');
+    I.fillField('#drop_hint_yourName', 'Your name here.');
+    I.fillField('#drop_hint_yourEmail', 'email@example.com');
+    
+
+
+
 
     
 
