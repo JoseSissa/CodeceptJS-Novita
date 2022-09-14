@@ -112,13 +112,12 @@ Scenario('Buy a diamond', ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
-    I.say('HOLA MUNDO');
 
     // I.scrollTo("#body_table_results", 0, 100);
     
     // TO COMPARE DIAMONDS
     //------------------------------------------------------------------------------
-    I.wait(2);
+    I.wait(5);
     compareDiamonds();
 
     // Choose Diamond
@@ -136,19 +135,22 @@ Scenario('Buy a diamond', ({ I }) => {
     // I.switchToNextTab();
     // I.seeInCurrentUrl('https://www.igi.org/reports/');
     // I.closeCurrentTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
     // I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
     
     // I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
     // I.switchToNextTab();
     // I.seeInCurrentUrl('https://www.igi.org/reports/');
     // I.closeCurrentTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
     // I.click('20% Deposit Available');
     // I.switchToNextTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
+    // I.seeInCurrentUrl('/deposit');
     // I.closeCurrentTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
     I.click('Choose this diamond');
     I.see('CREATE YOUR RING');
 
@@ -228,16 +230,16 @@ Scenario('Buy a diamond', ({ I }) => {
     // 20% Deposit Available
     I.click('#express_job_option .pink_checkbox_box_legend a');
     I.switchToNextTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
+    I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
     
     // More information
     I.click('#more_info_link');
     I.see('PRODUCT DETAILS', 'h2');
     I.click('#ring_more_details_box button')
 
-    pause();
     I.click('Choose this design');
     I.see('Review Your Ring', 'h2');
 
@@ -251,15 +253,16 @@ Scenario('Buy a diamond', ({ I }) => {
     I.fillField('#drop_hint_yourName', 'Your name here.');
     I.fillField('#drop_hint_yourEmail', 'email@example.com');
     I.checkOption('#drop_hint_newStyleOfferUpdate');
+    I.say('PLEASE, ACTIVATE THE CAPTCHA.');
     pause();
     I.click('#drop_hint_send');
-    I.see('Message Sent', 'h3');
+    I.see('MESSAGE SENT');
     I.click('.modal-content .modal-body button');
 
     // Option free shipping
     I.click('.free_shipping a');
-    I.see('Free Shipping', 'h2');
-    I.click('LEARN MORE', '.modal-content .share-content-padding a');
+    I.see('FREE SHIPPING');
+    I.click('> LEARN MORE');
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-shipping');
     I.closeCurrentTab();
@@ -269,7 +272,7 @@ Scenario('Buy a diamond', ({ I }) => {
     // Option free returns
     I.click('.free_returns a');
     I.see('FREE 30 DAYS RETURN POLICY', 'h3');
-    I.click('LEARN MORE', '.modal-content .share-content-padding a');
+    I.click('> LEARN MORE');
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-return');
     I.closeCurrentTab();
@@ -278,21 +281,31 @@ Scenario('Buy a diamond', ({ I }) => {
 
     // Option free returns
     I.click('.share a');
-    I.see('SHARE THIS', 'h3');
+    I.see('SHARE THIS');
     // check the socialmedia
     I.click('.modal-content .modal-body button');
+    I.click('Facebook');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('facebook.com');
+    I.closeCurrentTab();
+    I.click('Twitter');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('twitter.com');
+    I.closeCurrentTab();
+    I.click('Pinterest');
+    I.switchToNextTab();
+    I.see('Pinterest', 'h2');
+    I.closeCurrentTab();
+    I.click('Drop a Hint');
+    I.see('DROP A HINT');
+    I.click('.modal-content .modal-body button');
+    I.click('Share');
+    I.click('Copy Link');
+    I.see('LINK COPIED TO THE CLIPBOARD');
+    I.click('.modal-content .modal-body button');
+    I.click('#add_to_cart_submit');
 
 
-
-
-
-
-
-
-
-
-
-    
 
     pause();
 

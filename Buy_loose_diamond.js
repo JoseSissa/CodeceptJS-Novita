@@ -311,8 +311,8 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.seeInCurrentUrl('/cart/payment-information');
 
     I.click('#checkbox_bank_wire_description');
+    I.say('ACTIVATED THE CAPTCHA.');
     pause();
-    console.log('ACTIVATED THE CAPTCHA.');
     I.click('#bank_wire_submit');
     I.seeInCurrentUrl('/cart/review');
 

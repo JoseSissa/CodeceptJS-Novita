@@ -8,3 +8,33 @@ I.click('#cancel_store_personalisation')
 <<< Recorded commands on Wed Sep 14 2022 10:50:30 GMT-0500 (hora estándar de Colombia)
 I.click('Choose this design')
 I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
+
+<<< Recorded commands on Wed Sep 14 2022 15:55:24 GMT-0500 (hora estándar de Colombia)
+I.Prefix
+I.prefix
+I.retry
+
+<<< Recorded commands on Wed Sep 14 2022 16:13:30 GMT-0500 (hora estándar de Colombia)
+
+
+<<< Recorded commands on Wed Sep 14 2022 16:50:33 GMT-0500 (hora estándar de Colombia)
+I.click('Facebook')
+I.switchToNextTab()
+I.seeInCurrentUrl('facebook.com')
+I.closeCurrentTab()
+I.click('Twitter')
+I.switchToNextTab()
+I.seeInCurrentUrl('twitter.com')
+I.closeCurrentTab()
+I.click('Pinterest')
+I.switchToNextTab()
+I.see('Pinterest', 'h2')
+I.closeCurrentTab()
+I.click('Drop a Hint')
+I.see('DROP A HINT')
+I.click('.modal-content .modal-body button')
+I.click('Share')
+I.click('Copy Link')
+I.see('LINK COPIED TO THE CLIPBOARD')
+I.click('.modal-content .modal-body button')
+I.click('#add_to_cart_submit')
