@@ -131,25 +131,25 @@ Scenario('Buy a diamond', ({ I }) => {
     
     
     // Certificate
-    // I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('https://www.igi.org/reports/');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
     // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
-    // I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
+    I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
     
-    // I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('https://www.igi.org/reports/');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
     // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
-    // I.click('20% Deposit Available');
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('/deposit');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    I.click('20% Deposit Available');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
     // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
     I.click('Choose this diamond');
     I.see('CREATE YOUR RING');
@@ -305,7 +305,43 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('.modal-content .modal-body button');
     I.click('#add_to_cart_submit');
 
+    // Select Ring Size
+    I.see('SHOPPING CART');
+    I.click('Help', '.link_to_ring_size a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('HOW TO FIND YOUR RING SIZE');
+    I.closeCurrentTab();
+    I.selectOption('.summary_setting_size .select_ring_size', '3/4');
+    I.click('CHECKOUT');
 
+    // FORM WHERE DO YOU WANT THESE ITEMS SENT?
+    I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'FirstName');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'LastName');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Suite 56-58, New House');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_shippingState', 'State example');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Suburb example');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Delivery Instructions Example');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Additional notes example');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'Email@example.com');
+
+    // Use the same address for billing and shipping
+    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'FisrtName example');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'LastName example');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Address example');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_billingState', 'State example');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Suburb example');
+    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    I.click('#cart_shipping_content .last_row .right_submit input');
+    I.seeInCurrentUrl('/cart/payment-information');
+    I.see('PAYMENT METHOD', 'h2');
 
     pause();
 
