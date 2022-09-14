@@ -131,30 +131,29 @@ Scenario('Buy a diamond', ({ I }) => {
     
     
     // Certificate
-    I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('https://www.igi.org/reports/');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
-    I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
+    // I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('https://www.igi.org/reports/');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    // I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
     
-    I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('https://www.igi.org/reports/');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
-    I.click('20% Deposit Available');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    // I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('https://www.igi.org/reports/');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
+    // I.click('20% Deposit Available');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('https://novitadiamonds.com/deposit');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/');
     I.click('Choose this diamond');
     I.see('CREATE YOUR RING');
 
     // Select Ring Design
-    // pause();
-    I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
     I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
+    I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
 
     // Filter metal type
     I.forceClick('#metal_type_1');
@@ -187,8 +186,44 @@ Scenario('Buy a diamond', ({ I }) => {
     // Text Search input
     searchInputRingDesign();
     
-
+    // Click in the first
     I.click('#ring_list_section .ring_item .ring_detail_link');
+
+
+    // Delivery time
+    I.checkOption('#include_express_job_id .pink_checkbox_icon');
+    I.checkOption('#dont_include_express_job_id .pink_checkbox_icon');
+
+    // Personalise your ring
+    I.click('#personalise_ring_link .pink_checkbox_icon');
+    I.see('PERSONALISE YOUR RING');
+    // Claw Style
+    I.click('#personalised_select_claw_style');
+    I.click('#eagle_claw_link');
+    I.see('Claw Style: Eagle');
+    I.click('#personalised_select_claw_style');
+    I.click('#square_claw_link');
+    I.see('Claw Style: Square');
+    I.click('#personalised_select_claw_style');
+    I.click('#round_claw_link');
+    I.see('Claw Style: Round');
+    // Diamond setting
+    I.click('#personalised_select_stone_setting');
+    I.click('#low_height_link');
+    I.see('Diamond Setting: Very Low');
+    I.click('#personalised_select_stone_setting');
+    I.click('#high_height_link');
+    I.see('Diamond Setting: Medium-High');
+    I.click('#personalised_select_stone_setting');
+    I.click('#medium_height_link');
+    I.see('Diamond Setting: Medium-Low');
+    I.click('#save_store_personalisation');
+    // Button cancel
+    I.click('#personalise_ring_link .pink_checkbox_icon');
+    I.see('PERSONALISE YOUR RING');
+    I.click('#cancel_store_personalisation');
+
+
 
     // 20% Deposit Available
     I.click('#express_job_option .pink_checkbox_box_legend a');
