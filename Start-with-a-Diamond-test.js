@@ -112,6 +112,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
+    I.say('HOLA MUNDO');
 
     // I.scrollTo("#body_table_results", 0, 100);
     
@@ -241,7 +242,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.see('Review Your Ring', 'h2');
 
 
-    // Options below of ADD TO CART
+    // Option Drop a hint
     I.click('.social_network_icons .drop_a_hint a');
     I.see('DROP A HINT', 'h3');
     I.fillField('#drop_hint_recipientName', 'Recipient example');
@@ -249,7 +250,44 @@ Scenario('Buy a diamond', ({ I }) => {
     I.fillField('#drop_hint_message', 'Message here.');
     I.fillField('#drop_hint_yourName', 'Your name here.');
     I.fillField('#drop_hint_yourEmail', 'email@example.com');
-    
+    I.checkOption('#drop_hint_newStyleOfferUpdate');
+    pause();
+    I.click('#drop_hint_send');
+    I.see('Message Sent', 'h3');
+    I.click('.modal-content .modal-body button');
+
+    // Option free shipping
+    I.click('.free_shipping a');
+    I.see('Free Shipping', 'h2');
+    I.click('LEARN MORE', '.modal-content .share-content-padding a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/free-shipping');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    I.click('.modal-content .modal-body button');
+
+    // Option free returns
+    I.click('.free_returns a');
+    I.see('FREE 30 DAYS RETURN POLICY', 'h3');
+    I.click('LEARN MORE', '.modal-content .share-content-padding a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/free-return');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    I.click('.modal-content .modal-body button');
+
+    // Option free returns
+    I.click('.share a');
+    I.see('SHARE THIS', 'h3');
+    // check the socialmedia
+    I.click('.modal-content .modal-body button');
+
+
+
+
+
+
+
 
 
 
