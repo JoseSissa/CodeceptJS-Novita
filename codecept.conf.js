@@ -15,7 +15,7 @@ exports.config = {
       url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
       // url: 'https://manmadediamonds.com.au',
-      show: true,
+      show: false,
       browser: 'chromium',
       waitForAction: Number('2000'),
     },

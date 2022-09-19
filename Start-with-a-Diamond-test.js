@@ -2,21 +2,6 @@ Feature('Start with a Diamond');
 
 Scenario('Buy a diamond', ({ I }) => {
 
-    // Check the compare option
-    function compareDiamonds() {
-        I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
-        I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
-        I.click("#to_compare_diamonds_from_diamond_list");
-    };
-
-    function checkVideo() {
-        if(I.seeElement('#diamond_detail_section .diamond_detail_tabs .video_tab', {'display':"none"})) {
-            I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
-            I.see('Actual video of the diamond');
-        }
-    };
-
-    // ----------------------------------------------------
     // Functions of metal types filters
     // Option All
     async function checkAllMetal() {
@@ -118,39 +103,17 @@ Scenario('Buy a diamond', ({ I }) => {
     // TO COMPARE DIAMONDS
     //------------------------------------------------------------------------------
     I.wait(5);
-    compareDiamonds();
+    //  SELECT A DIAMOND
+    I.click('Detail', '#body_table_results tr td a');
 
     // Choose Diamond
-    I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //Select a diamond from the results table
+    // I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //Select a diamond from the results table
     // I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');//Select a diamond from the comparison table
     
     // Diamond detail
-    I.see('Choose this diamond', 'a');
-    // Video
-    checkVideo();
+    I.see('Choose this diamond', 'a');    
     
-    
-    // Certificate
-    I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('https://www.igi.org/reports/');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
-    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
-    I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
-    
-    I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('https://www.igi.org/reports/');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
-    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
-    I.click('20% Deposit Available');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('/deposit');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
-    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
+    // CHOOSE DIAMOND
     I.click('Choose this diamond');
     I.see('CREATE YOUR RING');
 
@@ -254,7 +217,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.fillField('#drop_hint_yourEmail', 'email@example.com');
     I.checkOption('#drop_hint_newStyleOfferUpdate');
     I.say('PLEASE, ACTIVATE THE CAPTCHA.');
-    pause();
+    I.wait(15);
     I.click('#drop_hint_send');
     I.see('MESSAGE SENT');
     I.click('.modal-content .modal-body button');

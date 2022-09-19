@@ -24,7 +24,6 @@ Scenario('Buy a loose diamond', ({ I }) => {
         "ratioFrom" : 1.26,
         "ratioTo" : 2.00
     }
-
     // Checking the shape filter.
     function checkShape() {
         for(const shape of params.shapes) {
@@ -135,8 +134,18 @@ Scenario('Buy a loose diamond', ({ I }) => {
         I.fillField('#to_ratio_value_input', 2);
         I.pressKey('Enter');
     };
-
-
+    // Check the compare option
+    function compareDiamonds() {
+        I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
+        I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
+        I.click("#to_compare_diamonds_from_diamond_list");
+    };
+    // Check the option video
+    async function checkVideo() {
+        // return await I.grabCssPropertyFrom('#diamond_detail_section .diamond_detail_tabs .video_tab', 'display');
+        I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
+        I.see('Actual video of the diamond');
+    };
     // SORT TABLE FOR PRICE
     async function sortByPrice(order) {
         const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
@@ -192,11 +201,11 @@ Scenario('Buy a loose diamond', ({ I }) => {
         const report = await I.grabTextFromAll('tbody tr td:nth-child(7)');
         for (const elem of report) {
             if(order == "higher") {
-                if(elem != "IGI") {
+                if(elem != "IGI" && elem != "GIA") {
                     console.log("Error in the values obtained when organizing the list by Report.");
                 }
             }else if(order == "smaller") {
-                if(elem == "IGI") {
+                if(elem != "GCAL" && elem != "GIA") {
                     console.log("Error in the values obtained when organizing the list by Report.");
                 }
             }
@@ -212,9 +221,9 @@ Scenario('Buy a loose diamond', ({ I }) => {
 
     // CHECKING RING GUIDE BAR
     I.forceClick('Browse settings');
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/ring');
+    I.seeInCurrentUrl('/engagement-ring/create/ring');
     I.forceClick('Browse diamonds');
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/diamond');
+    I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
@@ -237,12 +246,12 @@ Scenario('Buy a loose diamond', ({ I }) => {
     // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
     checkPolish();
+    checkSymmetry();
     for (let i = 0; i < params.reports.length; i++) {
         I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
         checkReport(params.reports[i]);
         I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    }
-    checkSymmetry();
+    };
     checkRatio();
 
     // RESET FILTERS
@@ -265,17 +274,51 @@ Scenario('Buy a loose diamond', ({ I }) => {
     sortByReport('smaller');
 
     // SELECT A DIAMOND
-    I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a');
+    I.wait(3);
+    compareDiamonds();
+    
+    // RESET FILTERS
+    //------------------------------------------------------------------------------
+    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    // Select Results options form the table
+    I.click('#to_diamond_list_from_compare_diamonds');
+
+    // Select one diamond (Click on detail)
+    I.click('//*[@id="body_table_results"]/tr[3]/td[10]/a/div');
     I.see('CHOOSE THIS DIAMOND');
 
+    // Check if diamond has Video option    
+    checkVideo();
+    // Certificate
+    I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
+    // Image
+    I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
+    I.see('Sample Image', '.diamond_detail_tab_content .tab-pane .real_sample_sign');
+    // IGI Certified
+    I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
 
+    // 20% Deposit Available
+    I.click('20% Deposit Available');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
+    
+    // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
     I.click('#add_loose_diamond_to_cart_submit');
     I.see('SHOPPING CART');
     I.checkOption('#loose_diamond_option_true');
     I.fillField('#cart .custom-control p .name-input', 'Name member');
     I.selectOption('#select_ring_size', '3/4');
     I.checkOption('#loose_diamond_option_false');
-
 
     I.click('table tbody .deposit_row .checkbox_label');
     I.click('#accept_deposit_policy');
@@ -312,9 +355,8 @@ Scenario('Buy a loose diamond', ({ I }) => {
 
     I.click('#checkbox_bank_wire_description');
     I.say('ACTIVATED THE CAPTCHA.');
-    pause();
-    I.click('#bank_wire_submit');
-    I.seeInCurrentUrl('/cart/review');
-
+    // I.click('#bank_wire_submit');
+    // I.seeInCurrentUrl('/cart/review');
+    // I.see('Your order is confirmed!');
     pause();
 });
