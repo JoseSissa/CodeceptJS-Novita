@@ -5,12 +5,18 @@ Scenario('Buy a diamond', ({ I }) => {
     // Functions of metal types filters
     // Option All
     async function checkAllMetal() {
+        const logs = await I.grabBrowserLogs();
+        const errors = logs.map(l => ({ type: l.type(), text: l.text() })).filter(l => l.type === 'error');
+        console.log(JSON.stringify(errors));
         const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
         for (const elem of metals) {
-             if(elem !== '18ct White Gold' && elem !== '18ct Yellow Gold' && elem !== '18ct Rose Gold' && elem !== 'Platinum') {
+            if(elem !== '18ct White Gold' && elem !== '18ct Yellow Gold' && elem !== '18ct Rose Gold' && elem !== 'Platinum') {
+                I.dontSee(elem);
                 console.log('Error in values obtained from metal type filter option All');
-             }
-        }
+            }else {
+                I.see(elem);
+            };
+        };
     };
     // Option White Gold
     async function checkWhiteMetal() {
@@ -97,23 +103,15 @@ Scenario('Buy a diamond', ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
-
-    // I.scrollTo("#body_table_results", 0, 100);
-    
-    // TO COMPARE DIAMONDS
-    //------------------------------------------------------------------------------
     I.wait(5);
     //  SELECT A DIAMOND
+    //------------------------------------------------------------------------------
+    I.say('I SELECT A DIAMOND');
     I.click('Detail', '#body_table_results tr td a');
-
-    // Choose Diamond
-    // I.click('//*[@id="body_table_comparison"]/tr[1]/td[9]/a/div'); //Select a diamond from the results table
-    // I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');//Select a diamond from the comparison table
-    
-    // Diamond detail
     I.see('Choose this diamond', 'a');    
     
     // CHOOSE DIAMOND
+    I.say('CHOOSE DIAMOND');
     I.click('Choose this diamond');
     I.see('CREATE YOUR RING');
 
@@ -122,8 +120,10 @@ Scenario('Buy a diamond', ({ I }) => {
     // I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
 
     // Filter metal type
+    I.say('FILTER METAL TYPE');
     I.forceClick('#metal_type_1');
     checkAllMetal();
+    pause();
     I.forceClick('#metal_type_3');
     checkWhiteMetal();
     I.forceClick('#metal_type_3');
@@ -139,6 +139,7 @@ Scenario('Buy a diamond', ({ I }) => {
     
 
     // Filter Price
+    I.say('FILTER PRICE');
     I.forceClick('#setting_price_range_2');
     checkPrice1000andUnder();
     I.forceClick('#setting_price_range_2');
@@ -150,8 +151,16 @@ Scenario('Buy a diamond', ({ I }) => {
     I.forceClick('#setting_price_range_4');
 
     // Text Search input
+    I.say('TEXT SEARCH INPUT');
     searchInputRingDesign();
-    
+    pause();
+
+
+
+
+
+
+
     // Click in the first
     I.click('#ring_list_section .ring_item .ring_detail_link');
 
