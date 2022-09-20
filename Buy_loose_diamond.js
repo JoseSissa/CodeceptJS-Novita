@@ -220,6 +220,13 @@ Scenario('Buy a loose diamond', ({ I }) => {
             }
         };
     };
+    // Check URL of certificate
+    async function checkURLcertificate() {
+        let url =  await I.grabCurrentUrl();
+        if(!(url.includes('https://www.gcalusa.com/certificate-search.html')) && !(url.includes('https://www.igi.org/reports/'))) {
+            console.log('Error in current URL of certificate.');
+        }
+    };
 
 
     // ----------------------------------------------------
@@ -229,38 +236,42 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
     // CHECKING RING GUIDE BAR
-    // I.forceClick('Browse settings');
-    // I.seeInCurrentUrl('/engagement-ring/create/ring');
-    // I.forceClick('Browse diamonds');
-    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    //------------------------------------------------------------------------------
+    I.say('CHECKING RING GUIDE BAR');
+    I.forceClick('Browse settings');
+    I.seeInCurrentUrl('/engagement-ring/create/ring');
+    I.forceClick('Browse diamonds');
+    I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
-    // checkShape();
-    // checkCarat();
-    // for (const elem of Object.keys(params.colour)) {
-    //     checkColour(elem);
-    //     I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
-    // };
-    // checkPrice();
-    // checkCut();
+    I.say('CHECKING MAIN FILTERS');
+    checkShape();
+    checkCarat();
+    for (const elem of Object.keys(params.colour)) {
+        checkColour(elem);
+        I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+    };
+    checkPrice();
+    checkCut();
     for (const elem of Object.keys(params.clarity)) {
-        console.log(elem);
         checkClarity(elem);
         I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
     };
-    pause();
+
     // RESET FILTERS
     //------------------------------------------------------------------------------
+    I.say('RESET FILTERS');
     I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // BUTTON ADVANCED FILTERS
     //------------------------------------------------------------------------------
+    I.say('BUTTON ADVANCED FILTERS');
     I.click("#advanced_filters_button");
-    I.scrollTo("#body_table_results", 0, 100);
 
     // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
+    I.say('CHECKING ADVANCED FILTERS');
     checkPolish();
     checkSymmetry();
     for (let i = 0; i < params.reports.length; i++) {
@@ -272,10 +283,12 @@ Scenario('Buy a loose diamond', ({ I }) => {
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
+    I.say('RESET FILTERS');
     I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
+    I.say('SORT RESULTS');
     I.click('#price_table_header_img');
     sortByPrice('higher');
     I.click('#price_table_header_img');
@@ -289,17 +302,19 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.click('#report_table_header');
     sortByReport('smaller');
 
-    // SELECT A DIAMOND
+    // OPTION COMPARE DIAMONDS
     I.wait(3);
     compareDiamonds();
     
     // RESET FILTERS
     //------------------------------------------------------------------------------
+    I.say('RESET FILTERS');
     I.click('//*[@id="search_form"]/div[5]/a[2]');
     // Select Results options form the table
     I.click('#to_diamond_list_from_compare_diamonds');
 
     // Select one diamond (Click on detail)
+    I.say('SELECT ONE DIAMOND')
     I.click('//*[@id="body_table_results"]/tr[3]/td[10]/a/div');
     I.see('CHOOSE THIS DIAMOND');
 
@@ -308,7 +323,8 @@ Scenario('Buy a loose diamond', ({ I }) => {
     // Certificate
     I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
     I.switchToNextTab();
-    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    checkURLcertificate();
+    pause();
     I.closeCurrentTab();
     I.seeInCurrentUrl('/engagement-ring/create/');
     // Image
@@ -317,7 +333,7 @@ Scenario('Buy a loose diamond', ({ I }) => {
     // IGI Certified
     I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
     I.switchToNextTab();
-    I.seeInCurrentUrl('https://www.igi.org/reports/');
+    checkURLcertificate();
     I.closeCurrentTab();
     I.seeInCurrentUrl('/engagement-ring/create/');
 
@@ -329,6 +345,7 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.seeInCurrentUrl('/engagement-ring/create/');
     
     // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
+    I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
     I.click('#add_loose_diamond_to_cart_submit');
     I.see('SHOPPING CART');
     I.checkOption('#loose_diamond_option_true');
