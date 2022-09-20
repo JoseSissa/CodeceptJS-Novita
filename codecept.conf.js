@@ -14,8 +14,8 @@ exports.config = {
     Playwright: {
       url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
-      // url: 'https://manmadediamonds.com.au',
-      show: false,
+      // url: 'https://manmadediamonds.com.au/',
+      show: true,
       browser: 'chromium',
       waitForAction: Number('2000'),
     },

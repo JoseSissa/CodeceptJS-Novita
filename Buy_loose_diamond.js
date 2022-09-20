@@ -7,19 +7,29 @@ Scenario('Buy a loose diamond', ({ I }) => {
         "caratFrom" : 2,
         "caratTo" : 4,
         "colour" : {
-            "D" : [0, 450],
-            "E" : [50, 400],
-            "F" : [100, 350],
-            "G" : [150, 300],
-            "H" : [200, 250],
-            "I" : [210, 200],
-            "J" : [250, 150],
-            "K" : [300, 100],
-            "L" : [350, 50],
+            "D" : [0, -450],
+            "E" : [50, -400],
+            "F" : [100, -350],
+            "G" : [150, -300],
+            "H" : [200, -250],
+            "I" : [210, -200],
+            "J" : [250, -150],
+            "K" : [300, -100],
+            "L" : [350, -50],
             "M" : [400, 0],
         },
         "priceFrom" : 15000,
         "priceTo" : 30000,
+        "clarity" : {
+            "IF" : [0, -380],
+            "VVS1" : [50, -340],
+            "VVS2" : [100, -310],
+            "VS1" : [150, -250],
+            "VS2" : [200, -190],
+            "SI1" : [270, -130],
+            "SI2" : [320, -50],
+            "I1" : [380, 0]
+        },
         "reports" : ["IGI", "GIA", "GCAL"],
         "ratioFrom" : 1.26,
         "ratioTo" : 2.00
@@ -53,20 +63,18 @@ Scenario('Buy a loose diamond', ({ I }) => {
         }
     };
     // Check the color filter
-    async function checkColour() {
-        const option = "G";
+    async function checkColour(option) {
         I.wait(1);
         I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", -(params.colour[option][1]));
+        I.dragSlider("#search_form .diamond_filter_color_content .to", params.colour[option][1]);
         I.wait(1);
         const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
         for (const elem of colors) {
             if(elem !== option) {
                 I.see(option, 'td');
                 console.log('Error in the values obtained from the Colour filter');
-                break;
             }
-        }
+        };
     };
     // Check the price filter
     async function checkPrice() {
@@ -93,13 +101,14 @@ Scenario('Buy a loose diamond', ({ I }) => {
         I.dontSee('Good', 'td');
     };
     // Check the clarity option
-    async function checkClarity() {
+    async function checkClarity(option) {
         I.wait(1);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .from", 300);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .to", -100);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .from", params.clarity[option][0]);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .to", params.clarity[option][1]);
+        I.wait(1);
         const clarity = await I.grabTextFromAll('tbody tr td:nth-child(5)');
         for (const elem of clarity) {
-            if(elem !== "SI1") {
+            if(elem !== option) {
                 console.log('Error in the values obtained from the Clarity filter');
             }
         }
@@ -220,20 +229,27 @@ Scenario('Buy a loose diamond', ({ I }) => {
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
     // CHECKING RING GUIDE BAR
-    I.forceClick('Browse settings');
-    I.seeInCurrentUrl('/engagement-ring/create/ring');
-    I.forceClick('Browse diamonds');
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    // I.forceClick('Browse settings');
+    // I.seeInCurrentUrl('/engagement-ring/create/ring');
+    // I.forceClick('Browse diamonds');
+    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
-    checkShape();
-    checkCarat();
-    checkColour();
-    checkPrice();
-    checkCut();
-    checkClarity();
-
+    // checkShape();
+    // checkCarat();
+    // for (const elem of Object.keys(params.colour)) {
+    //     checkColour(elem);
+    //     I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+    // };
+    // checkPrice();
+    // checkCut();
+    for (const elem of Object.keys(params.clarity)) {
+        console.log(elem);
+        checkClarity(elem);
+        I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+    };
+    pause();
     // RESET FILTERS
     //------------------------------------------------------------------------------
     I.click('//*[@id="search_form"]/div[5]/a[2]');
