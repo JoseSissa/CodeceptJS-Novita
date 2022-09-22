@@ -1,7 +1,0 @@
-
-
-<<< Recorded commands on Tue Sep 20 2022 09:07:44 GMT-0500 (hora estándar de Colombia)
-I.scrollTo("#search_form", 0, 100)
-I.scrollTo("#search_form", 0, 300)
-I.scrollTo("#search_form", 0, 100)
-I.scrollTo("#search_form", 0, 300)

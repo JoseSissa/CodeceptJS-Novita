@@ -5,9 +5,6 @@ Scenario('Buy a diamond', ({ I }) => {
     // Functions of metal types filters
     // Option All
     async function checkAllMetal() {
-        const logs = await I.grabBrowserLogs();
-        const errors = logs.map(l => ({ type: l.type(), text: l.text() })).filter(l => l.type === 'error');
-        console.log(JSON.stringify(errors));
         const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
         for (const elem of metals) {
             if(elem !== '18ct White Gold' && elem !== '18ct Yellow Gold' && elem !== '18ct Rose Gold' && elem !== 'Platinum') {
@@ -93,6 +90,32 @@ Scenario('Buy a diamond', ({ I }) => {
             }
         }
     };
+    // Check personalise your ring
+    function checkPersonaliseYourRing() {
+        I.see('PERSONALISE YOUR RING');
+        I.say('CLAW STYLE');
+        I.click('#personalised_select_claw_style');
+        I.click('#eagle_claw_link');
+        I.see('Claw Style: Eagle');
+        I.click('#personalised_select_claw_style');
+        I.click('#square_claw_link');
+        I.see('Claw Style: Square');
+        I.click('#personalised_select_claw_style');
+        I.click('#round_claw_link');
+        I.see('Claw Style: Round');
+        // Diamond setting
+        I.say('DIAMOND SETTING');
+        I.click('#personalised_select_stone_setting');
+        I.click('#low_height_link');
+        I.see('Diamond Setting: Very Low');
+        I.click('#personalised_select_stone_setting');
+        I.click('#high_height_link');
+        I.see('Diamond Setting: Medium-High');
+        I.click('#personalised_select_stone_setting');
+        I.click('#medium_height_link');
+        I.see('Diamond Setting: Medium-Low');
+        I.click('#save_store_personalisation');
+    }
 
 
     
@@ -103,10 +126,11 @@ Scenario('Buy a diamond', ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
-    I.wait(5);
+    I.wait(6);
     //  SELECT A DIAMOND
     //------------------------------------------------------------------------------
     I.say('I SELECT A DIAMOND');
+    I.wait(5);
     I.click('Detail', '#body_table_results tr td a');
     I.see('Choose this diamond', 'a');    
     
@@ -123,7 +147,6 @@ Scenario('Buy a diamond', ({ I }) => {
     I.say('FILTER METAL TYPE');
     I.forceClick('#metal_type_1');
     checkAllMetal();
-    pause();
     I.forceClick('#metal_type_3');
     checkWhiteMetal();
     I.forceClick('#metal_type_3');
@@ -137,7 +160,7 @@ Scenario('Buy a diamond', ({ I }) => {
     checkPlatinumMetal();
     I.forceClick('#metal_type_2');
     
-
+    pause();
     // Filter Price
     I.say('FILTER PRICE');
     I.forceClick('#setting_price_range_2');
@@ -153,70 +176,68 @@ Scenario('Buy a diamond', ({ I }) => {
     // Text Search input
     I.say('TEXT SEARCH INPUT');
     searchInputRingDesign();
-    pause();
-
-
-
-
-
-
+    I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', '');
+    I.pressKey('Enter');
+    
 
     // Click in the first
+    I.say('FIRST ITEM SELECTED');
     I.click('#ring_list_section .ring_item .ring_detail_link');
 
+    // pause();
 
     // Delivery time
     I.checkOption('#include_express_job_id .pink_checkbox_icon');
     I.checkOption('#dont_include_express_job_id .pink_checkbox_icon');
 
     // Personalise your ring
+    I.say('PERSONALISE YOUR RING');
     I.click('#personalise_ring_link .pink_checkbox_icon');
-    I.see('PERSONALISE YOUR RING');
     // Claw Style
-    I.click('#personalised_select_claw_style');
-    I.click('#eagle_claw_link');
-    I.see('Claw Style: Eagle');
-    I.click('#personalised_select_claw_style');
-    I.click('#square_claw_link');
-    I.see('Claw Style: Square');
-    I.click('#personalised_select_claw_style');
-    I.click('#round_claw_link');
-    I.see('Claw Style: Round');
-    // Diamond setting
-    I.click('#personalised_select_stone_setting');
-    I.click('#low_height_link');
-    I.see('Diamond Setting: Very Low');
-    I.click('#personalised_select_stone_setting');
-    I.click('#high_height_link');
-    I.see('Diamond Setting: Medium-High');
-    I.click('#personalised_select_stone_setting');
-    I.click('#medium_height_link');
-    I.see('Diamond Setting: Medium-Low');
-    I.click('#save_store_personalisation');
+    checkPersonaliseYourRing();
     
     // Button cancel
+    I.say('PERSONALISE YOUR RING, BUTTON CANCEL');
     I.click('Personalise your ring');
-    I.see('PERSONALISE YOUR RING');
     I.click('#cancel_store_personalisation');
 
     // 20% Deposit Available
+    I.say('20% DEPOSIT AVAILABLE');
     I.click('#express_job_option .pink_checkbox_box_legend a');
     I.switchToNextTab();
     I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
-    I.seeInCurrentUrl('https://novitadiamonds.com/engagement-ring/create/'); // Real version
+    I.seeInCurrentUrl('/engagement-ring/create/'); // Real version
     // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
     
     // More information
+    I.say('MORE INFORMATION');
     I.click('#more_info_link');
     I.see('PRODUCT DETAILS', 'h2');
-    I.click('#ring_more_details_box button')
+    I.click('#ring_more_details_box button');
 
+    I.say('CHOOSE THIS DIAMOND');
     I.click('Choose this design');
     I.see('Review Your Ring', 'h2');
 
+    I.say('OPTIONS "CHANGE"');
+    I.click('#engagement_ring_summary .to_diamond_list_from_summary')
+    I.wait(5)
+    I.seeInCurrentUrl('/engagement-ring/create/')
+    I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
+    I.click('Choose this diamond')
+    I.see('Review Your Ring', 'h2')
+    I.click('#selection_summary_section .to_setting_list_from_summary')
+    I.seeInCurrentUrl('/engagement-ring/create/')
+    I.click('#ring_list_section .ring_item .ring_detail_link')
+    I.click('Choose this design')
+    I.see('Review Your Ring', 'h2')
+    I.click('#selection_summary_section .summary_personalise_link')
+    checkPersonaliseYourRing();
+
 
     // Option Drop a hint
+    I.say('OPTION DROP A HINT');
     I.click('.social_network_icons .drop_a_hint a');
     I.see('DROP A HINT', 'h3');
     I.fillField('#drop_hint_recipientName', 'Recipient example');
@@ -232,6 +253,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('.modal-content .modal-body button');
 
     // Option free shipping
+    I.say('OPTION FREE SHIPPING');
     I.click('.free_shipping a');
     I.see('FREE SHIPPING');
     I.click('> LEARN MORE');
@@ -242,6 +264,7 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('.modal-content .modal-body button');
 
     // Option free returns
+    I.say('OPTION FREE RETURNS');
     I.click('.free_returns a');
     I.see('FREE 30 DAYS RETURN POLICY', 'h3');
     I.click('> LEARN MORE');
@@ -250,12 +273,13 @@ Scenario('Buy a diamond', ({ I }) => {
     I.closeCurrentTab();
     I.seeInCurrentUrl('/engagement-ring/create/diamond');
     I.click('.modal-content .modal-body button');
-
-    // Option free returns
+    
+    // check the socialmedia
+    I.say('OPTION SHARE AND SOCIALMEDIA');
     I.click('.share a');
     I.see('SHARE THIS');
-    // check the socialmedia
     I.click('.modal-content .modal-body button');
+    I.click('.share a');
     I.click('Facebook');
     I.switchToNextTab();
     I.seeInCurrentUrl('facebook.com');
@@ -277,16 +301,28 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('.modal-content .modal-body button');
     I.click('#add_to_cart_submit');
 
+    // pause();
+
     // Select Ring Size
+    I.say('SELECT RING SIZE');
     I.see('SHOPPING CART');
     I.click('Help', '.link_to_ring_size a');
+    I.wait(5);
     I.switchToNextTab();
     I.seeInCurrentUrl('HOW TO FIND YOUR RING SIZE');
     I.closeCurrentTab();
+    I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
     I.click('CHECKOUT');
 
+    I.say('TERMS AND CODITIONS');
+    I.click('*Conditions apply');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('Discount Voucher Terms & Conditions');
+    I.closeCurrentTab();
+
     // FORM WHERE DO YOU WANT THESE ITEMS SENT?
+    I.say('FORM WHERE DO YOU WANT THESE ITEMS SENT?');
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'FirstName');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'LastName');
@@ -301,7 +337,10 @@ Scenario('Buy a diamond', ({ I }) => {
     I.fillField('#shipping_billing_information_form_shippingEmail', 'Email@example.com');
 
     // Use the same address for billing and shipping
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
     I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+
+    pause()
 
     I.fillField('#shipping_billing_information_form_billingFirstName', 'FisrtName example');
     I.fillField('#shipping_billing_information_form_billingLastName', 'LastName example');
