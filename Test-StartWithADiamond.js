@@ -116,6 +116,21 @@ Scenario('Buy a diamond', ({ I }) => {
         I.see('Diamond Setting: Medium-Low');
         I.click('#save_store_personalisation');
     }
+    // Form drop a Hint
+    function formDropAHint() {
+        I.see('DROP A HINT', 'h3');
+        I.fillField('#drop_hint_recipientName', 'Recipient example');
+        I.fillField('#drop_hint_recipientEmail', 'Recipient@example.com');
+        I.fillField('#drop_hint_message', 'Message here.');
+        I.fillField('#drop_hint_yourName', 'Your name here.');
+        I.fillField('#drop_hint_yourEmail', 'email@example.com');
+        I.checkOption('#drop_hint_newStyleOfferUpdate');
+        I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
+        pause();
+        I.click('#drop_hint_send');
+        I.see('MESSAGE SENT');
+        I.click('.modal-content .modal-body button');
+    }
 
 
     
@@ -145,39 +160,38 @@ Scenario('Buy a diamond', ({ I }) => {
 
     // Filter metal type
     I.say('FILTER METAL TYPE');
-    I.forceClick('#metal_type_1');
-    checkAllMetal();
-    I.forceClick('#metal_type_3');
-    checkWhiteMetal();
-    I.forceClick('#metal_type_3');
-    I.forceClick('#metal_type_5');
-    checkYellowMetal();
-    I.forceClick('#metal_type_5');
-    I.forceClick('#metal_type_4');
-    checkRoseMetal();
-    I.forceClick('#metal_type_4');
-    I.forceClick('#metal_type_2');
-    checkPlatinumMetal();
-    I.forceClick('#metal_type_2');
-    
-    pause();
+    // I.forceClick('#metal_type_1');
+    // checkAllMetal();
+    // I.forceClick('#metal_type_3');
+    // checkWhiteMetal();
+    // I.forceClick('#metal_type_3');
+    // I.forceClick('#metal_type_5');
+    // checkYellowMetal();
+    // I.forceClick('#metal_type_5');
+    // I.forceClick('#metal_type_4');
+    // checkRoseMetal();
+    // I.forceClick('#metal_type_4');
+    // I.forceClick('#metal_type_2');
+    // checkPlatinumMetal();
+    // I.forceClick('#metal_type_2');
+
     // Filter Price
     I.say('FILTER PRICE');
-    I.forceClick('#setting_price_range_2');
-    checkPrice1000andUnder();
-    I.forceClick('#setting_price_range_2');
-    I.forceClick('#setting_price_range_3');
-    checkPrice1000To2000();
-    I.forceClick('#setting_price_range_3');
-    I.forceClick('#setting_price_range_4');
-    checkPrice2000andOver();
-    I.forceClick('#setting_price_range_4');
+    // I.forceClick('#setting_price_range_2');
+    // checkPrice1000andUnder();
+    // I.forceClick('#setting_price_range_2');
+    // I.forceClick('#setting_price_range_3');
+    // checkPrice1000To2000();
+    // I.forceClick('#setting_price_range_3');
+    // I.forceClick('#setting_price_range_4');
+    // checkPrice2000andOver();
+    // I.forceClick('#setting_price_range_4');
 
     // Text Search input
     I.say('TEXT SEARCH INPUT');
-    searchInputRingDesign();
-    I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', '');
-    I.pressKey('Enter');
+    // searchInputRingDesign();
+    // I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', '');
+    // I.pressKey('Enter');
     
 
     // Click in the first
@@ -187,147 +201,140 @@ Scenario('Buy a diamond', ({ I }) => {
     // pause();
 
     // Delivery time
-    I.checkOption('#include_express_job_id .pink_checkbox_icon');
-    I.checkOption('#dont_include_express_job_id .pink_checkbox_icon');
+    // I.checkOption('#include_express_job_id .pink_checkbox_icon');
+    // I.checkOption('#dont_include_express_job_id .pink_checkbox_icon');
 
     // Personalise your ring
-    I.say('PERSONALISE YOUR RING');
-    I.click('#personalise_ring_link .pink_checkbox_icon');
+    // I.say('PERSONALISE YOUR RING');
+    // I.click('#personalise_ring_link .pink_checkbox_icon');
     // Claw Style
-    checkPersonaliseYourRing();
+    // checkPersonaliseYourRing();
     
     // Button cancel
-    I.say('PERSONALISE YOUR RING, BUTTON CANCEL');
-    I.click('Personalise your ring');
-    I.click('#cancel_store_personalisation');
+    // I.say('PERSONALISE YOUR RING, BUTTON CANCEL');
+    // I.click('Personalise your ring');
+    // I.click('#cancel_store_personalisation');
 
     // 20% Deposit Available
-    I.say('20% DEPOSIT AVAILABLE');
-    I.click('#express_job_option .pink_checkbox_box_legend a');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('/deposit');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/'); // Real version
-    // I.seeInCurrentUrl('https://manmadediamonds.com.au/engagement-ring/create/'); // Testing version
+    // I.say('20% DEPOSIT AVAILABLE');
+    // I.click('#express_job_option .pink_checkbox_box_legend a');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('/deposit');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('/engagement-ring/create/');
     
     // More information
-    I.say('MORE INFORMATION');
-    I.click('#more_info_link');
-    I.see('PRODUCT DETAILS', 'h2');
-    I.click('#ring_more_details_box button');
+    // I.say('MORE INFORMATION');
+    // I.click('#more_info_link');
+    // I.see('PRODUCT DETAILS', 'h2');
+    // I.click('#ring_more_details_box button');
 
     I.say('CHOOSE THIS DIAMOND');
     I.click('Choose this design');
     I.see('Review Your Ring', 'h2');
 
-    I.say('OPTIONS "CHANGE"');
-    I.click('#engagement_ring_summary .to_diamond_list_from_summary')
-    I.wait(5)
-    I.seeInCurrentUrl('/engagement-ring/create/')
-    I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
-    I.click('Choose this diamond')
-    I.see('Review Your Ring', 'h2')
-    I.click('#selection_summary_section .to_setting_list_from_summary')
-    I.seeInCurrentUrl('/engagement-ring/create/')
-    I.click('#ring_list_section .ring_item .ring_detail_link')
-    I.click('Choose this design')
-    I.see('Review Your Ring', 'h2')
-    I.click('#selection_summary_section .summary_personalise_link')
-    checkPersonaliseYourRing();
+    // I.say('OPTIONS "CHANGE"');
+    // I.click('#engagement_ring_summary .to_diamond_list_from_summary');
+    // I.wait(5);
+    // I.seeInCurrentUrl('/engagement-ring/create/');
+    // I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+    // I.click('Choose this diamond');
+    // I.see('Review Your Ring', 'h2');
+    // I.click('#selection_summary_section .to_setting_list_from_summary');
+    // I.seeInCurrentUrl('/engagement-ring/create/');
+    // I.click('#ring_list_section .ring_item .ring_detail_link');
+    // I.click('Choose this design');
+    // I.see('Review Your Ring', 'h2');
+    // I.click('#selection_summary_section .summary_personalise_link');
+    // checkPersonaliseYourRing();
 
 
     // Option Drop a hint
-    I.say('OPTION DROP A HINT');
-    I.click('.social_network_icons .drop_a_hint a');
-    I.see('DROP A HINT', 'h3');
-    I.fillField('#drop_hint_recipientName', 'Recipient example');
-    I.fillField('#drop_hint_recipientEmail', 'Recipient@example.com');
-    I.fillField('#drop_hint_message', 'Message here.');
-    I.fillField('#drop_hint_yourName', 'Your name here.');
-    I.fillField('#drop_hint_yourEmail', 'email@example.com');
-    I.checkOption('#drop_hint_newStyleOfferUpdate');
-    I.say('PLEASE, ACTIVATE THE CAPTCHA.');
-    I.wait(15);
-    I.click('#drop_hint_send');
-    I.see('MESSAGE SENT');
-    I.click('.modal-content .modal-body button');
+    // I.say('OPTION DROP A HINT');
+    // I.click('.social_network_icons .drop_a_hint a');
+//    formDropAHint();
 
     // Option free shipping
-    I.say('OPTION FREE SHIPPING');
-    I.click('.free_shipping a');
-    I.see('FREE SHIPPING');
-    I.click('> LEARN MORE');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('/free-shipping');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
-    I.click('.modal-content .modal-body button');
+    // I.say('OPTION FREE SHIPPING');
+    // I.click('.free_shipping a');
+    // I.see('FREE SHIPPING');
+    // I.click('> LEARN MORE');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('/free-shipping');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    // I.click('.modal-content .modal-body button');
 
     // Option free returns
-    I.say('OPTION FREE RETURNS');
-    I.click('.free_returns a');
-    I.see('FREE 30 DAYS RETURN POLICY', 'h3');
-    I.click('> LEARN MORE');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('/free-return');
-    I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
-    I.click('.modal-content .modal-body button');
+    // I.say('OPTION FREE RETURNS');
+    // I.click('.free_returns a');
+    // I.see('FREE 30 DAYS RETURN POLICY', 'h3');
+    // I.click('> LEARN MORE');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('/free-return');
+    // I.closeCurrentTab();
+    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    // I.click('.modal-content .modal-body button');
     
     // check the socialmedia
     I.say('OPTION SHARE AND SOCIALMEDIA');
     I.click('.share a');
-    I.see('SHARE THIS');
-    I.click('.modal-content .modal-body button');
-    I.click('.share a');
-    I.click('Facebook');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('facebook.com');
-    I.closeCurrentTab();
-    I.click('Twitter');
-    I.switchToNextTab();
-    I.seeInCurrentUrl('twitter.com');
-    I.closeCurrentTab();
-    I.click('Pinterest');
-    I.switchToNextTab();
-    I.see('Pinterest', 'h2');
-    I.closeCurrentTab();
-    I.click('Drop a Hint');
-    I.see('DROP A HINT');
+    // I.see('SHARE THIS');
+    // I.click('.modal-content .modal-body button');
+    // I.click('.share a');
+    // I.click('Facebook');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('facebook.com');
+    // I.closeCurrentTab();
+    // I.click('Twitter');
+    // I.switchToNextTab();
+    // I.seeInCurrentUrl('twitter.com');
+    // I.closeCurrentTab();
+    // I.click('Pinterest');
+    // I.switchToNextTab();
+    // I.see('Pinterest', 'h2');
+    // I.closeCurrentTab();
+    // I.click('#link_drop_hint');
+    // formDropAHint();
     I.click('.modal-content .modal-body button');
     I.click('Share');
     I.click('Copy Link');
     I.see('LINK COPIED TO THE CLIPBOARD');
     I.click('.modal-content .modal-body button');
-    I.click('#add_to_cart_submit');
 
-    // pause();
+    I.say('ADD TO CART');
+    I.click('#add_to_cart_submit');
 
     // Select Ring Size
     I.say('SELECT RING SIZE');
     I.see('SHOPPING CART');
     I.click('Help', '.link_to_ring_size a');
-    I.wait(5);
+    I.wait(8);
     I.switchToNextTab();
-    I.seeInCurrentUrl('HOW TO FIND YOUR RING SIZE');
+    I.see('HOW TO FIND YOUR RING SIZE');
     I.closeCurrentTab();
     I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
-    I.click('CHECKOUT');
 
+    // pause();
     I.say('TERMS AND CODITIONS');
     I.click('*Conditions apply');
     I.switchToNextTab();
-    I.seeInCurrentUrl('Discount Voucher Terms & Conditions');
+    I.seeInCurrentUrl('/terms-conditions-promo-voucher');
     I.closeCurrentTab();
 
+    I.say('CHECKOUT');
+    I.click('CHECKOUT');
+    I.wait(2);
+    // pause();
     // FORM WHERE DO YOU WANT THESE ITEMS SENT?
     I.say('FORM WHERE DO YOU WANT THESE ITEMS SENT?');
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'FirstName');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'LastName');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Suite 56-58, New House');
-    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.click('#shipping_billing_information_form_shippingCountry');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
     I.fillField('#shipping_billing_information_form_shippingState', 'State example');
     I.fillField('#shipping_billing_information_form_shippingSuburb', 'Suburb example');
     I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
@@ -340,11 +347,12 @@ Scenario('Buy a diamond', ({ I }) => {
     I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
     I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
 
-    pause()
+    // pause()
 
     I.fillField('#shipping_billing_information_form_billingFirstName', 'FisrtName example');
     I.fillField('#shipping_billing_information_form_billingLastName', 'LastName example');
     I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Address example');
+    I.click('#shipping_billing_information_form_billingCountry');
     I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
     I.fillField('#shipping_billing_information_form_billingState', 'State example');
     I.fillField('#shipping_billing_information_form_billingSuburb', 'Suburb example');
@@ -352,8 +360,27 @@ Scenario('Buy a diamond', ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
-    I.see('PAYMENT METHOD', 'h2');
 
+    
+    I.say('PAYMENT FOR BANK TRANSFER');
+    // I.click('#checkbox_bank_wire_description');
+    // I.see('Paying By Bank Transfer');
+    // I.say('please active the captcha and continue');
+    // I.click('#bank_wire_submit');
+    // I.see('Your order is confirmed!');
+
+    I.say('PAYMENT FOR POLIPAYMENT');
+    I.click('#checkbox_polipayment_description');
+    I.click('#polipayment_submit');
+    I.click('#proceed-button');
+    I.click('Cancel');
+    I.checkOption('#loginother');
+    I.fillField('#label_loginother', 'Testing');
+    I.click('Submit');
+    I.see('YOUR PAYMENT TRANSACTION WAS CANCELLED.', 'h3');
+    I.click('click here');
+    // I.click('#checkbox_paypal_description');
+    // I.click('#paypal-button-container, #buttons-container');
     pause();
 
 });
