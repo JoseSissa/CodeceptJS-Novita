@@ -1,0 +1,14 @@
+
+
+<<< Recorded commands on Mon Sep 26 2022 16:33:28 GMT-0500 (hora estándar de Colombia)
+I.click('#checkbox_paypal_description')
+I.click('#paypal-button-container, #buttons-container')
+I.force
+I.click('#paypal-button-container')
+I.forceClick('#paypal-button-container')
+I.forceClick('#paypal-button-container iframe')
+I.click('#paypal-button-container iframe')
+I.switchTo('iframe');
+I.seeInCurrentUrl('https://www.sandbox.paypal.com/')
+I.switchTo()
+I.closeOtherTabs();
