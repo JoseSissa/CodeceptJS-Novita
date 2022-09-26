@@ -330,18 +330,16 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
     I.see('CHOOSE THIS DIAMOND');
 
-    // Check if diamond has Video option    
+    // Check if diamond has Video option
     checkVideo();
-    // Certificate
+    // Check the Certificate option
     I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
     I.switchToNextTab();
     checkURLcertificate();
-    pause();
     I.closeCurrentTab();
     I.seeInCurrentUrl('/engagement-ring/create/');
     // Image
-    I.click('#diamond_detail_section .diamond_detail_tabs .diamond_picture_tab');
-    I.see('Sample Image', '.diamond_detail_tab_content .tab-pane .real_sample_sign');
+    I.click('#tab_diamond_image');
     // IGI Certified
     I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
     I.switchToNextTab();
@@ -360,18 +358,23 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
     I.click('#add_loose_diamond_to_cart_submit');
     I.see('SHOPPING CART');
+
+    I.checkOption('#loose_diamond_option_false');
     I.checkOption('#loose_diamond_option_true');
     I.fillField('#cart .custom-control p .name-input', 'Name member');
     I.selectOption('#select_ring_size', '3/4');
-    I.checkOption('#loose_diamond_option_false');
 
+    I.say('PAY DEPOSIT OPTION');
     I.click('table tbody .deposit_row .checkbox_label');
     I.click('#accept_deposit_policy');
     I.click('table tbody .total_row .checkbox_label');
+    
+    I.say('CLICK IN CHECKOUT');
     I.click('#cart table tbody .order_summary_checkout_button a');
     I.wait(2);
     I.seeInCurrentUrl('/cart/shipping-information');
 
+    I.say('SHIP TO MY ADDRESS FORM');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'FirstName');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'LastName');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Suite 56-58, New House');
@@ -387,6 +390,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // Use the same address for billing and shipping
     I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
 
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING FORM');
     I.fillField('#shipping_billing_information_form_billingFirstName', 'FisrtName example');
     I.fillField('#shipping_billing_information_form_billingLastName', 'LastName example');
     I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Address example');
@@ -398,10 +402,11 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
 
-    I.click('#checkbox_bank_wire_description');
-    I.say('ACTIVATED THE CAPTCHA.');
+    pause();
+
+    // I.click('#checkbox_bank_wire_description');
+    // I.say('ACTIVATED THE CAPTCHA.');
     // I.click('#bank_wire_submit');
     // I.seeInCurrentUrl('/cart/review');
     // I.see('Your order is confirmed!');
-    pause();
 });

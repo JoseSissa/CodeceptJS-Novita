@@ -12,12 +12,12 @@ exports.config = {
   output: './output',
   helpers: {
     Playwright: {
-      // url: 'https://novitadiamonds.com/',
+      url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
-      url: 'https://manmadediamonds.com.au/',
+      // url: 'https://manmadediamonds.com.au/',
       show: true,
       browser: 'chromium',
-      waitForAction: 6000,
+      waitForAction: 2000,
       waitForNavigation: "domcontentloaded",
       windowSize: "1366x650"
     },
