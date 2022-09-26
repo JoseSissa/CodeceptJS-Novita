@@ -136,12 +136,11 @@ Scenario('Buy a diamond', ({ I }) => {
         let price = await I.grabTextFromAll('#ring_list_section .ring_detail_link .price');
         let previousValue = 0;
         price.forEach(elem => {
-            console.log(elem);
             // We remove the text up to the '$', then remove the ',' and convert it to a number
             if(previousValue > Number((elem.slice(elem.indexOf('$')+1)).replace(',', ''))) {
                 console.log('Error in ordering from lowest to highest price');
             }
-            previousValue = Number(elem.slice(elem.indexOf('$')+1));
+            previousValue = Number((elem.slice(elem.indexOf('$')+1)).replace(',', ''));
         });
     };
     async function checkPriceHighToLow() {
