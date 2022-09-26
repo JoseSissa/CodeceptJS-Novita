@@ -1,6 +1,6 @@
 Feature('Start with a Diamond');
 
-Scenario('Buy a diamond', ({ I }) => {
+Scenario('Buy a diamond', async ({ I }) => {
 
     // Functions of metal types filters
     // Option All
@@ -193,12 +193,13 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('Price (High to Low)');
     I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
     checkPriceHighToLow();
-    pause();
-    
     I.click('#jewellery_order_section #dropdownMenuButton');
     I.click('Newest');
     I.see('Sort by: Newest', '#dropdownMenuButton');
-    // I.see('#ring_list_section .ring_detail_link .isNew');
+    const isNew = await I.grabCssPropertyFrom('//*[@id="ring_list_section"]/div/div[1]/a/div[1]', 'background-image');
+    if(!isNew.includes('icon_new')) {
+        console.log('Error to sort from newest');
+    };
 
 
 
