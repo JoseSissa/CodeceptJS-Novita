@@ -131,7 +131,30 @@ Scenario('Buy a diamond', ({ I }) => {
         I.see('MESSAGE SENT');
         I.click('.modal-content .modal-body button');
     }
-
+    // Check Price sort by
+    async function checkPriceLowToHigh() {
+        let price = await I.grabTextFromAll('#ring_list_section .ring_detail_link .price');
+        let previousValue = 0;
+        price.forEach(elem => {
+            console.log(elem);
+            // We remove the text up to the '$', then remove the ',' and convert it to a number
+            if(previousValue > Number((elem.slice(elem.indexOf('$')+1)).replace(',', ''))) {
+                console.log('Error in ordering from lowest to highest price');
+            }
+            previousValue = Number(elem.slice(elem.indexOf('$')+1));
+        });
+    };
+    async function checkPriceHighToLow() {
+        let price = await I.grabTextFromAll('#ring_list_section .ring_detail_link .price');
+        // We remove the text up to the '$', then remove the ',' and convert it to a number
+        let previousNumber = (Number((price[0].slice(price[0].indexOf('$')+1).replace(',', ''))));
+        price.forEach(elem => {
+            if(previousNumber < Number((elem.slice(elem.indexOf('$')+1).replace(',', '')))) {
+                console.log('Error in ordering from highest to lowest price');
+            };
+            previousNumber = Number((elem.slice(elem.indexOf('$')+1).replace(',', '')));
+        });
+    };
 
     
     // ----------------------------------------------------
@@ -154,9 +177,31 @@ Scenario('Buy a diamond', ({ I }) => {
     I.click('Choose this diamond');
     I.see('CREATE YOUR RING');
 
-    // Select Ring Design
+    // Bar when start the process in this page
+    I.say('BAR WHEN START THE PROCESS IN THIS PAGE');
     // I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
     // I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
+
+    
+    // Check Sort by
+    I.say('FILTER SORT BY')
+    I.see('Sort by: Best Sellers', '#dropdownMenuButton');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Price (Low to High)');
+    I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
+    checkPriceLowToHigh();
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Price (High to Low)');
+    I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
+    checkPriceHighToLow();
+    pause();
+    
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Newest');
+    I.see('Sort by: Newest', '#dropdownMenuButton');
+    // I.see('#ring_list_section .ring_detail_link .isNew');
+
+
 
     // Filter metal type
     I.say('FILTER METAL TYPE');
