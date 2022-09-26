@@ -182,59 +182,59 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
     
     // Check Sort by - Options
-    // I.say('FILTER SORT BY')
-    // I.see('Sort by: Best Sellers', '#dropdownMenuButton');
-    // I.say('SORT BY: LOW TO HIGH');
-    // I.click('#jewellery_order_section #dropdownMenuButton');
-    // I.click('Price (Low to High)');
-    // I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
-    // checkPriceLowToHigh();
-    // I.say('SORT BY: HIGH TO LOW');
-    // I.click('#jewellery_order_section #dropdownMenuButton');
-    // I.click('Price (High to Low)');
-    // I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
-    // checkPriceHighToLow();
-    // I.say('SORT BY: NEWEST');
-    // I.click('#jewellery_order_section #dropdownMenuButton');
-    // I.click('Newest');
-    // I.see('Sort by: Newest', '#dropdownMenuButton');
-    // const isNew = await I.grabCssPropertyFrom('//*[@id="ring_list_section"]/div/div[1]/a/div[1]', 'background-image');
-    // if(!isNew.includes('icon_new')) {
-    //     console.log('Error to sort from newest');
-    // };
-    // I.say('SORT BY: BEST SELLERS');
-    // I.click('#jewellery_order_section #dropdownMenuButton');
-    // I.click('Best Sellers');
-    // I.see('Sort by: Best Sellers', '#dropdownMenuButton');
+    I.say('FILTER SORT BY')
+    I.see('Sort by: Best Sellers', '#dropdownMenuButton');
+    I.say('SORT BY: LOW TO HIGH');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Price (Low to High)');
+    I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
+    checkPriceLowToHigh();
+    I.say('SORT BY: HIGH TO LOW');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Price (High to Low)');
+    I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
+    checkPriceHighToLow();
+    I.say('SORT BY: NEWEST');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Newest');
+    I.see('Sort by: Newest', '#dropdownMenuButton');
+    const isNew = await I.grabCssPropertyFrom('//*[@id="ring_list_section"]/div/div[1]/a/div[1]', 'background-image');
+    if(!isNew.includes('icon_new')) {
+        console.log('Error to sort from newest');
+    };
+    I.say('SORT BY: BEST SELLERS');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Best Sellers');
+    I.see('Sort by: Best Sellers', '#dropdownMenuButton');
 
     // Filter metal type
     I.say('FILTER METAL TYPE');
-    // I.forceClick('#metal_type_1');
-    // checkAllMetal();
-    // I.forceClick('#metal_type_3');
-    // checkWhiteMetal();
-    // I.forceClick('#metal_type_3');
-    // I.forceClick('#metal_type_5');
-    // checkYellowMetal();
-    // I.forceClick('#metal_type_5');
-    // I.forceClick('#metal_type_4');
-    // checkRoseMetal();
-    // I.forceClick('#metal_type_4');
-    // I.forceClick('#metal_type_2');
-    // checkPlatinumMetal();
-    // I.forceClick('#metal_type_2');
+    I.forceClick('#metal_type_1');
+    checkAllMetal();
+    I.forceClick('#metal_type_3');
+    checkWhiteMetal();
+    I.forceClick('#metal_type_3');
+    I.forceClick('#metal_type_5');
+    checkYellowMetal();
+    I.forceClick('#metal_type_5');
+    I.forceClick('#metal_type_4');
+    checkRoseMetal();
+    I.forceClick('#metal_type_4');
+    I.forceClick('#metal_type_2');
+    checkPlatinumMetal();
+    I.forceClick('#metal_type_2');
 
     // Filter Price
     I.say('FILTER PRICE');
-    // I.forceClick('#setting_price_range_2');
-    // checkPrice1000andUnder();
-    // I.forceClick('#setting_price_range_2');
-    // I.forceClick('#setting_price_range_3');
-    // checkPrice1000To2000();
-    // I.forceClick('#setting_price_range_3');
-    // I.forceClick('#setting_price_range_4');
-    // checkPrice2000andOver();
-    // I.forceClick('#setting_price_range_4');
+    I.forceClick('#setting_price_range_2');
+    checkPrice1000andUnder();
+    I.forceClick('#setting_price_range_2');
+    I.forceClick('#setting_price_range_3');
+    checkPrice1000To2000();
+    I.forceClick('#setting_price_range_3');
+    I.forceClick('#setting_price_range_4');
+    checkPrice2000andOver();
+    I.forceClick('#setting_price_range_4');
 
     // Text Search input
     I.say('TEXT SEARCH INPUT');
