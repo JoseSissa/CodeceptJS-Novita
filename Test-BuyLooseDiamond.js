@@ -1,6 +1,6 @@
 Feature('Buy loose diamond');
 
-Scenario('Buy a loose diamond', ({ I }) => {
+Scenario('Buy a loose diamond', async ({ I }) => {
 
     const params = {
         "shapes" : ["Round", "Oval", "Cushion", "Princess", "Emerald", "Pear", "Radiant", "Asscher", "Marquise"],
@@ -13,7 +13,7 @@ Scenario('Buy a loose diamond', ({ I }) => {
             "G" : [150, -300],
             "H" : [200, -250],
             "I" : [210, -200],
-            "J" : [250, -150],
+            "J" : [250, -170],
             "K" : [300, -100],
             "L" : [350, -50],
             "M" : [400, 0],
@@ -227,6 +227,17 @@ Scenario('Buy a loose diamond', ({ I }) => {
             console.log('Error in current URL of certificate.');
         }
     };
+    // SELECT DIAMOND
+    async function selectDiamond() {
+        const diamonds = await I.grabHTMLFromAll('#body_table_results tr td:last-child a');
+        let i = 1;
+        for (const elem of diamonds) {
+            if(elem.includes("img")) {
+                return i;
+            };
+            i++;
+        };
+    };
 
 
     // ----------------------------------------------------
@@ -238,31 +249,31 @@ Scenario('Buy a loose diamond', ({ I }) => {
     // CHECKING RING GUIDE BAR
     //------------------------------------------------------------------------------
     I.say('CHECKING RING GUIDE BAR');
-    I.forceClick('Browse settings');
-    I.seeInCurrentUrl('/engagement-ring/create/ring');
-    I.forceClick('Browse diamonds');
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    // I.forceClick('Browse settings');
+    // I.seeInCurrentUrl('/engagement-ring/create/ring');
+    // I.forceClick('Browse diamonds');
+    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
     I.say('CHECKING MAIN FILTERS');
-    checkShape();
-    checkCarat();
-    for (const elem of Object.keys(params.colour)) {
-        checkColour(elem);
-        I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
-    };
-    checkPrice();
-    checkCut();
-    for (const elem of Object.keys(params.clarity)) {
-        checkClarity(elem);
-        I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
-    };
+    // checkShape();
+    // checkCarat();
+    // for (const elem of Object.keys(params.colour)) {
+    //     checkColour(elem);
+    //     I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+    // };
+    // checkPrice();
+    // checkCut();
+    // for (const elem of Object.keys(params.clarity)) {
+    //     checkClarity(elem);
+    //     I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+    // };
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
-    I.say('RESET FILTERS');
-    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    // I.say('RESET FILTERS');
+    // I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // BUTTON ADVANCED FILTERS
     //------------------------------------------------------------------------------
@@ -271,51 +282,52 @@ Scenario('Buy a loose diamond', ({ I }) => {
 
     // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
-    I.say('CHECKING ADVANCED FILTERS');
-    checkPolish();
-    checkSymmetry();
-    for (let i = 0; i < params.reports.length; i++) {
-        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-        checkReport(params.reports[i]);
-        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    };
-    checkRatio();
+    // I.say('CHECKING ADVANCED FILTERS');
+    // checkPolish();
+    // checkSymmetry();
+    // for (let i = 0; i < params.reports.length; i++) {
+    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    //     checkReport(params.reports[i]);
+    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    // };
+    // checkRatio();
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
-    I.say('RESET FILTERS');
-    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    // I.say('RESET FILTERS');
+    // I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
-    I.say('SORT RESULTS');
-    I.click('#price_table_header_img');
-    sortByPrice('higher');
-    I.click('#price_table_header_img');
-    sortByPrice('smaller');
-    I.click('#carat_table_header');
-    sortByCarat('higher');
-    I.click('#carat_table_header');
-    sortByCarat('smaller');
-    I.click('#report_table_header');
-    sortByReport('higher');
-    I.click('#report_table_header');
-    sortByReport('smaller');
+    // I.say('SORT RESULTS');
+    // I.click('#price_table_header_img');
+    // sortByPrice('higher');
+    // I.click('#price_table_header_img');
+    // sortByPrice('smaller');
+    // I.click('#carat_table_header');
+    // sortByCarat('higher');
+    // I.click('#carat_table_header');
+    // sortByCarat('smaller');
+    // I.click('#report_table_header');
+    // sortByReport('higher');
+    // I.click('#report_table_header');
+    // sortByReport('smaller');
 
     // OPTION COMPARE DIAMONDS
-    I.wait(3);
-    compareDiamonds();
+    // I.wait(3);
+    // compareDiamonds();
     
     // RESET FILTERS
     //------------------------------------------------------------------------------
-    I.say('RESET FILTERS');
-    I.click('//*[@id="search_form"]/div[5]/a[2]');
+    // I.say('RESET FILTERS');
+    // I.click('//*[@id="search_form"]/div[5]/a[2]');
     // Select Results options form the table
-    I.click('#to_diamond_list_from_compare_diamonds');
+    // I.click('#to_diamond_list_from_compare_diamonds');
 
     // Select one diamond (Click on detail)
     I.say('SELECT ONE DIAMOND')
-    I.click('//*[@id="body_table_results"]/tr[3]/td[10]/a/div');
+    const video = await selectDiamond();
+    I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
     I.see('CHOOSE THIS DIAMOND');
 
     // Check if diamond has Video option    
