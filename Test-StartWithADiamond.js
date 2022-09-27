@@ -118,7 +118,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     }
     // Form drop a Hint
     function formDropAHint() {
-        I.see('DROP A HINT', 'h3');
+        I.see('DROP A HINT');
         I.fillField('#drop_hint_recipientName', 'Recipient example');
         I.fillField('#drop_hint_recipientEmail', 'Recipient@example.com');
         I.fillField('#drop_hint_message', 'Message here.');
@@ -252,22 +252,22 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     // Personalise your ring
     I.say('PERSONALISE YOUR RING');
-    // I.click('#personalise_ring_link .pink_checkbox_icon');
+    I.click('#personalise_ring_link .pink_checkbox_icon');
     // Claw Style
-    // checkPersonaliseYourRing();
+    checkPersonaliseYourRing();
     
     // Button cancel
     I.say('PERSONALISE YOUR RING, BUTTON CANCEL');
-    // I.click('Personalise your ring');
-    // I.click('#cancel_store_personalisation');
+    I.click('Personalise your ring');
+    I.click('#cancel_store_personalisation');
 
     // 20% Deposit Available
     I.say('20% DEPOSIT AVAILABLE');
-    // I.click('#express_job_option .pink_checkbox_box_legend a');
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('/deposit');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/engagement-ring/create/');
+    I.click('#express_job_option .pink_checkbox_box_legend a');
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
     
     // More information
     I.say('MORE INFORMATION');
@@ -308,8 +308,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-shipping');
     I.closeCurrentTab();
-    I.wait(2)
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('.modal-content .modal-body button');
 
     // Option free returns
@@ -320,7 +319,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-return');
     I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('.modal-content .modal-body button');
     
     // check the socialmedia
@@ -343,7 +342,6 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.closeCurrentTab();
     I.click('#link_drop_hint');
     formDropAHint();
-    I.click('.modal-content .modal-body button');
     I.click('Share');
     I.click('Copy Link');
     I.see('LINK COPIED TO THE CLIPBOARD');
@@ -363,7 +361,6 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
 
-    // pause();
     I.say('TERMS AND CODITIONS');
     I.click('*Conditions apply');
     I.switchToNextTab();
@@ -422,7 +419,9 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     I.say('PAYMENT FOR PAYPAL');
     I.click('#checkbox_paypal_description');
+    I.wait(3);
     I.click('#paypal-button-container iframe');
+    I.wait(3);
     I.switchTo('iframe');
     I.seeInCurrentUrl('https://www.sandbox.paypal.com/');
     I.switchTo();
