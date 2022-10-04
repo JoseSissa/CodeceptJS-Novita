@@ -246,13 +246,17 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
 
+    I.example();
+    pause();
+    
+
     // CHECKING RING GUIDE BAR
     //------------------------------------------------------------------------------
     I.say('CHECKING RING GUIDE BAR');
-    // I.forceClick('Browse settings');
-    // I.seeInCurrentUrl('/engagement-ring/create/ring');
-    // I.forceClick('Browse diamonds');
-    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    I.forceClick('Browse settings');
+    I.seeInCurrentUrl('/engagement-ring/create/ring');
+    I.forceClick('Browse diamonds');
+    I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------

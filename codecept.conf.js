@@ -12,9 +12,9 @@ exports.config = {
   output: './output',
   helpers: {
     Playwright: {
-      // url: 'https://novitadiamonds.com/',
+      url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
-      url: 'https://manmadediamonds.com.au/',
+      // url: 'https://manmadediamonds.com.au/',
       show: true,
       browser: 'chromium',
       waitForAction: 2000,
@@ -23,6 +23,9 @@ exports.config = {
     },
     JSONResponse: {
       requestHelper: 'Playwright',
+    },
+    MyHelper: {
+      require: './Test-Playwright.js'
     }
   },
   include: {
