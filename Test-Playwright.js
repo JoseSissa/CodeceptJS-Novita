@@ -12,7 +12,7 @@ class TestPlaywright extends Helper {
       const response = await browserContext.request.fetch(route.request());
       let body = await response.text();
       const results = JSON.parse(body);
-      console.log(results.response.total);
+      console.log(results.response.items[0]);
     });
   };
 
