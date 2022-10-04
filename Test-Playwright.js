@@ -10,9 +10,9 @@ class TestPlaywright extends Helper {
     
     await browserContext.route('**/api/product/diamonds', async route => {
       const response = await browserContext.request.fetch(route.request());
-      let body = await response.text();
-      const results = JSON.parse(body);
+      let results = await response.json();
       console.log(results.response.items[0]);
+      route.abort();
     });
   };
 

@@ -114,10 +114,11 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         }
     };
     // Check the Polish filter
-    function checkPolish() {
-        I.wait(1);
+    async function checkPolish() {
+        I.example();
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150);
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150);
+        // console.log(items);
     };
     // Check the Report filter
     async function checkReport(report) {
@@ -245,9 +246,6 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
-
-    I.example();
-    pause();
     
 
     // CHECKING RING GUIDE BAR
@@ -286,15 +284,18 @@ Scenario('Buy a loose diamond', async ({ I }) => {
 
     // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
-    // I.say('CHECKING ADVANCED FILTERS');
-    // checkPolish();
-    // checkSymmetry();
-    // for (let i = 0; i < params.reports.length; i++) {
-    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    //     checkReport(params.reports[i]);
-    //     I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    // };
-    // checkRatio();
+    I.say('CHECKING ADVANCED FILTERS');
+    checkPolish();
+    pause();
+    checkSymmetry();
+    for (let i = 0; i < params.reports.length; i++) {
+        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+        checkReport(params.reports[i]);
+        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+    };
+    checkRatio();
+    pause();
+    
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
