@@ -8,6 +8,7 @@ class TestPlaywright extends Helper {
     // const page = await browserContext.newPage();
     // await page.goto('https://novitadiamonds.com/');
     
+    
     await browserContext.route('**/api/product/diamonds', async route => {
       const response = await browserContext.request.fetch(route.request());
       let results = await response.json();
