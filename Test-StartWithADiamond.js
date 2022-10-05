@@ -164,6 +164,16 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
     I.wait(6);
+
+    // CHECKING RING GUIDE BAR
+    //------------------------------------------------------------------------------
+    I.say('CHECKING RING GUIDE BAR');
+    I.forceClick('Browse settings');
+    I.seeInCurrentUrl('/engagement-ring/create/ring');
+    I.forceClick('Browse diamonds');
+    I.seeInCurrentUrl('/engagement-ring/create/diamond');
+    I.wait(6);
+
     //  SELECT A DIAMOND
     //------------------------------------------------------------------------------
     I.say('I SELECT A DIAMOND');

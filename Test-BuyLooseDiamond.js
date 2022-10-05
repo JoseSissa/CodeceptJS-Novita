@@ -7,37 +7,44 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         "caratFrom" : 2,
         "caratTo" : 4,
         "colour" : {
-            "D" : [0, -450],
-            "E" : [50, -400],
-            "F" : [100, -350],
-            "G" : [150, -300],
-            "H" : [200, -250],
-            "I" : [210, -200],
-            "J" : [250, -170],
-            "K" : [300, -100],
-            "L" : [350, -50],
+            "D" : [0, -500],
+            "E" : [50, -500],
+            "F" : [100, -500],
+            "G" : [150, -500],
+            "H" : [200, -500],
+            "I" : [210, -500],
+            "J" : [270, -500],
+            "K" : [300, -500],
+            "L" : [350, -500],
             "M" : [400, 0],
         },
         "priceFrom" : 15000,
         "priceTo" : 30000,
         "clarity" : {
-            "IF" : [0, -380],
-            "VVS1" : [50, -340],
-            "VVS2" : [100, -310],
-            "VS1" : [150, -250],
-            "VS2" : [200, -190],
-            "SI1" : [270, -130],
-            "SI2" : [320, -50],
+            "IF" : [0, -500],
+            "VVS1" : [50, -500],
+            "VVS2" : [100, -500],
+            "VS1" : [150, -500],
+            "VS2" : [200, -500],
+            "SI1" : [270, -500],
+            "SI2" : [320, -500],
             "I1" : [380, 0]
         },
         "reports" : ["IGI", "GIA", "GCAL"],
         "ratioFrom" : 1.26,
         "ratioTo" : 2.00
     }
+    // Wait for response and text
+    function waitResponseAndtext() {
+        // I.waitForResponse('https://manmadediamonds.com.au/api/product/diamonds', 10);
+        I.waitForResponse('https://novitadiamonds.com/api/product/diamonds', 10);
+        I.waitForText('Detail', 10, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+    }
     // Checking the shape filter.
     function checkShape() {
         for(const shape of params.shapes) {
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
+            waitResponseAndtext();
             for(const elem of params.shapes) {
                 if(elem != shape) {
                     I.dontSee(elem);
@@ -60,14 +67,14 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 console.log('Error in the values obtained from the Carat filter');
                 I.dontSee(elem);
             }
-        }
+        };
     };
     // Check the color filter
     async function checkColour(option) {
         I.wait(1);
         I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
         I.dragSlider("#search_form .diamond_filter_color_content .to", params.colour[option][1]);
-        I.wait(1);
+        waitResponseAndtext();
         const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
         for (const elem of colors) {
             if(elem !== option) {
@@ -115,10 +122,8 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     };
     // Check the Polish filter
     async function checkPolish() {
-        I.example();
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150);
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150);
-        // console.log(items);
     };
     // Check the Report filter
     async function checkReport(report) {
@@ -243,34 +248,36 @@ Scenario('Buy a loose diamond', async ({ I }) => {
 
     // ----------------------------------------------------
     // ----------------------------------------------------
+    I.say('TEST - BUY LOOSE DIAMOND');
     I.amOnPage("/");
-    I.forceClick("Start With a Diamond");
-    I.seeInCurrentUrl("/engagement-ring/create/diamond");
+    I.forceClick("BUY LOOSE DIAMONDS");
+    I.seeInCurrentUrl("/buy-loose-diamond-start-buying");
+    waitResponseAndtext();    
     
-
-    // CHECKING RING GUIDE BAR
-    //------------------------------------------------------------------------------
-    I.say('CHECKING RING GUIDE BAR');
-    I.forceClick('Browse settings');
-    I.seeInCurrentUrl('/engagement-ring/create/ring');
-    I.forceClick('Browse diamonds');
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
     I.say('CHECKING MAIN FILTERS');
-    // checkShape();
-    // checkCarat();
-    // for (const elem of Object.keys(params.colour)) {
-    //     checkColour(elem);
-    //     I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
-    // };
-    // checkPrice();
-    // checkCut();
-    // for (const elem of Object.keys(params.clarity)) {
-    //     checkClarity(elem);
-    //     I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
-    // };
+    checkShape();
+    checkCarat();
+    I.fillField("#from_carat_value_input", 0.30);
+    I.pressKey("Enter");
+    I.fillField("#to_carat_value_input", 6);
+    I.pressKey("Enter");
+    for (const elem of Object.keys(params.colour)) {
+        checkColour(elem);
+        I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
+    };
+    pause();
+    checkPrice();
+    checkCut();
+    for (const elem of Object.keys(params.clarity)) {
+        checkClarity(elem);
+        I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+    };
+
+    pause();
 
     // RESET FILTERS
     //------------------------------------------------------------------------------
