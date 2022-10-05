@@ -22,7 +22,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         "priceTo" : 30000,
         "cut" : {
             "Ideal":[0, -500],
-            "Excellent":[100, -500],
+            "ID/EX":[100, -500],
             "Very Good":[180, -500],
             "Good":[500, 0],
         },
@@ -31,7 +31,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
             "VVS1" : [50, -500],
             "VVS2" : [100, -500],
             "VS1" : [150, -500],
-            "VS2" : [200, -500],
+            "VS2" : [230, -500],
             "SI1" : [270, -500],
             "SI2" : [320, -500],
             "I1" : [380, 0]
@@ -117,17 +117,26 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         }
     };
     // Check the cut option
-    async function checkCut() {
-        I.dragSlider("#search_form .diamond_filter_cut_content .from", 100);
-        I.dragSlider("#search_form .diamond_filter_cut_content .to", -500);
+    async function checkCut(option) {
+        I.dragSlider("#search_form .diamond_filter_cut_content .from", params.cut[option][0]);
+        I.dragSlider("#search_form .diamond_filter_cut_content .to", params.cut[option][1]);
         waitResponseAndtext();
-        I.dontSee('Ideal', 'td');
-        I.dontSee('Very Good', 'td');
-        I.dontSee('Good', 'td');
+        const cut = await I.grabTextFromAll('tbody tr td:nth-child(6)');
+        for (const elem of cut) {
+            console.log(elem);
+            if(option === 'ID/EX') {
+                if(elem !== "Excellent" && elem !== 'ID/EX' && elem !== '-') {
+                    console.log('Error in the values obtained from the Cut filter');
+                }
+            }else {
+                if(elem !== option && elem !== '-') {
+                    console.log('Error in the values obtained from the Cut filter');
+                }
+            }
+        };
     };
     // Check the clarity option
     async function checkClarity(option) {
-        I.wait(1);
         I.dragSlider("#search_form .diamond_filter_clarity_content .from", params.clarity[option][0]);
         I.dragSlider("#search_form .diamond_filter_clarity_content .to", params.clarity[option][1]);
         waitResponseAndtext();
@@ -275,36 +284,40 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
     I.say('CHECKING MAIN FILTERS');
-    // checkShape();
-    // checkCarat();
-    // I.fillField("#from_carat_value_input", 0.30);
-    // I.pressKey("Enter");
-    // I.fillField("#to_carat_value_input", 6);
-    // I.pressKey("Enter");
-    // for (const elem of Object.keys(params.colour)) {
-    //     checkColour(elem);
-    //     I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
-    //     I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
-    // };
+    I.say('CHECKING SHAPE FILTER');
+    checkShape();
+    I.say('CHECKING CARAT FILTER');
+    checkCarat();
+    I.fillField("#from_carat_value_input", 0.30);
+    I.pressKey("Enter");
+    I.fillField("#to_carat_value_input", 6);
+    I.pressKey("Enter");
+    I.say('CHECKING COLOUR FILTER');
+    for (const elem of Object.keys(params.colour)) {
+        checkColour(elem);
+        I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
+    };
+    I.say('CHECKING PRICE FILTER');
     checkPrice();
     I.fillField("#from_price_value_input", 250);
     I.pressKey('Enter');
     I.fillField("#to_price_value_input", 70000);
     I.pressKey('Enter');
     waitResponseAndtext();
-    pause();
-    checkCut();
+    I.say('CHECKING CUT FILTER');
+    for (const elem of Object.keys(params.cut)) {
+        checkCut(elem);
+        I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
+    };
+    I.say('CHECKING CLARITY FILTER');
     for (const elem of Object.keys(params.clarity)) {
         checkClarity(elem);
-        I.click('#search_form .container_advanced_filters_button .clear-filter-btn');
+        I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
     };
 
-    pause();
-
-    // RESET FILTERS
-    //------------------------------------------------------------------------------
-    // I.say('RESET FILTERS');
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // BUTTON ADVANCED FILTERS
     //------------------------------------------------------------------------------
