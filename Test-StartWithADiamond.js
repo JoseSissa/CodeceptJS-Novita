@@ -10,9 +10,7 @@ Scenario('Buy a diamond', async ({ I }) => {
             if(elem !== '18ct White Gold' && elem !== '18ct Yellow Gold' && elem !== '18ct Rose Gold' && elem !== 'Platinum') {
                 I.dontSee(elem);
                 console.log('Error in values obtained from metal type filter option All');
-            }else {
-                I.see(elem);
-            };
+            }
         };
     };
     // Option White Gold
