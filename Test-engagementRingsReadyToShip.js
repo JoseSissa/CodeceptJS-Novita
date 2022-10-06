@@ -55,18 +55,72 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
         }
     };
     // Filter Carat
-    async function checkCarat() {
-        const carat = await I.grabTextFromAll('#ring_list_section .ring_item .title');
-        for (const elem of carat) {
-            console.log(elem);
-            // const ct = elem.substring(0, elem.indexOf('ct')-1);
-            // console.log(ct);
-            // if(parseFloat(elem) < parseFloat(params.caratFrom) || parseFloat(elem) > parseFloat(params.caratTo)) {
-            //     console.log('Error in the values obtained from the Carat filter');
-            //     I.dontSee(elem);
-            // }
-        };
-    }
+    const checkCarat = async (min, max) => {
+        const carat = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(Number(carat.substring(0, carat.indexOf('ct'))));
+        if(Number(carat.substring(0, carat.indexOf('ct'))) < min ||  Number(carat.substring(0, carat.indexOf('ct'))) > max) {
+            console.log('Error in values obtained from Carat filter.');
+        }
+        
+    };
+
+    // Filters shape
+    const checkRound = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Round'));
+        if(!shape.includes('Round')) {
+            console.log('Error in values obtained from Shape filter - Round.');
+        }
+    };
+    const checkPear = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Pear'));
+        if(!shape.includes('Pear')) {
+            console.log('Error in values obtained from Shape filter - Pear.');
+        }
+    };
+    const checkOval = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Oval'));
+        if(!shape.includes('Oval')) {
+            console.log('Error in values obtained from Shape filter - Oval.');
+        }
+    };
+    const checkEmerald = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Emerald'));
+        if(!shape.includes('Emerald')) {
+            console.log('Error in values obtained from Shape filter - Emerald.');
+        }
+    };
+    const checkCushion = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Cushion'));
+        if(!shape.includes('Cushion')) {
+            console.log('Error in values obtained from Shape filter - Cushion.');
+        }
+    };
+    const checkPrincess = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Princess'));
+        if(!shape.includes('Princess')) {
+            console.log('Error in values obtained from Shape filter - Princess.');
+        }
+    };
+    const checkRadiant = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Radiant'));
+        if(!shape.includes('Radiant')) {
+            console.log('Error in values obtained from Shape filter - Radiant.');
+        }
+    };
+    const checkAsscher = async () => {
+        const shape = await I.grabTextFrom('#ring_list_section .ring_item .title');
+        console.log(shape.includes('Asscher'));
+        if(!shape.includes('Asscher')) {
+            console.log('Error in values obtained from Shape filter - Asscher.');
+        }
+    };
 
     I.say('TEST - CUSTOM ENGAGEMENT RINGS');
     I.amOnPage("/");
@@ -92,49 +146,58 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     // I.forceClick('#metal_type_2');
 
     // Filter Diamond Carat
-    I.fillField('#from_carat_value_input', 1.80);
-    I.pressKey('Enter');
-    I.fillField('#to_carat_value_input', 3.0);
-    I.pressKey('Enter');
-    checkCarat();
-    I.fillField('#from_carat_value_input', 0.30);
-    I.pressKey('Enter');
-    I.fillField('#to_carat_value_input', 6.0);
-    I.pressKey('Enter');
+    // I.wait(3);
+    // I.fillField('#carat_value_inputs #from_carat_value_input', 1.80);
+    // I.pressKey('Enter');
+    // I.fillField('#carat_value_inputs #to_carat_value_input', 3.0);
+    // I.pressKey('Enter');
+    // checkCarat(1.8, 3.0);
+    // I.fillField('#carat_value_inputs #from_carat_value_input', 0.30);
+    // I.pressKey('Enter');
+    // I.fillField('#carat_value_inputs #to_carat_value_input', 6.0);
+    // I.pressKey('Enter');
 
     // Filter Shapes
     // Round
     I.forceClick('#diamond_shape_2');
+    I.wait(3);
     checkRound();
     I.forceClick('#diamond_shape_2');
     // Pear
     I.forceClick('#diamond_shape_7');
+    I.wait(3);
     checkPear();
     I.forceClick('#diamond_shape_7');
     // Oval
     I.forceClick('#diamond_shape_5');
+    I.wait(3);
     checkOval();
     I.forceClick('#diamond_shape_5');
     // Emerald
     I.forceClick('#diamond_shape_6');
+    I.wait(3);
     checkEmerald();
     I.forceClick('#diamond_shape_6');
     // Cushion
     I.forceClick('#diamond_shape_4');
+    I.wait(3);
     checkCushion();
     I.forceClick('#diamond_shape_4');
     // Princess
     I.forceClick('#diamond_shape_3');
+    I.wait(3);
     checkPrincess();
     I.forceClick('#diamond_shape_3');
     // Radiant
     I.forceClick('#diamond_shape_8');
+    I.wait(3);
     checkRadiant();
     I.forceClick('#diamond_shape_8');
     // Asscher
-    I.forceClick('#diamond_shape_9');
-    checkAsscher();
-    I.forceClick('#diamond_shape_9');
+    // I.forceClick('#diamond_shape_9');
+    // I.wait(2);
+    // checkAsscher();
+    // I.forceClick('#diamond_shape_9');
 
     pause();
 
