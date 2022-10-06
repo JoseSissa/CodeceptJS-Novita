@@ -2,6 +2,22 @@ Feature('Start with a Diamond');
 
 Scenario('Buy a diamond', async ({ I }) => {
 
+    // Wait for response and text
+    function waitResponseAndtext() {
+        // I.waitForResponse('https://manmadediamonds.com.au/api/product/diamonds', 20);
+        // I.waitForResponse('https://novitadiamonds.com/api/product/diamonds', 20);
+        I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+
+        // I.mockRoute('**/api/product/diamonds', async route => {
+        //     const response = await browserContext.request.fetch(route.request());
+        //     let results = await response.json();
+        //     console.log(results.response.items[0]);
+        // });
+
+        // I.usePlaywrightTo('emulate offline mode', async ({ browserContext }) => {
+        //     await browserContext.setOffline(true);
+        // });
+    }
     // Functions of metal types filters
     // Option All
     async function checkAllMetal() {
@@ -81,6 +97,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     async function searchInputRingDesign() {
         I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', 'Allegro accent');
         I.pressKey('Enter');
+        I.wait(2);
         const results = await I.grabTextFromAll('#ring_list_section .ring_item .name');
         for (const elem of results) {
             if(!(elem.includes('Allegro Accent'))) {
@@ -90,6 +107,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     };
     // Check personalise your ring
     function checkPersonaliseYourRing() {
+        I.wait(2);
         I.see('PERSONALISE YOUR RING');
         I.say('CLAW STYLE');
         I.click('#personalised_select_claw_style');
@@ -126,6 +144,7 @@ Scenario('Buy a diamond', async ({ I }) => {
         I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
         pause();
         I.click('#drop_hint_send');
+        I.wait(2);
         I.see('MESSAGE SENT');
         I.click('.modal-content .modal-body button');
     }
@@ -161,88 +180,110 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.amOnPage("/");
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
-    I.wait(6);
+    waitResponseAndtext();
 
     // CHECKING RING GUIDE BAR
     //------------------------------------------------------------------------------
-    I.say('CHECKING RING GUIDE BAR');
-    I.forceClick('Browse settings');
-    I.seeInCurrentUrl('/engagement-ring/create/ring');
-    I.forceClick('Browse diamonds');
-    I.seeInCurrentUrl('/engagement-ring/create/diamond');
-    I.wait(6);
+    // I.say('CHECKING RING GUIDE BAR');
+    // I.forceClick('Browse settings');
+    // I.wait(2);
+    // I.seeInCurrentUrl('/engagement-ring/create/ring');
+    // I.forceClick('Browse diamonds');
+    // waitResponseAndtext();
+    // I.seeInCurrentUrl('/engagement-ring/create/diamond');
 
     //  SELECT A DIAMOND
     //------------------------------------------------------------------------------
-    I.say('I SELECT A DIAMOND');
-    I.wait(5);
+    I.say('SELECT ONE DIAMOND');
     I.click('Detail', '#body_table_results tr td a');
-    I.see('Choose this diamond', 'a');    
+    I.see('Choose this diamond', 'a');
     
     // CHOOSE DIAMOND
     I.say('CHOOSE DIAMOND');
     I.click('Choose this diamond');
+    I.wait(2);
     I.see('CREATE YOUR RING');
-
+    
     // Bar when start the process in this page
-    I.say('BAR WHEN START THE PROCESS IN THIS PAGE');
+    I.say('CHECKING DIAMOND GUIDE BAR');
     I.forceClick('#diamond_list_section .container_steps_title .step_2 .description_2 a');
+    I.say('SELECT ONE DIAMOND');
+    I.wait(3);
     I.forceClick('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a');
+    I.wait(2);
     
     // Check Sort by - Options
-    I.say('FILTER SORT BY')
+    I.say('CHECKING FILTER SORT BY')
     I.see('Sort by: Best Sellers', '#dropdownMenuButton');
+
     I.say('SORT BY: LOW TO HIGH');
     I.click('#jewellery_order_section #dropdownMenuButton');
     I.click('Price (Low to High)');
+    I.wait(2);
     I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
     checkPriceLowToHigh();
+
     I.say('SORT BY: HIGH TO LOW');
     I.click('#jewellery_order_section #dropdownMenuButton');
     I.click('Price (High to Low)');
+    I.wait(2);
     I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
     checkPriceHighToLow();
+
     I.say('SORT BY: NEWEST');
     I.click('#jewellery_order_section #dropdownMenuButton');
     I.click('Newest');
+    I.wait(2);
     I.see('Sort by: Newest', '#dropdownMenuButton');
     const isNew = await I.grabCssPropertyFrom('//*[@id="ring_list_section"]/div/div[1]/a/div[1]', 'background-image');
     if(!isNew.includes('icon_new')) {
         console.log('Error to sort from newest');
     };
+
     I.say('SORT BY: BEST SELLERS');
     I.click('#jewellery_order_section #dropdownMenuButton');
     I.click('Best Sellers');
+    I.wait(2);
     I.see('Sort by: Best Sellers', '#dropdownMenuButton');
 
     // Filter metal type
     I.say('FILTER METAL TYPE');
     I.forceClick('#metal_type_1');
+    I.wait(2);
     checkAllMetal();
     I.forceClick('#metal_type_3');
+    I.wait(2);
     checkWhiteMetal();
     I.forceClick('#metal_type_3');
     I.forceClick('#metal_type_5');
+    I.wait(2);
     checkYellowMetal();
     I.forceClick('#metal_type_5');
     I.forceClick('#metal_type_4');
+    I.wait(2);
     checkRoseMetal();
     I.forceClick('#metal_type_4');
     I.forceClick('#metal_type_2');
+    I.wait(2);
     checkPlatinumMetal();
     I.forceClick('#metal_type_2');
+    I.wait(2);
 
     // Filter Price
     I.say('FILTER PRICE');
     I.forceClick('#setting_price_range_2');
+    I.wait(3);
     checkPrice1000andUnder();
     I.forceClick('#setting_price_range_2');
     I.forceClick('#setting_price_range_3');
+    I.wait(3);
     checkPrice1000To2000();
     I.forceClick('#setting_price_range_3');
     I.forceClick('#setting_price_range_4');
+    I.wait(3);
     checkPrice2000andOver();
     I.forceClick('#setting_price_range_4');
+    I.wait(3);
 
     // Text Search input
     I.say('TEXT SEARCH INPUT');
@@ -253,6 +294,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     // Click in the first
     I.say('FIRST ITEM SELECTED');
     I.click('#ring_list_section .ring_item .ring_detail_link');
+    I.wait(2);
 
     // Delivery time
     I.checkOption('#include_express_job_id .pink_checkbox_icon');
@@ -272,6 +314,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     // 20% Deposit Available
     I.say('20% DEPOSIT AVAILABLE');
     I.click('#express_job_option .pink_checkbox_box_legend a');
+    I.wait(3);
     I.switchToNextTab();
     I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
@@ -280,39 +323,51 @@ Scenario('Buy a diamond', async ({ I }) => {
     // More information
     I.say('MORE INFORMATION');
     I.click('#more_info_link');
+    I.wait(2);
     I.see('PRODUCT DETAILS', 'h2');
     I.click('#ring_more_details_box button');
 
     I.say('CHOOSE THIS DIAMOND');
     I.click('Choose this design');
-    I.wait(3);
+    I.wait(2);
     I.see('Review Your Ring', 'h2');
 
     I.say('SELECT A DIAMOND');
     I.seeInCurrentUrl('/engagement-ring/create/');
-    I.wait(3);
+    I.wait(2);
+    I.refreshPage();
+    I.wait(2);
     I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+    I.wait(3);
     I.click('Choose this diamond');
+    I.wait(4);
     I.see('Review Your Ring', 'h2');
     I.click('#selection_summary_section .to_setting_list_from_summary');
+    I.wait(4);
     I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('#ring_list_section .ring_item .ring_detail_link');
+    I.wait(2);
     I.click('Choose this design');
+    I.wait(2);
     I.see('Review Your Ring', 'h2');
     I.click('#selection_summary_section .summary_personalise_link');
     checkPersonaliseYourRing();
 
 
     // Option Drop a hint
+    I.wait(2);
     I.say('OPTION DROP A HINT');
     I.click('.social_network_icons .drop_a_hint a');
+    I.wait(2);
     formDropAHint();
 
     // Option free shipping
     I.say('OPTION FREE SHIPPING');
     I.click('.free_shipping a');
+    I.wait(2);
     I.see('FREE SHIPPING');
     I.click('> LEARN MORE');
+    I.wait(4);
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-shipping');
     I.closeCurrentTab();
@@ -322,41 +377,54 @@ Scenario('Buy a diamond', async ({ I }) => {
     // Option free returns
     I.say('OPTION FREE RETURNS');
     I.click('.free_returns a');
+    I.wait(2);
     I.see('FREE 30 DAYS RETURN POLICY', 'h3');
     I.click('> LEARN MORE');
+    I.wait(4);
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-return');
     I.closeCurrentTab();
     I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('.modal-content .modal-body button');
+    I.wait(3);
     
     // check the socialmedia
     I.say('OPTION SHARE AND SOCIALMEDIA');
     I.click('.share a');
+    I.wait(2);
     I.see('SHARE THIS');
     I.click('.modal-content .modal-body button');
     I.click('.share a');
+    I.wait(2);
     I.click('Facebook');
+    I.wait(4);
     I.switchToNextTab();
     I.seeInCurrentUrl('facebook.com');
     I.closeCurrentTab();
     I.click('Twitter');
+    I.wait(4);
     I.switchToNextTab();
     I.seeInCurrentUrl('twitter.com');
     I.closeCurrentTab();
     I.click('Pinterest');
+    I.wait(4);
     I.switchToNextTab();
     I.see('Pinterest', 'h2');
     I.closeCurrentTab();
-    I.click('#link_drop_hint');
-    formDropAHint();
+    I.wait(3);
+    // I.click('#link_drop_hint');
+    // I.wait(3);
+    // formDropAHint();
     I.click('Share');
+    I.wait(2);
     I.click('Copy Link');
     I.see('LINK COPIED TO THE CLIPBOARD');
     I.click('.modal-content .modal-body button');
+    I.wait(2);
 
     I.say('ADD TO CART');
     I.click('#add_to_cart_submit');
+    I.wait(2);
 
     // Select Ring Size
     I.say('SELECT RING SIZE');
@@ -368,17 +436,21 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.closeCurrentTab();
     I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
+    I.wait(2);
 
     I.say('TERMS AND CODITIONS');
     I.click('*Conditions apply');
+    I.wait(4);
     I.switchToNextTab();
-    I.seeInCurrentUrl('/terms-conditions-promo-voucher');
+    // I.seeInCurrentUrl('/terms-conditions-promo-voucher');
     I.closeCurrentTab();
 
     I.say('CHECKOUT');
     I.click('CHECKOUT');
     I.wait(2);
 
+    pause();
+    
     // FORM WHERE DO YOU WANT THESE ITEMS SENT?
     I.say('FORM WHERE DO YOU WANT THESE ITEMS SENT?');
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
@@ -410,7 +482,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
-    I.wait(2)
+    I.wait(3);
 
     // PAYMENT METHOD
     I.say('PAYMENT FOR POLIPAYMENT');
@@ -427,9 +499,9 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     I.say('PAYMENT FOR PAYPAL');
     I.click('#checkbox_paypal_description');
-    I.wait(3);
+    I.wait(2);
     I.click('#paypal-button-container iframe');
-    I.wait(3);
+    I.wait(2);
     I.switchTo('iframe');
     I.seeInCurrentUrl('https://www.sandbox.paypal.com/');
     I.switchTo();
