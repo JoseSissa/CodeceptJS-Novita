@@ -36,6 +36,16 @@ Scenario('Buy a loose diamond', async ({ I }) => {
             "SI2" : [320, -500],
             "I1" : [380, 0]
         },
+        "polish" : {
+            "Excellent" : [0, -500],
+            "Very Good" : [150, -500],
+            "Good" : [250, -500]
+        },
+        "symmetry" : {
+            "Excellent" : [0, -500],
+            "Very Good" : [150, -500],
+            "Good" : [250, -500]
+        },
         "reports" : ["IGI", "GIA", "GCAL"],
         "ratioFrom" : 1.26,
         "ratioTo" : 2.00
@@ -123,7 +133,6 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         waitResponseAndtext();
         const cut = await I.grabTextFromAll('tbody tr td:nth-child(6)');
         for (const elem of cut) {
-            console.log(elem);
             if(option === 'ID/EX') {
                 if(elem !== "Excellent" && elem !== 'ID/EX' && elem !== '-') {
                     console.log('Error in the values obtained from the Cut filter');
@@ -148,9 +157,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         }
     };
     // Check the Polish filter
-    async function checkPolish() {
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", 150);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", -150);
+    function checkPolish(option) {
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", params.polish[option][0]);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", params.polish[option][1]);
+        waitResponseAndtext();
     };
     // Check the Report filter
     async function checkReport(report) {
@@ -163,10 +173,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         }
     };
     // Check the Symmetry filter
-    function checkSymmetry() {
-        I.wait(1);
-        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", 150);
-        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", -150);
+    function checkSymmetry(option) {
+        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", params.symmetry[option][0]);
+        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", params.symmetry[option][1]);
+        waitResponseAndtext();
     };
     // Check the Ratio filter 
     function checkRatio() {
@@ -175,6 +185,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         I.pressKey('Enter');
         I.fillField('#to_ratio_value_input', 2);
         I.pressKey('Enter');
+        waitResponseAndtext();
     };
     // Check the compare option
     function compareDiamonds() {
@@ -186,6 +197,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     async function checkVideo() {
         // return await I.grabCssPropertyFrom('#diamond_detail_section .diamond_detail_tabs .video_tab', 'display');
         I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
+        I.waitForText('Actual video of the diamond');
         I.see('Actual video of the diamond');
     };
     // SORT TABLE FOR PRICE
@@ -327,87 +339,108 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // CHECKING ADVANCED FILTERS
     //------------------------------------------------------------------------------
     I.say('CHECKING ADVANCED FILTERS');
-    checkPolish();
-    pause();
-    checkSymmetry();
+    I.wait(2);
+    for (const elem of Object.keys(params.polish)) {
+        checkPolish(elem);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", -500);
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", 500);
+    }
+    for (const elem of Object.keys(params.symmetry)) {
+        checkSymmetry(elem);
+        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", -500);
+        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", 500);
+    }
     for (let i = 0; i < params.reports.length; i++) {
         I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+        waitResponseAndtext();
         checkReport(params.reports[i]);
         I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
     };
     checkRatio();
-    pause();
+    I.fillField('#from_ratio_value_input', 1);
+    I.pressKey('Enter');
+    I.fillField('#to_ratio_value_input', 2);
+    I.pressKey('Enter');
+    waitResponseAndtext();
     
-
-    // RESET FILTERS
-    //------------------------------------------------------------------------------
-    // I.say('RESET FILTERS');
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
-    // I.say('SORT RESULTS');
-    // I.click('#price_table_header_img');
-    // sortByPrice('higher');
-    // I.click('#price_table_header_img');
-    // sortByPrice('smaller');
-    // I.click('#carat_table_header');
-    // sortByCarat('higher');
-    // I.click('#carat_table_header');
-    // sortByCarat('smaller');
-    // I.click('#report_table_header');
-    // sortByReport('higher');
-    // I.click('#report_table_header');
-    // sortByReport('smaller');
+    I.say('SORT RESULTS');
+    I.click('#price_table_header_img');
+    waitResponseAndtext();
+    sortByPrice('higher');
+    I.click('#price_table_header_img');
+    waitResponseAndtext();
+    sortByPrice('smaller');
+    I.click('#carat_table_header');
+    waitResponseAndtext();
+    sortByCarat('higher');
+    I.click('#carat_table_header');
+    waitResponseAndtext();
+    sortByCarat('smaller');
+    I.click('#report_table_header');
+    waitResponseAndtext();
+    sortByReport('higher');
+    I.click('#report_table_header');
+    waitResponseAndtext();
+    sortByReport('smaller');
+    waitResponseAndtext();
 
     // OPTION COMPARE DIAMONDS
-    // I.wait(3);
-    // compareDiamonds();
+    I.say('OPTION COMPARE DIAMONDS');
+    compareDiamonds();    
     
-    // RESET FILTERS
-    //------------------------------------------------------------------------------
-    // I.say('RESET FILTERS');
-    // I.click('//*[@id="search_form"]/div[5]/a[2]');
     // Select Results options form the table
-    // I.click('#to_diamond_list_from_compare_diamonds');
+    I.click('#to_diamond_list_from_compare_diamonds');
 
     // Select one diamond (Click on detail)
-    I.say('SELECT ONE DIAMOND')
+    I.say('SELECT ONE DIAMOND');
     const video = await selectDiamond();
+    I.wait(1);
     I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
-    I.see('CHOOSE THIS DIAMOND');
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
+
+    I.say('CHECKING BACK BUTTON');
+    I.click('#diamond_detail_section .to_diamond_list_from_diamond_detail');
+    I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
 
     // Check if diamond has Video option
     checkVideo();
     // Check the Certificate option
     I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
+    I.wait(2);
     I.switchToNextTab();
     checkURLcertificate();
     I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/');
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
     // Image
     I.click('#tab_diamond_image');
     // IGI Certified
     I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
+    I.wait(2);
     I.switchToNextTab();
     checkURLcertificate();
     I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/');
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
 
     // 20% Deposit Available
     I.click('20% Deposit Available');
+    I.wait(2);
     I.switchToNextTab();
     I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
-    I.seeInCurrentUrl('/engagement-ring/create/');
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
     
     // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
     I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
     I.click('#add_loose_diamond_to_cart_submit');
-    I.see('SHOPPING CART');
+    I.waitForText('SHOPPING CART', 10);
 
     I.checkOption('#loose_diamond_option_false');
     I.checkOption('#loose_diamond_option_true');
+    I.wait(1);
     I.fillField('#cart .custom-control p .name-input', 'Name member');
     I.selectOption('#select_ring_size', '3/4');
 
@@ -419,7 +452,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.say('CLICK IN CHECKOUT');
     I.click('#cart table tbody .order_summary_checkout_button a');
     I.wait(2);
-    I.seeInCurrentUrl('/cart/shipping-information');
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 10, 'h2');
 
     I.say('SHIP TO MY ADDRESS FORM');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'FirstName');
@@ -447,13 +480,11 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.seeInCurrentUrl('/cart/payment-information');
-
+    I.waitForText('PAYMENT METHOD', 10, 'h2');
+    I.click('#checkbox_bank_wire_description');
+    I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
     pause();
-
-    // I.click('#checkbox_bank_wire_description');
-    // I.say('ACTIVATED THE CAPTCHA.');
-    // I.click('#bank_wire_submit');
-    // I.seeInCurrentUrl('/cart/review');
-    // I.see('Your order is confirmed!');
+    I.click('#bank_wire_submit')
+    I.waitForText('Your order is confirmed!', 10);
+    I.see('Your order is confirmed!');
 });

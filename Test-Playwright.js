@@ -2,19 +2,23 @@ const Helper = require('@codeceptjs/helper');
 
 class TestPlaywright extends Helper {
 
-  async example() {
+  async getResponseFromApi(filter, option) {
+
     const { browserContext } = this.helpers.Playwright;
-    // console.log(browserContext.newPage());
-    // const page = await browserContext.newPage();
-    // await page.goto('https://novitadiamonds.com/');
-    
-    
+
     await browserContext.route('**/api/product/diamonds', async route => {
       const response = await browserContext.request.fetch(route.request());
-      let results = await response.json();
-      console.log(results.response.items[0]);
-      route.abort();
+      const results = await response.json();
+      if(results.response.items[0][filter] === option) {
+        console.log(results.response.items[0][filter]);
+        console.log('Soy igual');
+      }else {
+        console.log(results.response.items[0][filter]);
+        console.log('No soy igual');
+      }
+      
     });
+
   };
 
 }
