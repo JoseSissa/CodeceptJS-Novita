@@ -2,6 +2,8 @@ Feature('Buy loose diamond');
 
 Scenario('Buy a loose diamond', async ({ I }) => {
 
+    
+
     const params = {
         "shapes" : ["Round", "Oval", "Cushion", "Princess", "Emerald", "Pear", "Radiant", "Asscher", "Marquise"],
         "caratFrom" : 2,
@@ -52,19 +54,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     }
     // Wait for response and text
     function waitResponseAndtext() {
-        // I.waitForResponse('https://manmadediamonds.com.au/api/product/diamonds', 20);
-        // I.waitForResponse('https://novitadiamonds.com/api/product/diamonds', 20);
         I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
-
-        // I.mockRoute('**/api/product/diamonds', async route => {
-        //     const response = await browserContext.request.fetch(route.request());
-        //     let results = await response.json();
-        //     console.log(results.response.items[0]);
-        // });
-
-        // I.usePlaywrightTo('emulate offline mode', async ({ browserContext }) => {
-        //     await browserContext.setOffline(true);
-        // });
     }
     // Checking the shape filter.
     function checkShape() {
@@ -287,7 +277,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.amOnPage("/");
     I.forceClick("BUY LOOSE DIAMONDS");
     I.seeInCurrentUrl("/buy-loose-diamond-start-buying");
-    waitResponseAndtext();    
+    waitResponseAndtext();
 
     // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
