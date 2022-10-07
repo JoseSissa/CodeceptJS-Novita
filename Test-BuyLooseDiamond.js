@@ -203,11 +203,9 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // SORT TABLE FOR PRICE
     async function sortByPrice(order) {
         const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
-        let previousNumber;
+        let previousNumber = 0;
         if (order == "higher") {
             previousNumber = Number.MAX_SAFE_INTEGER;
-        }else if(order == "smaller") {
-            previousNumber = 0;
         }
         for (const elem of prices) {
             let actualNumber = Number(elem.slice((elem.indexOf('$')+1)).replace(',', ''));
@@ -228,12 +226,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // SORT TABLE FOR CARAT
     async function sortByCarat(order) {
         const carat = await I.grabTextFromAll('tbody tr td:nth-child(3)');
-        let previousNumber;
+        let previousNumber = 0;
         if (order == "higher") {
             previousNumber = Number.MAX_SAFE_INTEGER;
-        }else if(order == "smaller") {
-            previousNumber = 0;
-        };
+        }
         for (const elem of carat) {
             let actualNumber = Number(elem);
             if(!isNaN(actualNumber)) {

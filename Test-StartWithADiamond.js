@@ -135,11 +135,11 @@ Scenario('Buy a diamond', async ({ I }) => {
     // Form drop a Hint
     function formDropAHint() {
         I.see('DROP A HINT');
-        I.fillField('#drop_hint_recipientName', 'Recipient example');
-        I.fillField('#drop_hint_recipientEmail', 'Recipient@example.com');
-        I.fillField('#drop_hint_message', 'Message here.');
-        I.fillField('#drop_hint_yourName', 'Your name here.');
-        I.fillField('#drop_hint_yourEmail', 'email@example.com');
+        I.fillField('#drop_hint_recipientName', 'Jose Testing');
+        I.fillField('#drop_hint_recipientEmail', 'testing@testing.com');
+        I.fillField('#drop_hint_message', 'Test form, please ignore this request.');
+        I.fillField('#drop_hint_yourName', 'Jose Testing');
+        I.fillField('#drop_hint_yourEmail', 'testing@testing.com');
         I.checkOption('#drop_hint_newStyleOfferUpdate');
         I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
         pause();
