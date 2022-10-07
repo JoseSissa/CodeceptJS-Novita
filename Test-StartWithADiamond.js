@@ -4,19 +4,15 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     // Wait for response and text
     function waitResponseAndtext() {
-        // I.waitForResponse('https://manmadediamonds.com.au/api/product/diamonds', 20);
-        // I.waitForResponse('https://novitadiamonds.com/api/product/diamonds', 20);
-        I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
-
-        // I.mockRoute('**/api/product/diamonds', async route => {
-        //     const response = await browserContext.request.fetch(route.request());
-        //     let results = await response.json();
-        //     console.log(results.response.items[0]);
-        // });
-
-        // I.usePlaywrightTo('emulate offline mode', async ({ browserContext }) => {
-        //     await browserContext.setOffline(true);
-        // });
+        // I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/diamonds')) {
+                const results = await res.json();
+                console.log(results.response.items[0]);
+                return true;
+            }
+            return false;
+        }, 10);
     }
     // Functions of metal types filters
     // Option All
@@ -181,7 +177,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.forceClick("Start With a Diamond");
     I.seeInCurrentUrl("/engagement-ring/create/diamond");
     waitResponseAndtext();
-
+    pause();
     // CHECKING RING GUIDE BAR
     //------------------------------------------------------------------------------
     // I.say('CHECKING RING GUIDE BAR');
