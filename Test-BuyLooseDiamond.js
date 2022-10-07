@@ -455,28 +455,28 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 10, 'h2');
 
     I.say('SHIP TO MY ADDRESS FORM');
-    I.fillField('#shipping_billing_information_form_shippingFirstName', 'FirstName');
-    I.fillField('#shipping_billing_information_form_shippingLastName', 'LastName');
-    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Suite 56-58, New House');
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
     I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-    I.fillField('#shipping_billing_information_form_shippingState', 'State example');
-    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Suburb example');
+    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
     I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
-    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Delivery Instructions Example');
-    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Additional notes example');
-    I.fillField('#shipping_billing_information_form_shippingEmail', 'Email@example.com');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
 
     // Use the same address for billing and shipping
     I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
 
     I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING FORM');
-    I.fillField('#shipping_billing_information_form_billingFirstName', 'FisrtName example');
-    I.fillField('#shipping_billing_information_form_billingLastName', 'LastName example');
-    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Address example');
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
     I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-    I.fillField('#shipping_billing_information_form_billingState', 'State example');
-    I.fillField('#shipping_billing_information_form_billingSuburb', 'Suburb example');
+    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
@@ -484,7 +484,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.click('#checkbox_bank_wire_description');
     I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
     pause();
-    I.click('#bank_wire_submit')
-    I.waitForText('Your order is confirmed!', 10);
-    I.see('Your order is confirmed!');
+    // I.click('#bank_wire_submit')
+    // I.waitForText('Your order is confirmed!', 10);
+    // I.see('Your order is confirmed!');
 });
