@@ -5,14 +5,19 @@ Scenario('Buy a diamond', async ({ I }) => {
     // Wait for response and text
     function waitResponseAndtext() {
         // I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+        let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/diamonds')) {
-                const results = await res.json();
-                console.log(results.response.items[0]);
-                return true;
+                results.push(await res.json());
+                if(results.length >= 2) {
+                    for (const elem of results) {
+                        console.log(elem.response.items[0]);
+                    }
+                    return true;
+                }
             }
             return false;
-        }, 10);
+        }, 40);
     }
     // Functions of metal types filters
     // Option All
