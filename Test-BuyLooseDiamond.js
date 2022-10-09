@@ -1,8 +1,6 @@
 Feature('Buy loose diamond');
 
-Scenario('Buy a loose diamond', async ({ I }) => {
-
-    
+Scenario('Buy a loose diamond', async ({ I }) => {    
 
     const params = {
         "shapes" : ["Round", "Oval", "Cushion", "Princess", "Emerald", "Pear", "Radiant", "Asscher", "Marquise"],
