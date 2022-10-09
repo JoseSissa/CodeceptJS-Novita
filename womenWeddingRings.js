@@ -32,7 +32,7 @@ Scenario('Wedding Rings', ({ I }) => {
     I.forceClick('#jewellery_category_2');
     pause();
     I.forceClick('#jewellery_category_4');
-    I.seeCheckboxIsChecked('#jewellery_category_4');
+    I.seeCheckboxIsChecked('#jewellery_category_3');
     waitResponseAndtext('eternity');
     // I.forceClick('#jewellery_category_3');
     pause();
