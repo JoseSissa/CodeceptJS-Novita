@@ -56,9 +56,40 @@ Scenario('Wedding Rings', ({ I }) => {
                                 console.log(`Error in response, expected elements with width between 2 to 2.5mm not found.`);
                                 return false;
                             }
-                        }else if(ringWidth == 'above') {
+                        }else if(ringWidth == 'over') {
                             if(!(results[0].response.items[i].width >= 2.6)) {
                                 console.log(`Error in response, expected elements with width above 2.6mm not found.`);
+                                return false;
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+        }, 20);
+    }
+    const waitResponseRingsPrice = (ringPrice) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/wedding-bands')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    for (let i = 0; i < 10; i++) {
+                        console.log(`${i} >>>>>`, results[0].response.items[i].price);
+                        console.log(`${i} >>>>>`, ringPrice);
+                        if(ringPrice == 'under') {
+                            if(!(results[0].response.items[i].price < 1000)) {
+                                console.log(`Error in response, expected elements with price under $1000 but not found.`);
+                                return false;
+                            }
+                        }else if(ringPrice == 'between') {
+                            if(!(results[0].response.items[i].price >= 1000 && results[0].response.items[0].width < 1500)) {
+                                console.log(`Error in response, expected elements with price between $1000 to $1500 but not found.`);
+                                return false;
+                            }
+                        }else if(ringPrice == 'over') {
+                            if(!(results[0].response.items[i].price >= 1500)) {
+                                console.log(`Error in response, expected elements with price above $1500 but not found.`);
                                 return false;
                             }
                         }
@@ -145,27 +176,52 @@ Scenario('Wedding Rings', ({ I }) => {
 
     // ------------------------ WIDTH FILTER -----------------------------------
     // Width under 2mm
-    I.say('WIDTH UNDER 2MM')
-    I.forceClick('#jewellery_width_range_2');
-    I.seeCheckboxIsChecked('#jewellery_width_range_2');
-    waitResponseRingWidth('under');
-    I.forceClick('#jewellery_width_range_2');
+    // I.say('WIDTH UNDER 2MM')
+    // I.forceClick('#jewellery_width_range_2');
+    // I.seeCheckboxIsChecked('#jewellery_width_range_2');
+    // waitResponseRingWidth('under');
+    // I.forceClick('#jewellery_width_range_2');
 
-    // Width between 2 to 2.5mm
-    I.say('WIDTH BETWEEN 2 TO 2.5MM')
-    I.forceClick('#jewellery_width_range_3');
-    I.seeCheckboxIsChecked('#jewellery_width_range_3');
-    waitResponseRingWidth('between');
-    I.forceClick('#jewellery_width_range_3');
+    // // Width between 2 to 2.5mm
+    // I.say('WIDTH BETWEEN 2 TO 2.5MM')
+    // I.forceClick('#jewellery_width_range_3');
+    // I.seeCheckboxIsChecked('#jewellery_width_range_3');
+    // waitResponseRingWidth('between');
+    // I.forceClick('#jewellery_width_range_3');
 
-    // Width above 2.6mm
-    I.say('WIDTH ABOVE 2.6MM')
-    I.forceClick('#jewellery_width_range_4');
-    I.seeCheckboxIsChecked('#jewellery_width_range_4');
-    waitResponseRingWidth('above');
-    I.forceClick('#jewellery_width_range_4');
+    // // Width above 2.6mm
+    // I.say('WIDTH over 2.6MM')
+    // I.forceClick('#jewellery_width_range_4');
+    // I.seeCheckboxIsChecked('#jewellery_width_range_4');
+    // waitResponseRingWidth('over');
+    // I.forceClick('#jewellery_width_range_4');
 
-    I.forceClick('#jewellery_width_range_1');
-    pause();
+    // I.forceClick('#jewellery_width_range_1');
+    
+    // ------------------------ PRICE FILTER -----------------------------------
+    // PRICE $1000 and Under
+    I.say('PRICE $1000 and Under');
+    I.forceClick('#jewellery_price_range_2');
+    I.seeCheckboxIsChecked('#jewellery_price_range_2');
+    waitResponseRingsPrice('under');
+    I.forceClick('#jewellery_price_range_2');
+
+    // PRICE BETWEEN $1000 to $1500
+    I.say('PRICE BETWEEN $1000 to $1500');
+    I.forceClick('#jewellery_price_range_3');
+    I.seeCheckboxIsChecked('#jewellery_price_range_3');
+    waitResponseRingsPrice('between');
+    I.forceClick('#jewellery_price_range_3');
+
+    // PRICE Over $1500
+    I.say('PRICE OVER $1500');
+    I.forceClick('#jewellery_price_range_4');
+    I.seeCheckboxIsChecked('#jewellery_price_range_4');
+    waitResponseRingsPrice('over');
+    I.forceClick('#jewellery_price_range_4');
+    
+    I.forceClick('#jewellery_price_range_1');
+    
+
 
 });
