@@ -1,15 +1,16 @@
-Feature('Wedding Rings');
+Feature("Women's Wedding Rings");
 
-Scenario('Wedding Rings', ({ I }) => {
+Scenario("Women's Wedding Rings", ({ I }) => {
 
     const waitResponseMetalType = (metalType) => {
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/wedding-bands')) {
                 results.push(await res.json());
-                if(results[0].response.total > 0) {                    
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;                 
                     // Analize the first 10 elements from response
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < total; i++) {
                         if(!(results[0].response.items[i].metal_name === metalType)) {
                             console.log(`Error in response, Metal filter, expected elements with Metal Name: ${metalType} but not found.`);
                             return false;
@@ -24,14 +25,16 @@ Scenario('Wedding Rings', ({ I }) => {
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/wedding-bands')) {
-                
                 results.push(await res.json());
-                // Analize the first 10 elements from response
-                for (let i = 0; i < 10; i++) {
-                    let style = results[0].response.items[i].ring_styles.some(elem => elem.style_slug === ringStyle);
-                    if(!style) {
-                        console.log(`Error in response, Style filter, expected elements with Ring styles: ${ringStyle} but not found.`);
-                        return false;
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
+                    // Analize the first 10 elements from response
+                    for (let i = 0; i < total; i++) {
+                        let style = results[0].response.items[i].ring_styles.some(elem => elem.style_slug === ringStyle);
+                        if(!style) {
+                            console.log(`Error in response, Style filter, expected elements with Ring styles: ${ringStyle} but not found.`);
+                            return false;
+                        }
                     }
                 }
                 return true;             
@@ -44,8 +47,9 @@ Scenario('Wedding Rings', ({ I }) => {
             if(res.url().includes('/api/product/wedding-bands')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
                     // Analize the first 10 elements from response
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < total; i++) {
                         if(ringWidth == 'under') {
                             if(!(results[0].response.items[i].width < 2.0)) {
                                 console.log(`Error in response, expected elements with width under 2mm not found.`);
@@ -74,7 +78,8 @@ Scenario('Wedding Rings', ({ I }) => {
             if(res.url().includes('/api/product/wedding-bands')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
-                    for (let i = 0; i < 10; i++) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
+                    for (let i = 0; i < total; i++) {
                         console.log(`${i} >>>>>`, results[0].response.items[i].price);
                         console.log(`${i} >>>>>`, ringPrice);
                         if(ringPrice == 'under') {
