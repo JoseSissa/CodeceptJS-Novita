@@ -9,7 +9,7 @@
         "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples",
         "codeceptjs:demo:headless": "HEADLESS=true codeceptjs run --steps -c node_modules/@codeceptjs/examples",
         "codeceptjs:demo:ui": "codecept-ui --app  -c node_modules/@codeceptjs/examples",
-        "test": "npx codeceptjs run WeddingRings-men.js --steps"
+        "test": "npx codeceptjs run Test-BuyLooseDiamond.js --steps"
     },
     "devDependencies": {
         "@codeceptjs/configure": "^0.8.0",

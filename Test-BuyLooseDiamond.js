@@ -144,11 +144,27 @@ Scenario('Buy a loose diamond', async ({ I }) => {
             }
         }
     };
-    // Check the Polish filter
+    // Check the polish option
     function checkPolish(option) {
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", params.polish[option][0]);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", params.polish[option][1]);
-        waitResponseAndtext();
+        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", params.polish[option][1]);       
+        let results = [];
+        I.waitForResponse(async res => {
+            res.url().includes('/api/product/diamonds') ? results.push(await res.json()) : null;
+            if(results.length >= 2) {
+                results[0] = results[0].response.total > results[1].response.total ? results[0] : results[1];
+                if (results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
+                    for (let i = 0; i < total; i++) {
+                        if(!(results[0].response.items[i].polish == option)) {
+                            console.log(`Error in response, Polish filter, expected elements with Polish Filter: ${metalType} but not found.`);
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+        }, 20);
     };
     // Check the Report filter
     async function checkReport(report) {
@@ -277,42 +293,52 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.seeInCurrentUrl("/buy-loose-diamond-start-buying");
     waitResponseAndtext();
 
-    // CHECKING MAIN FILTERS
     //------------------------------------------------------------------------------
-    I.say('CHECKING MAIN FILTERS');
-    I.say('CHECKING SHAPE FILTER');
-    checkShape();
-    I.say('CHECKING CARAT FILTER');
-    checkCarat();
-    I.fillField("#from_carat_value_input", 0.30);
-    I.pressKey("Enter");
-    I.fillField("#to_carat_value_input", 6);
-    I.pressKey("Enter");
-    I.say('CHECKING COLOUR FILTER');
-    for (const elem of Object.keys(params.colour)) {
-        checkColour(elem);
-        I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
-    };
-    I.say('CHECKING PRICE FILTER');
-    checkPrice();
-    I.fillField("#from_price_value_input", 250);
-    I.pressKey('Enter');
-    I.fillField("#to_price_value_input", 70000);
-    I.pressKey('Enter');
-    waitResponseAndtext();
-    I.say('CHECKING CUT FILTER');
-    for (const elem of Object.keys(params.cut)) {
-        checkCut(elem);
-        I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
-        I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
-    };
-    I.say('CHECKING CLARITY FILTER');
-    for (const elem of Object.keys(params.clarity)) {
-        checkClarity(elem);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
-    };
+    // CHECKING SHAPE FILTER
+    // I.say('CHECKING SHAPE FILTER');
+    // checkShape();
+
+    // CHECKING CARAT FILTER
+    // I.say('CHECKING CARAT FILTER');
+    // checkCarat();
+    // reset filter
+    // I.fillField("#from_carat_value_input", 0.30);
+    // I.pressKey("Enter");
+    // I.fillField("#to_carat_value_input", 6);
+    // I.pressKey("Enter");
+
+    // CHECKING COLOUR FILTER
+    // I.say('CHECKING COLOUR FILTER');
+    // for (const elem of Object.keys(params.colour)) {
+    //     checkColour(elem);
+    //     I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
+    //     I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
+    // };
+
+    // CHECKING PRICE FILTER
+    // I.say('CHECKING PRICE FILTER');
+    // checkPrice();
+    // I.fillField("#from_price_value_input", 250);
+    // I.pressKey('Enter');
+    // I.fillField("#to_price_value_input", 70000);
+    // I.pressKey('Enter');
+    // waitResponseAndtext();
+
+    // CHECKING CUT FILTER
+    // I.say('CHECKING CUT FILTER');
+    // for (const elem of Object.keys(params.cut)) {
+    //     checkCut(elem);
+    //     I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
+    //     I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
+    // };
+
+    // CHECKING CLARUTY FILTER
+    // I.say('CHECKING CLARITY FILTER');
+    // for (const elem of Object.keys(params.clarity)) {
+    //     checkClarity(elem);
+    //     I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
+    //     I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
+    // };
 
 
     // BUTTON ADVANCED FILTERS
@@ -329,6 +355,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", -500);
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", 500);
     }
+    pause();
     for (const elem of Object.keys(params.symmetry)) {
         checkSymmetry(elem);
         I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", -500);

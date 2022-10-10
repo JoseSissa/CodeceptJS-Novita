@@ -8,7 +8,7 @@ Scenario("Men's Wedding Rings", ({ I }) => {
             if(res.url().includes('/api/product/wedding-bands')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {      
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;             
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;      
                     // Analize the first 10 elements from response
                     for (let i = 0; i < total; i++) {
                         if(!(results[0].response.items[i].metal_name === metalType)) {
