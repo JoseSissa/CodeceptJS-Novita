@@ -118,9 +118,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     async function checkCut(option) {
         I.dragSlider("#search_form .diamond_filter_cut_content .from", params.cut[option][0]);
         I.dragSlider("#search_form .diamond_filter_cut_content .to", params.cut[option][1]);
-        waitResponseAndtext();
+        waitResponseAndtext();        
         const cut = await I.grabTextFromAll('tbody tr td:nth-child(6)');
         for (const elem of cut) {
+            console.log('>>>>>>>', elem);
             if(option === 'ID/EX') {
                 if(elem !== "Excellent" && elem !== 'ID/EX' && elem !== '-') {
                     console.log('Error in the values obtained from the Cut filter');
@@ -168,19 +169,47 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     };
     // Check the Report filter
     async function checkReport(report) {
-        const records = await I.grabTextFromAll('tbody tr td:nth-child(7)');
-        for (const elem of records) {
-            if(elem != report) {
-                console.log('Error in the values obtained from the Report filter');
-                break;
+        let results = [];
+        I.waitForResponse(async res => {
+            res.url().includes('/api/product/diamonds') ? results.push(await res.json()) : null;
+            if(results.length >= 2) {
+                results[0] = results[0].response.total > results[1].response.total ? results[0] : results[1];
+                if (results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
+                    for (let i = 0; i < total; i++) {
+                        if(!(results[0].response.items[i].certificate_laboratory == report)) {
+                            console.log(`Error in response, Report filter, expected elements with Report Filter: ${report} but not found.`);
+                            return false;
+                        }
+                    }
+                }
+                return true;
             }
-        }
+        }, 20);
+
     };
     // Check the Symmetry filter
     function checkSymmetry(option) {
         I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", params.symmetry[option][0]);
         I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", params.symmetry[option][1]);
-        waitResponseAndtext();
+        
+        let results = [];
+        I.waitForResponse(async res => {
+            res.url().includes('/api/product/diamonds') ? results.push(await res.json()) : null;
+            if(results.length >= 2) {
+                results[0] = results[0].response.total > results[1].response.total ? results[0] : results[1];
+                if (results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
+                    for (let i = 0; i < total; i++) {
+                        if(!(results[0].response.items[i].symmetry == option)) {
+                            console.log(`Error in response, Symmetry filter, expected elements with Symmetry Filter: ${metalType} but not found.`);
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+        }, 20);
     };
     // Check the Ratio filter 
     function checkRatio() {
@@ -295,50 +324,50 @@ Scenario('Buy a loose diamond', async ({ I }) => {
 
     //------------------------------------------------------------------------------
     // CHECKING SHAPE FILTER
-    // I.say('CHECKING SHAPE FILTER');
-    // checkShape();
+    I.say('CHECKING SHAPE FILTER');
+    checkShape();
 
     // CHECKING CARAT FILTER
-    // I.say('CHECKING CARAT FILTER');
-    // checkCarat();
-    // reset filter
-    // I.fillField("#from_carat_value_input", 0.30);
-    // I.pressKey("Enter");
-    // I.fillField("#to_carat_value_input", 6);
-    // I.pressKey("Enter");
+    I.say('CHECKING CARAT FILTER');
+    checkCarat();
+    // reset carat filter
+    I.fillField("#from_carat_value_input", 0.30);
+    I.pressKey("Enter");
+    I.fillField("#to_carat_value_input", 6);
+    I.pressKey("Enter");
 
     // CHECKING COLOUR FILTER
-    // I.say('CHECKING COLOUR FILTER');
-    // for (const elem of Object.keys(params.colour)) {
-    //     checkColour(elem);
-    //     I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
-    //     I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
-    // };
+    I.say('CHECKING COLOUR FILTER');
+    for (const elem of Object.keys(params.colour)) {
+        checkColour(elem);
+        I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
+    };
 
     // CHECKING PRICE FILTER
-    // I.say('CHECKING PRICE FILTER');
-    // checkPrice();
-    // I.fillField("#from_price_value_input", 250);
-    // I.pressKey('Enter');
-    // I.fillField("#to_price_value_input", 70000);
-    // I.pressKey('Enter');
-    // waitResponseAndtext();
+    I.say('CHECKING PRICE FILTER');
+    checkPrice();
+    I.fillField("#from_price_value_input", 250);
+    I.pressKey('Enter');
+    I.fillField("#to_price_value_input", 70000);
+    I.pressKey('Enter');
+    waitResponseAndtext();
 
     // CHECKING CUT FILTER
-    // I.say('CHECKING CUT FILTER');
-    // for (const elem of Object.keys(params.cut)) {
-    //     checkCut(elem);
-    //     I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
-    //     I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
-    // };
+    I.say('CHECKING CUT FILTER');
+    for (const elem of Object.keys(params.cut)) {
+        checkCut(elem);
+        I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
+    };
 
     // CHECKING CLARUTY FILTER
-    // I.say('CHECKING CLARITY FILTER');
-    // for (const elem of Object.keys(params.clarity)) {
-    //     checkClarity(elem);
-    //     I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
-    //     I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
-    // };
+    I.say('CHECKING CLARITY FILTER');
+    for (const elem of Object.keys(params.clarity)) {
+        checkClarity(elem);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
+        I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
+    };
 
 
     // BUTTON ADVANCED FILTERS
@@ -350,30 +379,31 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     //------------------------------------------------------------------------------
     I.say('CHECKING ADVANCED FILTERS');
     I.wait(2);
+    I.say('CHECKING POLISH FILTER');
     for (const elem of Object.keys(params.polish)) {
         checkPolish(elem);
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", -500);
         I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", 500);
     }
-    pause();
+    I.say('CHECKING SYMMETRY FILTER');
     for (const elem of Object.keys(params.symmetry)) {
         checkSymmetry(elem);
         I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", -500);
         I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", 500);
     }
+    I.say('CHECKING REPORT FILTER');
     for (let i = 0; i < params.reports.length; i++) {
         I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-        waitResponseAndtext();
         checkReport(params.reports[i]);
         I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    };
+    }
+    I.say('CHECKING RATIO FILTER');
     checkRatio();
     I.fillField('#from_ratio_value_input', 1);
     I.pressKey('Enter');
-    I.fillField('#to_ratio_value_input', 2);
+    I.fillField('#to_ratio_value_input', 3);
     I.pressKey('Enter');
     waitResponseAndtext();
-    
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
