@@ -43,6 +43,37 @@ Scenario("Men's Wedding Rings", ({ I }) => {
             }
         }, 20);
     }
+    const waitResponseRingWidth = (ringWidth) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/wedding-bands')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
+                    // Analize the first 10 elements from response
+                    for (let i = 0; i < total; i++) {
+                        if(ringWidth == 'minimum') {
+                            if(!(results[0].response.items[i].width >= 5 && results[0].response.items[i].width < 7)) {
+                                console.log(`Error in response, expected elements with width between 5 to 6mm not found.`);
+                                return false;
+                            }
+                        }else if(ringWidth == 'medium') {
+                            if(!(results[0].response.items[i].width >= 7 && results[0].response.items[0].width < 9)) {
+                                console.log(`Error in response, expected elements with width between 7 to 8mm not found.`);
+                                return false;
+                            }
+                        }else if(ringWidth == 'high') {
+                            if(!(results[0].response.items[i].width >= 9)) {
+                                console.log(`Error in response, expected elements with width above 9 not found.`);
+                                return false;
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+        }, 20);
+    }
 
     I.amOnPage('/');
     I.forceClick("MEN's WEDDING RINGS");
@@ -89,27 +120,51 @@ Scenario("Men's Wedding Rings", ({ I }) => {
 
     // ------------------------ STYLE FILTER -----------------------------------
     // Style Pave
-    I.say('STYLE PAVE');
-    I.forceClick('#jewellery_category_2');
-    I.seeCheckboxIsChecked('#jewellery_category_2');
-    waitResponseStyleRing('pave');
-    I.forceClick('#jewellery_category_2');
+    // I.say('STYLE PAVE');
+    // I.forceClick('#jewellery_category_2');
+    // I.seeCheckboxIsChecked('#jewellery_category_2');
+    // waitResponseStyleRing('pave');
+    // I.forceClick('#jewellery_category_2');
 
-    // Style Pattern
-    I.say('STYLE PATTERN')
-    I.forceClick('#jewellery_category_4');
-    I.seeCheckboxIsChecked('#jewellery_category_4');
-    waitResponseStyleRing('pattern');
-    I.forceClick('#jewellery_category_4');
+    // // Style Pattern
+    // I.say('STYLE PATTERN')
+    // I.forceClick('#jewellery_category_4');
+    // I.seeCheckboxIsChecked('#jewellery_category_4');
+    // waitResponseStyleRing('pattern');
+    // I.forceClick('#jewellery_category_4');
     
-    // Style Diamonds
-    I.say('STYLE DIAMONDS')
-    I.forceClick('#jewellery_category_6');
-    I.seeCheckboxIsChecked('#jewellery_category_6');
-    waitResponseStyleRing('diamonds');
-    I.forceClick('#jewellery_category_6');
+    // // Style Diamonds
+    // I.say('STYLE DIAMONDS')
+    // I.forceClick('#jewellery_category_6');
+    // I.seeCheckboxIsChecked('#jewellery_category_6');
+    // waitResponseStyleRing('diamonds');
+    // I.forceClick('#jewellery_category_6');
 
-    I.forceClick('#jewellery_category_1');
+    // I.forceClick('#jewellery_category_1');
+
+    // ------------------------ WIDTH FILTER -----------------------------------
+    // Width 5 to 6mm
+    I.say('WIDTH BETWEEN 5 to 6MM')
+    I.forceClick('#jewellery_width_range_2');
+    I.seeCheckboxIsChecked('#jewellery_width_range_2');
+    waitResponseRingWidth('minimum');
+    I.forceClick('#jewellery_width_range_2');
+
+    // Width between 2 to 2.5mm
+    I.say('WIDTH BETWEEN 7 TO 8MM')
+    I.forceClick('#jewellery_width_range_3');
+    I.seeCheckboxIsChecked('#jewellery_width_range_3');
+    waitResponseRingWidth('medium');
+    I.forceClick('#jewellery_width_range_3');
+
+    // Width above 2.6mm
+    I.say('WIDTH OVER 9MM')
+    I.forceClick('#jewellery_width_range_4');
+    I.seeCheckboxIsChecked('#jewellery_width_range_4');
+    waitResponseRingWidth('high');
+    I.forceClick('#jewellery_width_range_4');
+
+    I.forceClick('#jewellery_width_range_1');
     
 });
 
