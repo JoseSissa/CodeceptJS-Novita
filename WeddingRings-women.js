@@ -51,17 +51,17 @@ Scenario("Women's Wedding Rings", ({ I }) => {
                     // Analize the first 10 elements from response
                     for (let i = 0; i < total; i++) {
                         if(ringWidth == 'under') {
-                            if(!(results[0].response.items[i].width < 2.0)) {
+                            if(!(results[0].response.items[i].width <= 2.0)) {
                                 console.log(`Error in response, expected elements with width under 2mm not found.`);
                                 return false;
                             }
                         }else if(ringWidth == 'between') {
-                            if(!(results[0].response.items[i].width >= 2.0 && results[0].response.items[0].width < 2.6)) {
+                            if(!(results[0].response.items[i].width > 2.0 && results[0].response.items[0].width <= 2.5)) {
                                 console.log(`Error in response, expected elements with width between 2 to 2.5mm not found.`);
                                 return false;
                             }
                         }else if(ringWidth == 'over') {
-                            if(!(results[0].response.items[i].width >= 2.6)) {
+                            if(!(results[0].response.items[i].width > 2.5)) {
                                 console.log(`Error in response, expected elements with width above 2.6mm not found.`);
                                 return false;
                             }
@@ -83,17 +83,17 @@ Scenario("Women's Wedding Rings", ({ I }) => {
                         console.log(`${i} >>>>>`, results[0].response.items[i].price);
                         console.log(`${i} >>>>>`, ringPrice);
                         if(ringPrice == 'under') {
-                            if(!(results[0].response.items[i].price < 1000)) {
+                            if(!(results[0].response.items[i].price <= 1000)) {
                                 console.log(`Error in response, expected elements with price under $1000 but not found.`);
                                 return false;
                             }
                         }else if(ringPrice == 'between') {
-                            if(!(results[0].response.items[i].price >= 1000 && results[0].response.items[0].width < 1500)) {
+                            if(!(results[0].response.items[i].price > 1000 && results[0].response.items[0].width <= 1500)) {
                                 console.log(`Error in response, expected elements with price between $1000 to $1500 but not found.`);
                                 return false;
                             }
                         }else if(ringPrice == 'over') {
-                            if(!(results[0].response.items[i].price >= 1500)) {
+                            if(!(results[0].response.items[i].price > 1500)) {
                                 console.log(`Error in response, expected elements with price above $1500 but not found.`);
                                 return false;
                             }
