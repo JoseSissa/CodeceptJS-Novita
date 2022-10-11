@@ -16,7 +16,10 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                             return false;
                         }
                     }
-                }            
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
+                }
                 return true;
             }
         }, 20);
@@ -36,6 +39,9 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                             return false;
                         }
                     }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
                 }
                 return true;             
             }
@@ -67,6 +73,9 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                             }
                         }
                     }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
                 }
                 return true;
             }
@@ -80,8 +89,6 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
                     for (let i = 0; i < total; i++) {
-                        console.log(`${i} >>>>>`, results[0].response.items[i].price);
-                        console.log(`${i} >>>>>`, ringPrice);
                         if(ringPrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
                                 console.log(`Error in response, expected elements with price under $1000 but not found.`);
@@ -99,6 +106,9 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                             }
                         }
                     }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
                 }
                 return true;
             }

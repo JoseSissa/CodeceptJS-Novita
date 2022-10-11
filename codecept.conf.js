@@ -24,9 +24,9 @@ exports.config = {
     JSONResponse: {
       requestHelper: 'Playwright',
     },
-    MyHelper: {
-      require: './Test-Playwright.js'
-    }
+    // MyHelper: {
+    //   require: './Test-Playwright.js'
+    // }
   },
   include: {
     I: './steps_file.js'

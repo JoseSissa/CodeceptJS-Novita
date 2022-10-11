@@ -16,7 +16,10 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
                             return false;
                         }
                     }
-                }            
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
+                }   
                 return true;
             }
         }, 40);
@@ -30,12 +33,16 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total;                 
                     // Analize the first 10 elements from response
                     for (let i = 0; i < total; i++) {
+                        console.log(results[0].response.items[i].type);
                         if(!(results[0].response.items[i].type.toLowerCase().includes(type) || results[0].response.items[i].category_slug.toLowerCase().includes(type))) {
                             console.log(`Error in response, Type filter, expected elements with Type: ${metalType}, but not found.`);
                             return false;
                         }
                     }                    
-                }            
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
+                }
                 return true;
             }
         }, 20);
@@ -65,6 +72,9 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
                             }
                         }
                     }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true
                 }
                 return true;
             }
@@ -74,8 +84,9 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
     I.amOnPage('/');
     I.forceClick("DIAMOND STUDS");
     I.seeInCurrentUrl('/lab-grown-diamond-earrings-lab-created-diamond-earrings-lab-grown-diamond-jewellery')
-    I.waitForElement('.jewellery_detail_link', 10);
-
+    
+    waitResponseType('stud');
+    
     // ------------------------ METAL FILTER -----------------------------------
     // METAL: 18ct White Gold
     I.say('FILTER METAL: 18ct White Gold');
@@ -109,44 +120,44 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
 
     // ------------------------ TYPE FILTER -----------------------------------
     // TYPE: RINGS
-    I.forceClick('#jewellery_category_1')
+    // I.forceClick('#jewellery_category_1')
 
-    // FILTER TYPE: RINGS
-    I.say('TYPE METAL: RINGS');
-    I.forceClick('#jewellery_category_2');
-    I.seeCheckboxIsChecked('#jewellery_category_2');
-    waitResponseType('ring');
-    I.forceClick('#jewellery_category_2');
+    // // FILTER TYPE: RINGS
+    // I.say('TYPE METAL: RINGS');
+    // I.forceClick('#jewellery_category_2');
+    // I.seeCheckboxIsChecked('#jewellery_category_2');
+    // waitResponseType('ring');
+    // I.forceClick('#jewellery_category_2');
 
-    // FILTER TYPE: STUDS
-    I.say('TYPE METAL: STUDS');
-    I.forceClick('#earring_style_slug_1');
-    I.seeCheckboxIsChecked('#earring_style_slug_1');
-    waitResponseType('stud');
-    I.forceClick('#earring_style_slug_1');
+    // // FILTER TYPE: STUDS
+    // I.say('TYPE METAL: STUDS');
+    // I.forceClick('#earring_style_slug_1');
+    // I.seeCheckboxIsChecked('#earring_style_slug_1');
+    // waitResponseType('stud');
+    // I.forceClick('#earring_style_slug_1');
 
-    // FILTER TYPE: EARRINGS
-    I.say('TYPE METAL: EARRINGS');
-    I.forceClick('#jewellery_category_3');
-    I.seeCheckboxIsChecked('#jewellery_category_3');
-    waitResponseType('earring');
-    I.forceClick('#jewellery_category_3');
+    // // FILTER TYPE: EARRINGS
+    // I.say('TYPE METAL: EARRINGS');
+    // I.forceClick('#jewellery_category_3');
+    // I.seeCheckboxIsChecked('#jewellery_category_3');
+    // waitResponseType('earring');
+    // I.forceClick('#jewellery_category_3');
     
-    // FILTER TYPE: BRACELETS
-    I.say('TYPE METAL: BRACELETS');
-    I.forceClick('#jewellery_category_4');
-    I.seeCheckboxIsChecked('#jewellery_category_4');
-    waitResponseType('bracelet');
-    I.forceClick('#jewellery_category_4');
+    // // FILTER TYPE: BRACELETS
+    // I.say('TYPE METAL: BRACELETS');
+    // I.forceClick('#jewellery_category_4');
+    // I.seeCheckboxIsChecked('#jewellery_category_4');
+    // waitResponseType('bracelet');
+    // I.forceClick('#jewellery_category_4');
     
-    // FILTER TYPE: NECKLACES
-    I.say('TYPE METAL: NECKLACES');
-    I.forceClick('#jewellery_category_5');
-    I.seeCheckboxIsChecked('#jewellery_category_5');
-    waitResponseType('necklace');
-    I.forceClick('#jewellery_category_5');
+    // // FILTER TYPE: NECKLACES
+    // I.say('TYPE METAL: NECKLACES');
+    // I.forceClick('#jewellery_category_5');
+    // I.seeCheckboxIsChecked('#jewellery_category_5');
+    // waitResponseType('necklace');
+    // I.forceClick('#jewellery_category_5');
 
-    I.forceClick('#jewellery_category_1')
+    // I.forceClick('#jewellery_category_1')
 
     // ------------------------ PRICE FILTER -----------------------------------
     // PRICE $1000 and Under
