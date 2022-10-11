@@ -121,7 +121,6 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         waitResponseAndtext();        
         const cut = await I.grabTextFromAll('tbody tr td:nth-child(6)');
         for (const elem of cut) {
-            console.log('>>>>>>>', elem);
             if(option === 'ID/EX') {
                 if(elem !== "Excellent" && elem !== 'ID/EX' && elem !== '-') {
                     console.log('Error in the values obtained from the Cut filter');
@@ -165,7 +164,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 }
                 return true;
             }
-        }, 20);
+        }, 40);
     };
     // Check the Report filter
     async function checkReport(report) {
@@ -185,7 +184,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 }
                 return true;
             }
-        }, 20);
+        }, 40);
 
     };
     // Check the Symmetry filter
@@ -209,7 +208,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 }
                 return true;
             }
-        }, 20);
+        }, 40);
     };
     // Check the Ratio filter 
     function checkRatio() {

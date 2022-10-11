@@ -3,7 +3,6 @@ Feature('Diamond Jewellery - Diamond Studs');
 Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
 
     I.amOnPage('/');
-
     // Links of Engagement Rings ---------------------------------------------->
     I.say('LINKS OF ENGAGEMENT RINGS')
     I.say('START WITH A DIAMOND')
@@ -130,27 +129,27 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
     I.say('LINKS OF CONTACT - SHOWROOMS')
 
     I.say('AUSTRALIA - SIDNEY')
-    I.forceClick('Sydney (NSW)')
+    I.forceClick('Sydney (NSW)', '#collapse1')
     I.seeInCurrentUrl('/lab-grown-diamonds-sydney-lab-diamonds-sydney')
 
     I.say('AUSTRALIA - PARRAMATTA')
-    I.forceClick('Parramatta (NSW)')
+    I.forceClick('Parramatta (NSW)', '#collapse1')
     I.seeInCurrentUrl('/lab-grown-diamonds-parramatta-lab-diamonds-parramatta')
 
     I.say('AUSTRALIA - MELBOURNE')
-    I.forceClick('Melbourne (VIC)')
+    I.forceClick('Melbourne (VIC)', '#collapse1')
     I.seeInCurrentUrl('/lab-grown-diamonds-melbourne-lab-diamonds-melbourne')
 
     I.say('AUSTRALIA - PERTH')
-    I.forceClick('Perth (WA)')
+    I.forceClick('Perth (WA)', '#collapse1')
     I.seeInCurrentUrl('/lab-grown-diamonds-perth-lab-diamonds-perth')
 
     I.say('AUSTRALIA - ADELAIDE')
-    I.forceClick('Adelaide (SA)')
+    I.forceClick('Adelaide (SA)', '#collapse1')
     I.seeInCurrentUrl('/lab-grown-diamonds-adelaide-lab-diamonds-adelaide')
 
     I.say('AUSTRALIA - BRISBANE')
-    I.forceClick('Brisbane (QLD)')
+    I.forceClick('Brisbane (QLD)', '#collapse1')
     I.seeInCurrentUrl('/lab-grown-diamonds-brisbane-lab-diamonds-brisbane')
 
     I.say('SINGAPORE')

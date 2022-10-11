@@ -22,7 +22,7 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                 }
                 return true;
             }
-        }, 20);
+        }, 40);
     }
     const waitResponseStyleRing = (ringStyle) => {
         let results = [];
@@ -45,7 +45,7 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                 }
                 return true;             
             }
-        }, 20);
+        }, 40);
     }
     const waitResponseRingWidth = (ringWidth) => {
         let results = [];
@@ -79,7 +79,7 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                 }
                 return true;
             }
-        }, 20);
+        }, 40);
     }
     const waitResponseRingsPrice = (ringPrice) => {
         let results = [];
@@ -112,7 +112,7 @@ Scenario("Men's Wedding Rings", ({ I }) => {
                 }
                 return true;
             }
-        }, 20);
+        }, 40);
     }
 
     I.amOnPage('/');
