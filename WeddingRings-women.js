@@ -80,8 +80,6 @@ Scenario("Women's Wedding Rings", ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
                     for (let i = 0; i < total; i++) {
-                        console.log(`${i} >>>>>`, results[0].response.items[i].price);
-                        console.log(`${i} >>>>>`, ringPrice);
                         if(ringPrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
                                 console.log(`Error in response, expected elements with price under $1000 but not found.`);
