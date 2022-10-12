@@ -369,6 +369,12 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
     checkPriceLowToHigh();
 
+    I.say('SORT BY - LOW TO HIGH');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Price (High to Low)');
+    I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
+    checkPriceHighToLow();
+
 
 
 
