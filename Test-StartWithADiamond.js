@@ -129,7 +129,28 @@ Scenario('Buy a diamond', async ({ I }) => {
         }, waitTime)
     };
     const checkPriceHighToLow = () => {
-
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                    let previousValue = 0;
+                    for (let i = 0; i < total; i++) {
+                        console.log(results[0].response.items[i].price);
+                        // if(previousValue > results[0].response.items[i].price) {
+                        //     console.log(`>>> Error in values obtained from SORT BY filter: option LOW TO HIGH`)
+                        //     return false;
+                        // }
+                        // previousValue = results[0].response.items[i].price
+                    }
+                }else{
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;
+            }
+        }, waitTime)
     };
     
 
