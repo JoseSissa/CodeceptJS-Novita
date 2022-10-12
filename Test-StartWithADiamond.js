@@ -128,6 +128,9 @@ Scenario('Buy a diamond', async ({ I }) => {
             }
         }, waitTime)
     };
+    const checkPriceHighToLow = () => {
+
+    };
     
 
 
@@ -192,17 +195,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     }
     // Check Price sort by (high to low, low to high)
     
-    async function checkPriceHighToLow() {
-        let price = await I.grabTextFromAll('#ring_list_section .ring_detail_link .price');
-        // We remove the text up to the '$', then remove the ',' and convert it to a number
-        let previousNumber = (Number((price[0].slice(price[0].indexOf('$')+1).replace(',', ''))));
-        price.forEach(elem => {
-            if(previousNumber < Number((elem.slice(elem.indexOf('$')+1).replace(',', '')))) {
-                console.log('Error in ordering from highest to lowest price');
-            };
-            previousNumber = Number((elem.slice(elem.indexOf('$')+1).replace(',', '')));
-        });
-    };
+    
     
     
     
