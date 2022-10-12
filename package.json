@@ -9,6 +9,7 @@
         "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples",
         "codeceptjs:demo:headless": "HEADLESS=true codeceptjs run --steps -c node_modules/@codeceptjs/examples",
         "codeceptjs:demo:ui": "codecept-ui --app  -c node_modules/@codeceptjs/examples",
+        
         "url": "npx codeceptjs run Test-of-URL.js --steps",
         "test": "npx codeceptjs run Test-StartWithADiamond.js --steps",
         "looseDiamond": "npx codeceptjs run Test-BuyLooseDiamond.js --steps"

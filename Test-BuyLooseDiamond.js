@@ -89,14 +89,16 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         // I.wait(1);
         I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
         I.dragSlider("#search_form .diamond_filter_color_content .to", params.colour[option][1]);
-        waitResponseAndtext();
+        // waitResponseAndtext();
         const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
-        for (const elem of colors) {
-            if(elem !== option) {
-                I.see(option, 'td');
-                console.log('Error in the values obtained from the Colour filter');
-            }
-        };
+        if(colors.length > 0) {
+            for (const elem of colors) {
+                if(elem !== option) {
+                    I.see(option, 'td');
+                    console.log('Error in the values obtained from the Colour filter');
+                }
+            };
+        }
     };
     // Check the price filter
     async function checkPrice() {
