@@ -4,13 +4,11 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     const waitTime = 300; //Seconds
 
-    // Wait for response and text
+    // WAIT FOR TEXT IN THE TABLE
     const waitResponseInTable = () => {
         I.waitForText('Detail', waitTime, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
-    }
-    // Functions of metal types filters
-    // Option All
-    async function checkAllMetal() {
+    };
+    const checkTypeMetal = (typeMetal) => {
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/engagement-rings')) {
@@ -18,13 +16,10 @@ Scenario('Buy a diamond', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
-                        console.log('-->>>>>', results[0].response.items[i].metal_name);
-                        console.log('-->>>>>', results[0].response.items[i].metal_slug);
-                        
-                        if(elem !== '18ct White Gold' && elem !== '18ct Yellow Gold' && elem !== '18ct Rose Gold' && elem !== 'Platinum') {
-                            I.dontSee(elem);
-                            console.log('Error in values obtained from metal type filter option All');
-                        }
+                        if(!results[0].response.items[i].metal_name.toLowerCase().includes(typeMetal)) {
+                            console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()}`);
+                            return false;
+                        }                        
                     }
                 }else{
                     console.log('No record was found according to the filter in the response.');
@@ -33,55 +28,89 @@ Scenario('Buy a diamond', async ({ I }) => {
                 return true;
             }
         }, waitTime)
+    };
+    const checkDiamondShape = (shape) => {
+        let results = []
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
+                    for (let i = 0; i < total; i++) {
+                        if(!(results[0].response.items[i].shape_slug == shape)) {
+                            console.log(`>>> Error in values obtained from DIAMOND SHAPE filter: option ${typeMetal.toUpperCase()}`);
+                            return false;
+                        }
+                    }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;             
+            }
+        }, waitTime);
+    };
+    const checkDiamondStyle = (typeStyle) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
+                    for (let i = 0; i < total; i++) {
+                        let style = results[0].response.items[i].engagement_ring_styles.some(elem => elem.style_slug === typeStyle)
+                        if(!style) {
+                            console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${typeStyle.toUpperCase()}`);
+                            return false;
+                        }
+                    }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;             
+            }
+        }, waitTime);
+    };
+    const checkDiamondPrice = (typePrice) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
+                    for (let i = 0; i < total; i++) {
+                        if(typePrice == 'under') {
+                            if(!(results[0].response.items[i].price <= 1000)) {
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 and Under`);
+                                return false;
+                            }
+                        }else if(typePrice == 'between') {
+                            if(!(results[0].response.items[i].price >= 1000 && results[0].response.items[0].price <= 2000)) {
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 to $2000.`);
+                                return false;
+                            }
+                        }else if(typePrice == 'over') {
+                            if(!(results[0].response.items[i].price > 2000)) {
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option over $2000`);
+                                return false;
+                            }
+                        }
+                    }
+                }else {
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;
+            }
+        }, waitTime);
+    };
+    
 
 
 
 
 
-        const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
-        for (const elem of metals) {
-            if(elem !== '18ct White Gold' && elem !== '18ct Yellow Gold' && elem !== '18ct Rose Gold' && elem !== 'Platinum') {
-                I.dontSee(elem);
-                console.log('Error in values obtained from metal type filter option All');
-            }
-        };
-    };
-    // Option White Gold
-    async function checkWhiteMetal() {
-        const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
-        for (const elem of metals) {
-            if(elem !== "18ct White Gold") {
-                console.log('Error in values obtained from metal type filter option White Gold');
-            }
-        }
-    };
-    // Option Yellow Gold
-    async function checkYellowMetal() {
-        const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
-        for (const elem of metals) {
-            if(elem !== "18ct Yellow Gold") {
-                console.log('Error in values obtained from metal type filter option Yellow Gold');
-            }
-        }
-    };
-    // Option Rose Gold
-    async function checkRoseMetal() {
-        const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
-        for (const elem of metals) {
-            if(!(elem.includes('Rose Gold'))) {
-                console.log('Error in values obtained from metal type filter option Rose Gold');
-            }
-        }
-    };
-    // Option Rose Gold
-    async function checkPlatinumMetal() {
-        const metals = await I.grabTextFromAll('#ring_list_section .ring_item .metal_type');
-        for (const elem of metals) {
-            if(elem !== "Platinum") {
-                console.log('Error in values obtained from metal type filter option Platinum');
-            }
-        }
-    };
     // Functions of Price filter
     // 1000 and under
     async function checkPrice1000andUnder() {
@@ -188,85 +217,9 @@ Scenario('Buy a diamond', async ({ I }) => {
             previousNumber = Number((elem.slice(elem.indexOf('$')+1).replace(',', '')));
         });
     };
-    function waitForResponseShape (shape) {
-        let results = []
-        I.waitForResponse(async res => {
-            if(res.url().includes('/api/product/engagement-rings')) {
-                results.push(await res.json());
-                if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
-                    // Analize the first 10 elements from response
-                    for (let i = 0; i < total; i++) {
-                        // console.log('<<<<<<', shape);
-                        // console.log('>>>>>>', results[0].response.items[i].shape_slug);
-                        if(!(results[0].response.items[i].shape_slug == shape)) {
-                            console.log(`Error in response, Diamond Shape, expected elements with Diamond Shape: ${ringStyle} but not found.`);
-                            return false;
-                        }
-                    }
-                }else {
-                    console.log('No record was found according to the filter in the response.');
-                    return true;
-                }
-                return true;             
-            }
-        }, 40);
-    }
-    function waitForResponseStyle (ringStyle) {
-        let results = [];
-        I.waitForResponse(async res => {
-            if(res.url().includes('/api/product/engagement-rings')) {
-                results.push(await res.json());
-                if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
-                    // Analize the first 10 elements from response
-                    for (let i = 0; i < total; i++) {
-                        let style = results[0].response.items[i].engagement_ring_styles.some(elem => elem.style_slug === ringStyle)
-                        if(!style) {
-                            console.log(`Error in response, Style filter, expected elements with Ring styles: ${ringStyle} but not found.`);
-                            return false;
-                        }
-                    }
-                }
-                return true;             
-            }
-        }, 40);
-    }
-    function waitResponseRingsPrice (ringPrice) {
-        let results = [];
-        I.waitForResponse(async res => {
-            if(res.url().includes('/api/product/engagement-rings')) {
-                results.push(await res.json());
-                if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
-                    for (let i = 0; i < total; i++) {
-                        // console.log('>>>>>', ringPrice);
-                        // console.log('>>>>>', results[0].response.items[i].price);
-                        if(ringPrice == 'under') {
-                            if(!(results[0].response.items[i].price <= 1000)) {
-                                console.log(`Error in response, expected elements with price under $1000 but not found.`);
-                                return false;
-                            }
-                        }else if(ringPrice == 'between') {
-                            if(!(results[0].response.items[i].price >= 1000 && results[0].response.items[0].price <= 2000)) {
-                                console.log(`Error in response, expected elements with price between $1000 to $2000 but not found.`);
-                                return false;
-                            }
-                        }else if(ringPrice == 'over') {
-                            if(!(results[0].response.items[i].price > 2000)) {
-                                console.log(`Error in response, expected elements with price above $2000 but not found.`);
-                                return false;
-                            }
-                        }
-                    }
-                }else {
-                    console.log('No record was found according to the filter in the response.');
-                    return true
-                }
-                return true;
-            }
-        }, 40);
-    }
+    
+    
+    
 
     
     // ----------------------------------------------------
@@ -290,136 +243,131 @@ Scenario('Buy a diamond', async ({ I }) => {
     waitResponseInTable()
 
     //  SELECT A DIAMOND
-    //------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------
     I.say('SELECT ONE DIAMOND')
     I.click('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a')
     I.waitForElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[1]', waitTime)
     I.click('Choose this diamond', '//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[1]')
-    I.waitForText('CREATE YOUR RING', waitTime, '//*[@id="select_ring_instructions"]/section/div/div/div[1]');
+    I.waitForText('CREATE YOUR RING', waitTime, '//*[@id="select_ring_instructions"]/section/div/div/div[1]')    
 
-    
+    // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
+    I.say('FILTER CHECK - METAL TYPE')
+    I.forceClick('#metal_type_1')
 
-    // Filter metal type
-    I.say('FILTER CHECK - METAL TYPE');
-    I.forceClick('#metal_type_1');
-    checkAllMetal();
+    I.say('METAL TYPE - WHITE GOLD')
+    I.forceClick('#metal_type_3')
+    I.seeCheckboxIsChecked('#metal_type_3')
+    checkTypeMetal('white gold')
+    I.forceClick('#metal_type_3')
 
-
-    pause()
-
-    I.say('METAL TYPE - WHITE GOLD');
-    I.forceClick('#metal_type_3');
-    I.wait(3);
-    checkWhiteMetal();
-    I.forceClick('#metal_type_3');
+    I.say('METAL TYPE - YELLOW GOLD')
+    I.forceClick('#metal_type_5')
+    I.seeCheckboxIsChecked('#metal_type_5')
+    checkTypeMetal('yellow gold')
     I.forceClick('#metal_type_5');
-    I.wait(3);
-    checkYellowMetal();
-    I.forceClick('#metal_type_5');
-    I.forceClick('#metal_type_4');
-    I.wait(3);
-    checkRoseMetal();
-    I.forceClick('#metal_type_4');
-    I.forceClick('#metal_type_2');
-    I.wait(3);
-    checkPlatinumMetal();
-    I.forceClick('#metal_type_2');
-    I.wait(3);
 
+    I.say('METAL TYPE - ROSE GOLD')
+    I.forceClick('#metal_type_4');
+    I.seeCheckboxIsChecked('#metal_type_4')
+    checkTypeMetal('rose gold')
+    I.forceClick('#metal_type_4');
 
-    // Filter DIAMOND SHAPE
+    I.say('METAL TYPE - ROSE GOLD')
+    I.forceClick('#metal_type_2');
+    I.seeCheckboxIsChecked('#metal_type_2')
+    checkTypeMetal('platinum')
+    I.forceClick('#metal_type_2');
+
+    // -------------------------------------------- DIAMOND SHAPE FILTER --------------------------------------------
     I.say('DIAMOND SHAPE FILTER')
     I.forceClick('#diamond_shape_1')
 
-    I.say('ROUND')
+    I.say('DIAMOND SHAPE - ROUND')
     I.forceClick('#diamond_shape_2')
-    waitForResponseShape('round')
+    checkDiamondShape('round')
     I.forceClick('#diamond_shape_2')
 
-    I.say('PEAR')
+    I.say('DIAMOND SHAPE - PEAR')
     I.forceClick('#diamond_shape_7')
-    waitForResponseShape('pear')
+    checkDiamondShape('pear')
     I.forceClick('#diamond_shape_7')
 
-    I.say('OVAL')
+    I.say('DIAMOND SHAPE - OVAL')
     I.forceClick('#diamond_shape_5')
-    waitForResponseShape('oval')
+    checkDiamondShape('oval')
     I.forceClick('#diamond_shape_5')
 
-    I.say('EMERALD')
+    I.say('DIAMOND SHAPE - EMERALD')
     I.forceClick('#diamond_shape_6')
-    waitForResponseShape('emerald')
+    checkDiamondShape('emerald')
     I.forceClick('#diamond_shape_6')
 
-    I.say('CUSHION')
+    I.say('DIAMOND SHAPE - CUSHION')
     I.forceClick('#diamond_shape_4')
-    waitForResponseShape('cushion')
+    checkDiamondShape('cushion')
     I.forceClick('#diamond_shape_4')
 
-    I.say('PRINCESS')
+    I.say('DIAMOND SHAPE - PRINCESS')
     I.forceClick('#diamond_shape_3')
-    waitForResponseShape('princess')
+    checkDiamondShape('princess')
     I.forceClick('#diamond_shape_3')
 
-    I.say('RADIANT')
+    I.say('DIAMOND SHAPE - RADIANT')
     I.forceClick('#diamond_shape_8')
-    waitForResponseShape('radiant')
+    checkDiamondShape('radiant')
     I.forceClick('#diamond_shape_8')
 
-    I.say('ASSCHER')
+    I.say('DIAMOND SHAPE - ASSCHER')
     I.forceClick('#diamond_shape_9')
-    waitForResponseShape('asscher')
+    checkDiamondShape('asscher')
     I.forceClick('#diamond_shape_9')
 
     I.forceClick('#diamond_shape_1')
 
-    // Filter DIAMOND SHAPE
+    // -------------------------------------------- DIAMOND STYLE FILTER --------------------------------------------
     I.say('DIAMOND STYLE FILTER')
     I.forceClick('#engagement_ring_style_1')
 
-    I.say('SOLITAIRE')
+    I.say('DIAMOND STYLE - SOLITAIRE')
     I.forceClick('#engagement_ring_style_2')
-    waitForResponseStyle('solitaire')
+    checkDiamondStyle('solitaire')
     I.forceClick('#engagement_ring_style_2')
 
-    I.say('SIDE STONE')
+    I.say('DIAMOND STYLE - SIDE STONE')
     I.forceClick('#engagement_ring_style_4')
-    waitForResponseStyle('side-stone')
+    checkDiamondStyle('side-stone')
     I.forceClick('#engagement_ring_style_4')
 
-    I.say('HALO')
+    I.say('DIAMOND STYLE - HALO')
     I.forceClick('#engagement_ring_style_3')
-    waitForResponseStyle('halo')
+    checkDiamondStyle('halo')
     I.forceClick('#engagement_ring_style_3')
 
-    I.say('THREE STONE')
+    I.say('DIAMOND STYLE - THREE STONE')
     I.forceClick('#engagement_ring_style_5')
-    waitForResponseStyle('three-stone')
+    checkDiamondStyle('three-stone')
     I.forceClick('#engagement_ring_style_5')
 
     I.forceClick('#engagement_ring_style_1')
 
-
-    // ------------------------ PRICE FILTER -----------------------------------
-    // PRICE $1000 and Under
-    I.say('PRICE $1000 and Under');
+    // -------------------------------------------- DIAMOND PRICE FILTER --------------------------------------------
+    I.say('DIAMOND PRICE FILTER')
+    I.say('PRICE - $1000 and Under');
     I.forceClick('#setting_price_range_2');
     I.seeCheckboxIsChecked('#setting_price_range_2');
-    waitResponseRingsPrice('under');
+    checkDiamondPrice('under');
     I.forceClick('#setting_price_range_2');
 
-    // PRICE BETWEEN $1000 to $2000
-    I.say('PRICE BETWEEN $1000 to $2000');
+    I.say('PRICE - BETWEEN $1000 to $2000');
     I.forceClick('#setting_price_range_3');
     I.seeCheckboxIsChecked('#setting_price_range_3');
-    waitResponseRingsPrice('between');
+    checkDiamondPrice('between');
     I.forceClick('#setting_price_range_3');
 
-    // PRICE Over $2000
-    I.say('PRICE OVER $2000');
+    I.say('PRICE - OVER $2000');
     I.forceClick('#setting_price_range_4');
     I.seeCheckboxIsChecked('#setting_price_range_4');
-    waitResponseRingsPrice('over');
+    checkDiamondPrice('over');
     I.forceClick('#setting_price_range_4');
     
     I.forceClick('#setting_price_range_1');
@@ -429,7 +377,7 @@ Scenario('Buy a diamond', async ({ I }) => {
 
 
 
-
+    pause()
 
 
 
