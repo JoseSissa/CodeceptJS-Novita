@@ -138,6 +138,7 @@ Scenario('Buy a diamond', async ({ I }) => {
                     let previousValue = 0;
                     for (let i = 0; i < total; i++) {
                         console.log(results[0].response.items[i].price);
+                        
                         // if(previousValue > results[0].response.items[i].price) {
                         //     console.log(`>>> Error in values obtained from SORT BY filter: option LOW TO HIGH`)
                         //     return false;
