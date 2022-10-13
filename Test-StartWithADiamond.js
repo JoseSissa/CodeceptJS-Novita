@@ -114,7 +114,7 @@ Scenario('Buy a diamond', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     let previousValue = 0;
                     for (let i = 0; i < total; i++) {
-                        if(previousValue > results[0].response.items[i].price) {
+                        if(!(previousValue <= results[0].response.items[i].price)) {
                             console.log(`>>> Error in values obtained from SORT BY filter: option LOW TO HIGH`)
                             return false;
                         }
@@ -136,8 +136,10 @@ Scenario('Buy a diamond', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     let previousValue = Number.MAX_SAFE_INTEGER;
-                    for (let i = 0; i < total; i++) {                      
-                        if(previousValue < results[0].response.items[i].price) {
+                    for (let i = 0; i < total; i++) {          
+                        console.log('Previous', previousValue);            
+                        console.log('Value response', results[0].response.items[i].price);            
+                        if(!(previousValue >= results[0].response.items[i].price)) {
                             console.log(`>>> Error in values obtained from SORT BY filter: option LOW TO HIGH`)
                             return false;
                         }
@@ -151,6 +153,24 @@ Scenario('Buy a diamond', async ({ I }) => {
             }
         }, waitTime)
     };
+    const checkSortByNewest = () => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    if(!(results[0].response.items[0].is_new)) {
+                        console.log(`>>> No record found with the tag NEW`)
+                        return false;
+                    }
+                }else{
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;
+            }
+        }, waitTime)
+    }
     
 
 
@@ -245,6 +265,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     //----------------------------------------------------------------------------------------------------------
     I.say('SELECT ONE DIAMOND')
     I.waitForText('Detail', waitTime, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
+    I.see('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
     I.click('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
     I.waitForElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[1]', waitTime)
     I.click('Choose this diamond', '//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[1]')
@@ -388,6 +409,11 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
     checkPriceHighToLow();
 
+    I.say('SORT BY: NEWEST');
+    I.click('#jewellery_order_section #dropdownMenuButton');
+    I.click('Newest');
+    I.see('Sort by: Newest', '#dropdownMenuButton');
+    checkSortByNewest()
 
 
 
@@ -395,11 +421,10 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     
 
-    I.say('SORT BY: NEWEST');
-    I.click('#jewellery_order_section #dropdownMenuButton');
-    I.click('Newest');
-    I.wait(3);
-    I.see('Sort by: Newest', '#dropdownMenuButton');
+
+
+
+
     const isNew = await I.grabCssPropertyFrom('//*[@id="ring_list_section"]/div/div[1]/a/div[1]', 'background-image');
     if(!isNew.includes('icon_new')) {
         console.log('Error to sort from newest');
