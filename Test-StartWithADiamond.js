@@ -170,26 +170,40 @@ Scenario('Buy a diamond', async ({ I }) => {
                 return true;
             }
         }, waitTime)
-    }
-    
-
-
-
-
-
-    
-    // Search input Ring design
-    async function searchInputRingDesign() {
-        I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', 'Allegro accent');
-        I.pressKey('Enter');
-        I.wait(3);
-        const results = await I.grabTextFromAll('#ring_list_section .ring_item .name');
-        for (const elem of results) {
-            if(!(elem.includes('Allegro Accent'))) {
-                console.log('Error in values obtained from input search in Ring Design.');
-            }
-        }
     };
+    const searchInputRingDesign = (name) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    if(!(results[0].response.items[0].name.toLowerCase().includes(name))) {
+                        console.log(`>>> No record was found with the SEARCH TEXT entered`)
+                        return false;
+                    }
+                }else{
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;
+            }
+        }, waitTime)
+    };
+    
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
     // Check personalise your ring
     function checkPersonaliseYourRing() {
         I.wait(3);
@@ -394,26 +408,40 @@ Scenario('Buy a diamond', async ({ I }) => {
     // I.forceClick('#setting_price_range_1');
 
     // -------------------------------------------- SORT BY --------------------------------------------
-    I.say('CHECK - SORT BY')
-    I.see('Sort by: Best Sellers', '#dropdownMenuButton');
+    // I.say('CHECK - SORT BY')
+    // I.see('Sort by: Best Sellers', '#dropdownMenuButton');
 
-    I.say('SORT BY - LOW TO HIGH');
-    I.click('#jewellery_order_section #dropdownMenuButton');
-    I.click('Price (Low to High)');
-    I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
-    checkPriceLowToHigh();
+    // I.say('SORT BY - LOW TO HIGH');
+    // I.click('#jewellery_order_section #dropdownMenuButton');
+    // I.click('Price (Low to High)');
+    // I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
+    // checkPriceLowToHigh();
 
-    I.say('SORT BY - HIGH TO LOW');
-    I.click('#jewellery_order_section #dropdownMenuButton');
-    I.click('Price (High to Low)');
-    I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
-    checkPriceHighToLow();
+    // I.say('SORT BY - HIGH TO LOW');
+    // I.click('#jewellery_order_section #dropdownMenuButton');
+    // I.click('Price (High to Low)');
+    // I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
+    // checkPriceHighToLow();
 
-    I.say('SORT BY: NEWEST');
-    I.click('#jewellery_order_section #dropdownMenuButton');
-    I.click('Newest');
-    I.see('Sort by: Newest', '#dropdownMenuButton');
-    checkSortByNewest()
+    // I.say('SORT BY: NEWEST');
+    // I.click('#jewellery_order_section #dropdownMenuButton');
+    // I.click('Newest');
+    // I.see('Sort by: Newest', '#dropdownMenuButton');
+    // checkSortByNewest()
+
+    // I.say('SORT BY: BEST SELLERS');
+    // I.click('#jewellery_order_section #dropdownMenuButton');
+    // I.click('Best Sellers');
+    // I.see('Sort by: Best Sellers', '#dropdownMenuButton');
+
+    // -------------------------------------------- SEARCH INPUT FILTER --------------------------------------------
+    I.say('TEXT SEARCH INPUT');
+    I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', 'Allegro accent');
+    I.pressKey('Enter');
+    searchInputRingDesign('allegro accent');
+
+    I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', '');
+    I.pressKey('Enter');
 
 
 
@@ -421,27 +449,8 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     
 
-
-
-
-
-    const isNew = await I.grabCssPropertyFrom('//*[@id="ring_list_section"]/div/div[1]/a/div[1]', 'background-image');
-    if(!isNew.includes('icon_new')) {
-        console.log('Error to sort from newest');
-    };
-
-    I.say('SORT BY: BEST SELLERS');
-    I.click('#jewellery_order_section #dropdownMenuButton');
-    I.click('Best Sellers');
-    I.wait(3);
-    I.see('Sort by: Best Sellers', '#dropdownMenuButton');
-
     
-    // Text Search input
-    I.say('TEXT SEARCH INPUT');
-    searchInputRingDesign();
-    I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', '');
-    I.pressKey('Enter');
+    
     
     // Click in the first
     I.say('FIRST ITEM SELECTED');
