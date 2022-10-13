@@ -135,15 +135,13 @@ Scenario('Buy a diamond', async ({ I }) => {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
-                    let previousValue = 0;
-                    for (let i = 0; i < total; i++) {
-                        console.log(results[0].response.items[i].price);
-                        
-                        // if(previousValue > results[0].response.items[i].price) {
-                        //     console.log(`>>> Error in values obtained from SORT BY filter: option LOW TO HIGH`)
-                        //     return false;
-                        // }
-                        // previousValue = results[0].response.items[i].price
+                    let previousValue = Number.MAX_SAFE_INTEGER;
+                    for (let i = 0; i < total; i++) {                      
+                        if(previousValue < results[0].response.items[i].price) {
+                            console.log(`>>> Error in values obtained from SORT BY filter: option LOW TO HIGH`)
+                            return false;
+                        }
+                        previousValue = results[0].response.items[i].price
                     }
                 }else{
                     console.log('No record was found according to the filter in the response.');
@@ -384,13 +382,11 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
     checkPriceLowToHigh();
 
-    I.say('SORT BY - LOW TO HIGH');
+    I.say('SORT BY - HIGH TO LOW');
     I.click('#jewellery_order_section #dropdownMenuButton');
     I.click('Price (High to Low)');
-    I.see('Sort by: Price (Low to High)', '#dropdownMenuButton');
+    I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
     checkPriceHighToLow();
-
-
 
 
 
@@ -398,15 +394,6 @@ Scenario('Buy a diamond', async ({ I }) => {
     pause()
 
     
-
-    
-
-    I.say('SORT BY: HIGH TO LOW');
-    I.click('#jewellery_order_section #dropdownMenuButton');
-    I.click('Price (High to Low)');
-    I.wait(3);
-    I.see('Sort by: Price (High to Low)', '#dropdownMenuButton');
-    checkPriceHighToLow();
 
     I.say('SORT BY: NEWEST');
     I.click('#jewellery_order_section #dropdownMenuButton');
