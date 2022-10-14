@@ -411,9 +411,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     //----------------------------------------------- PRICE FILTER -----------------------------------------------
     I.say('CHECKING PRICE FILTER');
     checkDiamondPrice();
-
-
     
+
+
+
     
     pause();
     

@@ -3,8 +3,6 @@ Feature('Start with a Diamond');
 Scenario('Buy a diamond', async ({ I }) => {
 
     const waitTime = 300; //Seconds
-
-    // WAIT FOR TEXT IN THE TABLE
     const waitResponseInTable = () => {
         I.waitForText('Detail', waitTime, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
     };
@@ -187,7 +185,7 @@ Scenario('Buy a diamond', async ({ I }) => {
             }
         }, waitTime)
     };
-    function checkPersonaliseYourRing() {
+    const checkPersonaliseYourRing = () => {
         I.waitForText('PERSONALISE YOUR RING', waitTime, 'h2')
         I.see('PERSONALISE YOUR RING');
         I.say('CLAW STYLE');
@@ -213,25 +211,7 @@ Scenario('Buy a diamond', async ({ I }) => {
         I.see('Diamond Setting: Medium-Low');
         I.click('#save_store_personalisation');
     };
-    
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-    // Check personalise your ring
-    
-    // Form drop a Hint
-    function formDropAHint() {
+    const formDropAHint = () => {
         I.fillField('#drop_hint_recipientName', 'Jose Testing');
         I.fillField('#drop_hint_recipientEmail', 'testing@testing.com');
         I.fillField('#drop_hint_message', 'Test form, please ignore this request.');
@@ -241,19 +221,11 @@ Scenario('Buy a diamond', async ({ I }) => {
         I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
         pause();
         I.click('#drop_hint_send');
-        // I.wait(3);
         I.waitForText('MESSAGE SENT', waitTime)
         I.see('MESSAGE SENT');
         I.click('.modal-content .modal-body button');
-    }
-    // Check Price sort by (high to low, low to high)
-    
-    
-    
-    
-    
+    };
 
-    
     // ----------------------------------------------------
     // ----------------------------------------------------
     I.amOnPage("/")
@@ -263,16 +235,16 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     // CHECKING RING GUIDE BAR
     //------------------------------------------------------------------------------
-    // I.say('CHECKING RING GUIDE BAR')
-    // I.say('STEP - RING DESIGN')
-    // I.waitForElement('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a', waitTime)
-    // I.forceClick('Browse settings', '//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
-    // I.seeInCurrentUrl('/engagement-ring/create/ring')
-    // I.waitForElement('//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a', waitTime)
-    // I.say('STEP - SELECT DIAMOND')
-    // I.forceClick('Browse diamonds', '//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a')
-    // I.seeInCurrentUrl('/engagement-ring/create/diamond')
-    // waitResponseInTable()
+    I.say('CHECKING RING GUIDE BAR')
+    I.say('STEP - RING DESIGN')
+    I.waitForElement('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a', waitTime)
+    I.forceClick('Browse settings', '//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
+    I.seeInCurrentUrl('/engagement-ring/create/ring')
+    I.waitForElement('//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a', waitTime)
+    I.say('STEP - SELECT DIAMOND')
+    I.forceClick('Browse diamonds', '//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a')
+    I.seeInCurrentUrl('/engagement-ring/create/diamond')
+    waitResponseInTable()
 
     //  SELECT A DIAMOND
     //----------------------------------------------------------------------------------------------------------
@@ -285,126 +257,126 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.waitForText('CREATE YOUR RING', waitTime, '//*[@id="select_ring_instructions"]/section/div/div/div[1]')    
 
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
-    // I.say('FILTER CHECK - METAL TYPE')
-    // I.forceClick('#metal_type_1')
+    I.say('FILTER CHECK - METAL TYPE')
+    I.forceClick('#metal_type_1')
 
-    // I.say('METAL TYPE - WHITE GOLD')
-    // I.forceClick('#metal_type_3')
-    // I.seeCheckboxIsChecked('#metal_type_3')
-    // checkTypeMetal('white gold')
-    // I.forceClick('#metal_type_3')
+    I.say('METAL TYPE - WHITE GOLD')
+    I.forceClick('#metal_type_3')
+    I.seeCheckboxIsChecked('#metal_type_3')
+    checkTypeMetal('white gold')
+    I.forceClick('#metal_type_3')
 
-    // I.say('METAL TYPE - YELLOW GOLD')
-    // I.forceClick('#metal_type_5')
-    // I.seeCheckboxIsChecked('#metal_type_5')
-    // checkTypeMetal('yellow gold')
-    // I.forceClick('#metal_type_5')
+    I.say('METAL TYPE - YELLOW GOLD')
+    I.forceClick('#metal_type_5')
+    I.seeCheckboxIsChecked('#metal_type_5')
+    checkTypeMetal('yellow gold')
+    I.forceClick('#metal_type_5')
 
-    // I.say('METAL TYPE - ROSE GOLD')
-    // I.forceClick('#metal_type_4')
-    // I.seeCheckboxIsChecked('#metal_type_4')
-    // checkTypeMetal('rose gold')
-    // I.forceClick('#metal_type_4')
+    I.say('METAL TYPE - ROSE GOLD')
+    I.forceClick('#metal_type_4')
+    I.seeCheckboxIsChecked('#metal_type_4')
+    checkTypeMetal('rose gold')
+    I.forceClick('#metal_type_4')
 
-    // I.say('METAL TYPE - ROSE GOLD')
-    // I.forceClick('#metal_type_2');
-    // I.seeCheckboxIsChecked('#metal_type_2')
-    // checkTypeMetal('platinum')
-    // I.forceClick('#metal_type_2')
+    I.say('METAL TYPE - ROSE GOLD')
+    I.forceClick('#metal_type_2');
+    I.seeCheckboxIsChecked('#metal_type_2')
+    checkTypeMetal('platinum')
+    I.forceClick('#metal_type_2')
 
     // -------------------------------------------- DIAMOND SHAPE FILTER --------------------------------------------
-    // I.say('DIAMOND SHAPE FILTER')
-    // I.forceClick('#diamond_shape_1')
+    I.say('DIAMOND SHAPE FILTER')
+    I.forceClick('#diamond_shape_1')
 
-    // I.say('DIAMOND SHAPE - ROUND')
-    // I.forceClick('#diamond_shape_2')
-    // checkDiamondShape('round')
-    // I.forceClick('#diamond_shape_2')
+    I.say('DIAMOND SHAPE - ROUND')
+    I.forceClick('#diamond_shape_2')
+    checkDiamondShape('round')
+    I.forceClick('#diamond_shape_2')
 
-    // I.say('DIAMOND SHAPE - PEAR')
-    // I.forceClick('#diamond_shape_7')
-    // checkDiamondShape('pear')
-    // I.forceClick('#diamond_shape_7')
+    I.say('DIAMOND SHAPE - PEAR')
+    I.forceClick('#diamond_shape_7')
+    checkDiamondShape('pear')
+    I.forceClick('#diamond_shape_7')
 
-    // I.say('DIAMOND SHAPE - OVAL')
-    // I.forceClick('#diamond_shape_5')
-    // checkDiamondShape('oval')
-    // I.forceClick('#diamond_shape_5')
+    I.say('DIAMOND SHAPE - OVAL')
+    I.forceClick('#diamond_shape_5')
+    checkDiamondShape('oval')
+    I.forceClick('#diamond_shape_5')
 
-    // I.say('DIAMOND SHAPE - EMERALD')
-    // I.forceClick('#diamond_shape_6')
-    // checkDiamondShape('emerald')
-    // I.forceClick('#diamond_shape_6')
+    I.say('DIAMOND SHAPE - EMERALD')
+    I.forceClick('#diamond_shape_6')
+    checkDiamondShape('emerald')
+    I.forceClick('#diamond_shape_6')
 
-    // I.say('DIAMOND SHAPE - CUSHION')
-    // I.forceClick('#diamond_shape_4')
-    // checkDiamondShape('cushion')
-    // I.forceClick('#diamond_shape_4')
+    I.say('DIAMOND SHAPE - CUSHION')
+    I.forceClick('#diamond_shape_4')
+    checkDiamondShape('cushion')
+    I.forceClick('#diamond_shape_4')
 
-    // I.say('DIAMOND SHAPE - PRINCESS')
-    // I.forceClick('#diamond_shape_3')
-    // checkDiamondShape('princess')
-    // I.forceClick('#diamond_shape_3')
+    I.say('DIAMOND SHAPE - PRINCESS')
+    I.forceClick('#diamond_shape_3')
+    checkDiamondShape('princess')
+    I.forceClick('#diamond_shape_3')
 
-    // I.say('DIAMOND SHAPE - RADIANT')
-    // I.forceClick('#diamond_shape_8')
-    // checkDiamondShape('radiant')
-    // I.forceClick('#diamond_shape_8')
+    I.say('DIAMOND SHAPE - RADIANT')
+    I.forceClick('#diamond_shape_8')
+    checkDiamondShape('radiant')
+    I.forceClick('#diamond_shape_8')
 
-    // I.say('DIAMOND SHAPE - ASSCHER')
-    // I.forceClick('#diamond_shape_9')
-    // checkDiamondShape('asscher')
-    // I.forceClick('#diamond_shape_9')
+    I.say('DIAMOND SHAPE - ASSCHER')
+    I.forceClick('#diamond_shape_9')
+    checkDiamondShape('asscher')
+    I.forceClick('#diamond_shape_9')
 
-    // I.forceClick('#diamond_shape_1')
+    I.forceClick('#diamond_shape_1')
 
     // -------------------------------------------- DIAMOND STYLE FILTER --------------------------------------------
-    // I.say('DIAMOND STYLE FILTER')
-    // I.forceClick('#engagement_ring_style_1')
+    I.say('DIAMOND STYLE FILTER')
+    I.forceClick('#engagement_ring_style_1')
 
-    // I.say('DIAMOND STYLE - SOLITAIRE')
-    // I.forceClick('#engagement_ring_style_2')
-    // checkDiamondStyle('solitaire')
-    // I.forceClick('#engagement_ring_style_2')
+    I.say('DIAMOND STYLE - SOLITAIRE')
+    I.forceClick('#engagement_ring_style_2')
+    checkDiamondStyle('solitaire')
+    I.forceClick('#engagement_ring_style_2')
 
-    // I.say('DIAMOND STYLE - SIDE STONE')
-    // I.forceClick('#engagement_ring_style_4')
-    // checkDiamondStyle('side-stone')
-    // I.forceClick('#engagement_ring_style_4')
+    I.say('DIAMOND STYLE - SIDE STONE')
+    I.forceClick('#engagement_ring_style_4')
+    checkDiamondStyle('side-stone')
+    I.forceClick('#engagement_ring_style_4')
 
-    // I.say('DIAMOND STYLE - HALO')
-    // I.forceClick('#engagement_ring_style_3')
-    // checkDiamondStyle('halo')
-    // I.forceClick('#engagement_ring_style_3')
+    I.say('DIAMOND STYLE - HALO')
+    I.forceClick('#engagement_ring_style_3')
+    checkDiamondStyle('halo')
+    I.forceClick('#engagement_ring_style_3')
 
-    // I.say('DIAMOND STYLE - THREE STONE')
-    // I.forceClick('#engagement_ring_style_5')
-    // checkDiamondStyle('three-stone')
-    // I.forceClick('#engagement_ring_style_5')
+    I.say('DIAMOND STYLE - THREE STONE')
+    I.forceClick('#engagement_ring_style_5')
+    checkDiamondStyle('three-stone')
+    I.forceClick('#engagement_ring_style_5')
 
-    // I.forceClick('#engagement_ring_style_1')
+    I.forceClick('#engagement_ring_style_1')
 
     // -------------------------------------------- DIAMOND PRICE FILTER --------------------------------------------
-    // I.say('DIAMOND PRICE FILTER')
-    // I.say('PRICE - $1000 and Under');
-    // I.forceClick('#setting_price_range_2');
-    // I.seeCheckboxIsChecked('#setting_price_range_2');
-    // checkDiamondPrice('under');
-    // I.forceClick('#setting_price_range_2');
+    I.say('DIAMOND PRICE FILTER')
+    I.say('PRICE - $1000 and Under');
+    I.forceClick('#setting_price_range_2');
+    I.seeCheckboxIsChecked('#setting_price_range_2');
+    checkDiamondPrice('under');
+    I.forceClick('#setting_price_range_2');
 
-    // I.say('PRICE - BETWEEN $1000 to $2000');
-    // I.forceClick('#setting_price_range_3');
-    // I.seeCheckboxIsChecked('#setting_price_range_3');
-    // checkDiamondPrice('between');
-    // I.forceClick('#setting_price_range_3');
+    I.say('PRICE - BETWEEN $1000 to $2000');
+    I.forceClick('#setting_price_range_3');
+    I.seeCheckboxIsChecked('#setting_price_range_3');
+    checkDiamondPrice('between');
+    I.forceClick('#setting_price_range_3');
 
-    // I.say('PRICE - OVER $2000');
-    // I.forceClick('#setting_price_range_4');
-    // I.seeCheckboxIsChecked('#setting_price_range_4');
-    // checkDiamondPrice('over');
-    // I.forceClick('#setting_price_range_4');
+    I.say('PRICE - OVER $2000');
+    I.forceClick('#setting_price_range_4');
+    I.seeCheckboxIsChecked('#setting_price_range_4');
+    checkDiamondPrice('over');
+    I.forceClick('#setting_price_range_4');
     
-    // I.forceClick('#setting_price_range_1');
+    I.forceClick('#setting_price_range_1');
 
     // -------------------------------------------- SORT BY --------------------------------------------
     I.say('CHECK - SORT BY')
@@ -486,7 +458,6 @@ Scenario('Buy a diamond', async ({ I }) => {
     waitResponseInTable()
     I.see('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
     I.forceClick('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
-    I.waitForText('Choose this diamond', waitTime, '//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[2]')
     I.seeElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]')
     I.click('Choose this diamond');
     I.waitForText('Review Your Ring', waitTime, 'h2')
@@ -510,23 +481,12 @@ Scenario('Buy a diamond', async ({ I }) => {
     // -------------------------------------------- RING SIZE --------------------------------------------
     I.say('RING SIZE')
     I.seeElement('//*[@id="engagement_ring_summary"]/div[2]/div[2]/div[9]/div[4]/a')
-    // I.forceClick('#select_ring_size')
     I.selectOption('#select_ring_size', '1')
-
-    pause()
-
     // -------------------------------------------- DROP A HINT --------------------------------------------
-    // 
-    // 
-    // 
-    // 
-    // 
-    // 
-    // 
     I.say('OPTION DROP A HINT');
     I.click('.social_network_icons .drop_a_hint a');
     I.waitForText('Drop a hint', waitTime, 'h3')
-    I.see('Drop a hint', 'h3')
+    I.see('DROP A HINT', 'h3')
     formDropAHint();
 
     I.say('OPTION FREE SHIPPING');
@@ -553,6 +513,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('.modal-content .modal-body button');
 
+    // -------------------------------------------- SOCIALMEDIA --------------------------------------------
     I.say('OPTION SHARE AND SOCIALMEDIA');
     I.click('.share a');
     I.waitForText('SHARE THIS', waitTime, 'h3')
@@ -579,11 +540,12 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     // FALTA LA OPTION DROP A HINT
 
-    // -------------------- ADD TO CART
+    // -------------------------------------------- ADD TO CART --------------------------------------------
     I.say('ADD TO CART');
     I.click('#add_to_cart_submit');
     I.waitForText('SHOPPING CART', waitTime)
     I.see('SHOPPING CART');
+    I.waitForElement('.link_to_ring_size a', waitTime)
     I.click('Help', '.link_to_ring_size a');
     I.wait(20);
     I.switchToNextTab();
@@ -591,7 +553,6 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.closeCurrentTab();
     I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
-
 
     I.say('CHECKOUT');
     I.click('CHECKOUT');
@@ -624,82 +585,21 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.seeInCurrentUrl('/cart/payment-information');
-    I.wait(3);
+    I.seeInCurrentUrl('/cart/payment-information');    
 
-    // PAYMENT METHOD
-    I.say('PAYMENT FOR POLIPAYMENT');
-    I.click('#checkbox_polipayment_description');
-    I.click('#polipayment_submit');
-    I.click('#proceed-button');
-    I.click('Cancel');
-    I.checkOption('#loginother');
-    I.fillField('#label_loginother', 'Testing');
-    I.click('Submit');
-    I.wait(3);
-    I.see('YOUR PAYMENT TRANSACTION WAS CANCELLED.', 'h3');
-    I.click('click here');
-
-    I.say('PAYMENT FOR PAYPAL');
-    I.click('#checkbox_paypal_description');
-    I.wait(3);
-    I.click('#paypal-button-container iframe');
-    I.wait(3);
-    I.switchTo('iframe');
-    I.seeInCurrentUrl('https://www.sandbox.paypal.com/');
-    I.switchTo();
-    I.closeOtherTabs();
+    // -------------------------------------------- PAYMENT METHOD --------------------------------------------
+    I.say('PAYMENT METHOD');
+    I.waitForText('PAYMENT METHOD', waitTime)
+    I.see('PAYMENT METHOD', 'h2')
 
     I.say('PAYMENT FOR BANK TRANSFER');
     I.click('#checkbox_bank_wire_description');
+    I.waitForText('Paying By Bank Transfer', waitTime)
     I.see('Paying By Bank Transfer');
     I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
-
-
-
-
-
-    
-
     pause()
 
-
-    I.wait(3);
-    I.click('//*[@id="share_info"]/div[1]/div/div/button')
-    // I.click('#link_drop_hint');
-    // I.wait(3);
-    // formDropAHint();
-    I.click('Share');
-    I.wait(3);
-    
-    I.click('.modal-content .modal-body button');
-
-
-
-
-
-
-    // Select Ring Size
-    I.say('SELECT RING SIZE');
-    I.see('SHOPPING CART');
-    
-    I.wait(3);
-
-    I.say('TERMS AND CODITIONS');
-    I.click('*Conditions apply');
-    I.wait(4);
-    I.switchToNextTab();
-    // I.seeInCurrentUrl('/terms-conditions-promo-voucher');
-    I.closeCurrentTab();
-
-    I.say('CHECKOUT');
-    I.click('CHECKOUT');
-    I.wait(3);
-    
-    // FORM WHERE DO YOU WANT THESE ITEMS SENT?
-    I.say('FORM WHERE DO YOU WANT THESE ITEMS SENT?');
-    
-    pause();
-    // I.click('#bank_wire_submit');
-    // I.see('Your order is confirmed!');
+    I.click('PLACE YOUR ORDER', '#bank_wire_submit')
+    I.waitForText('Your order is confirmed!', waitTime)
+    I.see('Your order is confirmed')
 });
