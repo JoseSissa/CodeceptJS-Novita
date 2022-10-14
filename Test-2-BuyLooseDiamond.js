@@ -179,124 +179,206 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         I.fillField("#to_price_value_input", 70000);
         I.pressKey('Enter');        
     };
+    const checkDiamondCut = () => {
+        for (const elem of Object.keys(params.cut)) {
+            I.dragSlider("#search_form .diamond_filter_cut_content .from", params.cut[elem][0]);
+            I.dragSlider("#search_form .diamond_filter_cut_content .to", params.cut[elem][1]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // Check the cut option
-    async function checkCut(option) {
-        I.dragSlider("#search_form .diamond_filter_cut_content .from", params.cut[option][0]);
-        I.dragSlider("#search_form .diamond_filter_cut_content .to", params.cut[option][1]);
-        waitResponseAndtext();        
-        const cut = await I.grabTextFromAll('tbody tr td:nth-child(6)');
-        for (const elem of cut) {
-            if(option === 'ID/EX') {
-                if(elem !== "Excellent" && elem !== 'ID/EX' && elem !== '-') {
-                    console.log('Error in the values obtained from the Cut filter');
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(results[0].response.items[i].cut != elem) {
+                                    console.log(`>>> Error in values obtained from CUT filter: option ${elem.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
+                        }
+                        return true;
+                    }
                 }
-            }else {
-                if(elem !== option && elem !== '-') {
-                    console.log('Error in the values obtained from the Cut filter');
-                }
-            }
+            }, waitTime)
+             
+            I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
+            I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
         };
     };
-    // Check the clarity option
-    async function checkClarity(option) {
-        I.dragSlider("#search_form .diamond_filter_clarity_content .from", params.clarity[option][0]);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .to", params.clarity[option][1]);
-        waitResponseAndtext();
-        const clarity = await I.grabTextFromAll('tbody tr td:nth-child(5)');
-        for (const elem of clarity) {
-            if(elem !== option) {
-                console.log('Error in the values obtained from the Clarity filter');
-            }
+    const checkDiamondClarity = () => {
+        for (const elem of Object.keys(params.clarity)) {
+            I.dragSlider("#search_form .diamond_filter_clarity_content .from", params.clarity[option][0]);
+            I.dragSlider("#search_form .diamond_filter_clarity_content .to", params.clarity[option][1]);
+            
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(results[0].response.items[i].clarity != elem) {
+                                    console.log(`>>> Error in values obtained from CLARITY filter: option ${elem.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
+                        }
+                        return true;
+                    }
+                }
+            }, waitTime)
+
+            I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
+            I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
+        };
+    };
+    const checkDiamondPolish = () => {
+        for (const elem of Object.keys(params.polish)) {
+            I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", params.polish[option][0]);
+            I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", params.polish[option][1]);
+
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(results[0].response.items[i].polish != elem) {
+                                    console.log(`>>> Error in values obtained from POLISH filter: option ${elem.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
+                        }
+                        return true;
+                    }
+                }
+            }, waitTime)
+
+            I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", -500);
+            I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", 500);
         }
-    };
-    // Check the polish option
-    function checkPolish(option) {
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", params.polish[option][0]);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", params.polish[option][1]);       
-        let results = [];
-        I.waitForResponse(async res => {
-            res.url().includes('/api/product/diamonds') ? results.push(await res.json()) : null;
-            if(results.length >= 2) {
-                results[0] = results[0].response.total > results[1].response.total ? results[0] : results[1];
-                if (results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
-                    for (let i = 0; i < total; i++) {
-                        if(!(results[0].response.items[i].polish == option)) {
-                            console.log(`Error in response, Polish filter, expected elements with Polish Filter: ${metalType} but not found.`);
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-        }, 40);
-    };
-    // Check the Report filter
-    async function checkReport(report) {
-        let results = [];
-        I.waitForResponse(async res => {
-            res.url().includes('/api/product/diamonds') ? results.push(await res.json()) : null;
-            if(results.length >= 2) {
-                results[0] = results[0].response.total > results[1].response.total ? results[0] : results[1];
-                if (results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
-                    for (let i = 0; i < total; i++) {
-                        if(!(results[0].response.items[i].certificate_laboratory == report)) {
-                            console.log(`Error in response, Report filter, expected elements with Report Filter: ${report} but not found.`);
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-        }, 40);
 
     };
-    // Check the Symmetry filter
-    function checkSymmetry(option) {
-        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", params.symmetry[option][0]);
-        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", params.symmetry[option][1]);
-        
-        let results = [];
-        I.waitForResponse(async res => {
-            res.url().includes('/api/product/diamonds') ? results.push(await res.json()) : null;
-            if(results.length >= 2) {
-                results[0] = results[0].response.total > results[1].response.total ? results[0] : results[1];
-                if (results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
-                    for (let i = 0; i < total; i++) {
-                        if(!(results[0].response.items[i].symmetry == option)) {
-                            console.log(`Error in response, Symmetry filter, expected elements with Symmetry Filter: ${metalType} but not found.`);
-                            return false;
+    const checkDiamondSymmetry = () => {
+        for (const elem of Object.keys(params.symmetry)) {
+            I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", params.symmetry[option][0]);
+            I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", params.symmetry[option][1]);
+
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(results[0].response.items[i].symmetry != elem) {
+                                    console.log(`>>> Error in values obtained from SYMMETRY filter: option ${elem.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
                         }
+                        return true;
                     }
                 }
-                return true;
+            }, waitTime)
+
+            I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", -500);
+            I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", 500);
+        }
+    };
+    const checkDiamondReport = () => {
+
+        for (let i = 0; i < params.reports.length; i++) {
+            I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(results[0].response.items[i].certificate_laboratory != params.reports[i+1]) {
+                                    console.log(`>>> Error in values obtained from SYMMETRY filter: option ${elem.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
+                        }
+                        return true;
+                    }
+                }
+            }, waitTime)
+
+            I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
+        }
+
+    };
+    const checkDiamondRatio = () => {
+        I.fillField('#from_ratio_value_input', params.ratioFrom);
+        I.pressKey('Enter');
+        I.fillField('#to_ratio_value_input', params.ratioTo);
+        I.pressKey('Enter');
+
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/diamonds')) {
+                results.push(await res.json());
+                if(results.length >= 2) {
+                    if(results[0].response.total > 0) {
+                        const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                        for (let i = 0; i < total; i++) {
+                            console.log('Ratio >>>>', results[0].response.items[i].ratio);
+                            if(results[0].response.items[i].ratio < parseFloat(params.ratioFrom) || results[0].response.items[i].ratio > parseFloat(params.ratioTo)) {
+                                console.log(`>>> Error in values obtained from RATIO filter.}`);
+                                return false;
+                            }
+                        }
+                    }else{
+                        console.log('No record was found according to the filter in the response.');
+                        return true;
+                    }
+                    return true;
+                }
             }
-        }, 40);
+        }, waitTime)
+
+        I.fillField('#from_ratio_value_input', 1);
+        I.pressKey('Enter');
+        I.fillField('#to_ratio_value_input', 3);
+        I.pressKey('Enter');
     };
+
+
+
+
+
+
+
+
+    // Check the Symmetry filter
     // Check the Ratio filter 
-    function checkRatio() {
-        I.wait(1);
-        I.fillField('#from_ratio_value_input', 1.5);
-        I.pressKey('Enter');
-        I.fillField('#to_ratio_value_input', 2);
-        I.pressKey('Enter');
-        waitResponseAndtext();
-    };
     // Check the compare option
     function compareDiamonds() {
         I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
@@ -398,7 +480,6 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.forceClick("BUY LOOSE DIAMONDS");
     I.seeInCurrentUrl("/buy-loose-diamond-start-buying");
     waitResponseAndtext();
-
     //----------------------------------------------- SHAPE FILTER -----------------------------------------------
     I.say('CHECKING SHAPE FILTER');
     checkDiamondShape();
@@ -411,66 +492,40 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     //----------------------------------------------- PRICE FILTER -----------------------------------------------
     I.say('CHECKING PRICE FILTER');
     checkDiamondPrice();
-    
-
-
-
-    
-    pause();
-    
-    waitResponseAndtext();
-
-    // CHECKING CUT FILTER
+    //----------------------------------------------- CUT FILTER --------------------------------------------------
     I.say('CHECKING CUT FILTER');
-    for (const elem of Object.keys(params.cut)) {
-        checkCut(elem);
-        I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
-        I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
-    };
-
-    // CHECKING CLARUTY FILTER
+    checkDiamondCut();
+    //----------------------------------------------- CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
-    for (const elem of Object.keys(params.clarity)) {
-        checkClarity(elem);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
-        I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
-    };
-
-
-    // BUTTON ADVANCED FILTERS
-    //------------------------------------------------------------------------------
+    checkDiamondClarity();
+    //------------------------------------------- BUTTON ADVANCED FILTERS ------------------------------------------
     I.say('BUTTON ADVANCED FILTERS');
     I.click("#advanced_filters_button");
-
     // CHECKING ADVANCED FILTERS
-    //------------------------------------------------------------------------------
-    I.say('CHECKING ADVANCED FILTERS');
-    I.wait(2);
+    //----------------------------------------------- POLISH FILTER ------------------------------------------------
     I.say('CHECKING POLISH FILTER');
-    for (const elem of Object.keys(params.polish)) {
-        checkPolish(elem);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", -500);
-        I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", 500);
-    }
-    I.say('CHECKING SYMMETRY FILTER');
-    for (const elem of Object.keys(params.symmetry)) {
-        checkSymmetry(elem);
-        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", -500);
-        I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", 500);
-    }
+    checkDiamondPolish();
+    //----------------------------------------------- SYMMETRY FILTER ------------------------------------------------
+    I.say('CHECKING SYMMETRY FILTERS');
+    checkDiamondSymmetry();
+    //----------------------------------------------- REPORT FILTER ------------------------------------------------    
     I.say('CHECKING REPORT FILTER');
-    for (let i = 0; i < params.reports.length; i++) {
-        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-        checkReport(params.reports[i]);
-        I.click(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-    }
+    checkDiamondReport();
+    //----------------------------------------------- RATIO FILTER ------------------------------------------------
     I.say('CHECKING RATIO FILTER');
-    checkRatio();
-    I.fillField('#from_ratio_value_input', 1);
-    I.pressKey('Enter');
-    I.fillField('#to_ratio_value_input', 3);
-    I.pressKey('Enter');
-    waitResponseAndtext();
+    checkDiamondRatio();
+
+
+
+
+
+    pause()
+    
+    
+
+    
+
+
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
