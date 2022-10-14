@@ -2,6 +2,7 @@ Feature('Buy loose diamond');
 
 Scenario('Buy a loose diamond', async ({ I }) => {    
 
+    const waitTime = 300; //Seconds
     const params = {
         "shapes" : ["Round", "Oval", "Cushion", "Princess", "Emerald", "Pear", "Radiant", "Asscher", "Marquise"],
         "caratFrom" : 2,
@@ -50,72 +51,147 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         "ratioFrom" : 1.26,
         "ratioTo" : 2.00
     }
-    // Wait for response and text
-    function waitResponseAndtext() {
-        I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
+    const waitResponseAndtext = () => {
+        I.waitForText('Detail', waitTime, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
     }
-    // Checking the shape filter.
-    function checkShape() {
+    const checkDiamondShape = () => {
         for(const shape of params.shapes) {
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
-            waitResponseAndtext();
-            for(const elem of params.shapes) {
-                if(elem != shape) {
-                    I.dontSee(elem);
-                }else {
-                    I.see(elem);
+            
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(!results[0].response.items[i].shape == shape) {
+                                    console.log(`>>> Error in values obtained from SHAPE filter: option ${shape.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
+                        }
+                        return true;
+                    }
                 }
-            };
+            }, waitTime)
+
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
         };
     };
-    // Checking the carat filter.
-    async function checkCarat() {
+    const checkDiamondCarat = () => {
         I.fillField("#from_carat_value_input", params.caratFrom);
         I.pressKey("Enter");
         I.fillField("#to_carat_value_input", params.caratTo);
         I.pressKey("Enter");
-        waitResponseAndtext();
-        const carat = await I.grabTextFromAll('tbody tr td:nth-child(3)');
-        for (const elem of carat) {
-            if(parseFloat(elem) < parseFloat(params.caratFrom) || parseFloat(elem) > parseFloat(params.caratTo)) {
-                console.log('Error in the values obtained from the Carat filter');
-                I.dontSee(elem);
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/diamonds')) {
+                results.push(await res.json());
+                if(results.length >= 2) {
+                    if(results[0].response.total > 0) {
+                        const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                        for (let i = 0; i < total; i++) {
+                            if(results[0].response.items[i].carat < parseFloat(params.caratFrom) || results[0].response.items[i].carat > parseFloat(params.caratTo)) {
+                                console.log(`>>> Error in values obtained from CARAT filter.}`);
+                                return false;
+                            }
+                        }
+                    }else{
+                        console.log('No record was found according to the filter in the response.');
+                        return true;
+                    }
+                    return true;
+                }
             }
+        }, waitTime)
+        // reset carat filter
+        I.fillField("#from_carat_value_input", 0.30);
+        I.pressKey("Enter");
+        I.fillField("#to_carat_value_input", 6);
+        I.pressKey("Enter");
+    };
+    const checkDiamondColour = () => {
+        for (const elem of Object.keys(params.colour)) {
+            I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[elem][0]);
+            I.dragSlider("#search_form .diamond_filter_color_content .to", params.colour[elem][1]);
+
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/diamonds')) {
+                    results.push(await res.json());
+                    if(results.length >= 2) {
+                        if(results[0].response.total > 0) {
+                            const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                            for (let i = 0; i < total; i++) {
+                                if(results[0].response.items[i].color != elem) {
+                                    console.log(`>>> Error in values obtained from COLOUR filter: option ${elem.toUpperCase()}`);
+                                    return false;
+                                }
+                            }
+                        }else{
+                            console.log('No record was found according to the filter in the response.');
+                            return true;
+                        }
+                        return true;
+                    }
+                }
+            }, waitTime)
+
+            I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
+            I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
         };
     };
-    // Check the color filter
-    async function checkColour(option) {
-        // I.wait(1);
-        I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[option][0]);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", params.colour[option][1]);
-        // waitResponseAndtext();
-        const colors = await I.grabTextFromAll('tbody tr td:nth-child(4)');
-        if(colors.length > 0) {
-            for (const elem of colors) {
-                if(elem !== option) {
-                    I.see(option, 'td');
-                    console.log('Error in the values obtained from the Colour filter');
-                }
-            };
-        }
-    };
-    // Check the price filter
-    async function checkPrice() {
+    const checkDiamondPrice = () => {
         I.fillField("#from_price_value_input", params.priceFrom);
         I.pressKey('Enter');
         I.fillField("#to_price_value_input", params.priceTo);
         I.pressKey('Enter');
-        waitResponseAndtext();
-        const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
-        for (const elem of prices) {
-            if(((elem.slice(elem.indexOf('$')+1)).replace(',', '')) < params.priceFrom || ((elem.slice(elem.indexOf('$')+1)).replace(',', '')) > params.priceTo) {
-                console.log('Error in the values obtained from the Price filter');
-                I.dontSee(elem);
-                break;
+
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/diamonds')) {
+                results.push(await res.json());
+                if(results.length >= 2) {
+                    if(results[0].response.total > 0) {
+                        const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                        for (let i = 0; i < total; i++) {
+                            if(results[0].response.items[i].price < params.priceFrom || results[0].response.items[i].price > params.priceTo) {
+                                console.log(`>>> Error in values obtained from PRICE filter.`);
+                                return false;
+                            }
+                        }
+                    }else{
+                        console.log('No record was found according to the filter in the response.');
+                        return true;
+                    }
+                    return true;
+                }
             }
-        }
+        }, waitTime)
+
+        I.fillField("#from_price_value_input", 250);
+        I.pressKey('Enter');
+        I.fillField("#to_price_value_input", 70000);
+        I.pressKey('Enter');        
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Check the cut option
     async function checkCut(option) {
         I.dragSlider("#search_form .diamond_filter_cut_content .from", params.cut[option][0]);
@@ -323,35 +399,24 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.seeInCurrentUrl("/buy-loose-diamond-start-buying");
     waitResponseAndtext();
 
-    //------------------------------------------------------------------------------
-    // CHECKING SHAPE FILTER
+    //----------------------------------------------- SHAPE FILTER -----------------------------------------------
     I.say('CHECKING SHAPE FILTER');
-    checkShape();
-
-    // CHECKING CARAT FILTER
+    checkDiamondShape();
+    //----------------------------------------------- CARAT FILTER -----------------------------------------------
     I.say('CHECKING CARAT FILTER');
-    checkCarat();
-    // reset carat filter
-    I.fillField("#from_carat_value_input", 0.30);
-    I.pressKey("Enter");
-    I.fillField("#to_carat_value_input", 6);
-    I.pressKey("Enter");
-
-    // CHECKING COLOUR FILTER
+    checkDiamondCarat();
+    //----------------------------------------------- COLOUR FILTER -----------------------------------------------
     I.say('CHECKING COLOUR FILTER');
-    for (const elem of Object.keys(params.colour)) {
-        checkColour(elem);
-        I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
-        I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
-    };
-
-    // CHECKING PRICE FILTER
+    checkDiamondColour();
+    //----------------------------------------------- PRICE FILTER -----------------------------------------------
     I.say('CHECKING PRICE FILTER');
-    checkPrice();
-    I.fillField("#from_price_value_input", 250);
-    I.pressKey('Enter');
-    I.fillField("#to_price_value_input", 70000);
-    I.pressKey('Enter');
+    checkDiamondPrice();
+
+
+    
+    
+    pause();
+    
     waitResponseAndtext();
 
     // CHECKING CUT FILTER
@@ -530,3 +595,5 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // I.waitForText('Your order is confirmed!', 10);
     // I.see('Your order is confirmed!');
 });
+
+
