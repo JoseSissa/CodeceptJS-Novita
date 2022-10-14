@@ -188,7 +188,7 @@ Scenario('Buy a diamond', async ({ I }) => {
         }, waitTime)
     };
     function checkPersonaliseYourRing() {
-        I.wait(3);
+        I.waitForText('PERSONALISE YOUR RING', waitTime, 'h2')
         I.see('PERSONALISE YOUR RING');
         I.say('CLAW STYLE');
         I.click('#personalised_select_claw_style');
@@ -447,6 +447,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.click('#ring_list_section .ring_item .ring_detail_link');
     // 20 days express (+$150)
     I.checkOption('#include_express_job_id .pink_checkbox_icon');
+
     // 20% Deposit Available
     I.click('#express_job_option .pink_checkbox_box_legend a');
     
@@ -480,7 +481,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('Review Your Ring', 'h2');
 
     // -------------------------------------------- CHANGE DIAMOND --------------------------------------------
-    I.say('CHANGE DIAMOND')
+    I.say('CHANGE - DIAMOND')
     I.forceClick('Change', '.to_diamond_list_from_summary')
     waitResponseInTable()
     I.see('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
@@ -491,13 +492,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('Review Your Ring', 'h2');
 
     // -------------------------------------------- CHANGE RING --------------------------------------------
-    // 
-    // 
-    // 
-    // 
-    // 
-    // 
-    I.say('CHANGE RING')
+    I.say('CHANGE - RING')
     I.forceClick('Change', '.to_setting_list_from_summary')
     I.waitForElement('//*[@id="ring_list_section"]/div/div[1]/a', waitTime)
     I.seeElement('//*[@id="ring_list_section"]/div/div[1]/a')
@@ -506,30 +501,12 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.waitForText('Review Your Ring', waitTime, 'h2')
     I.see('Review Your Ring', 'h2');
 
-    
+    I.say('CHANGE - RING PERSONALISATION')
+    I.click('#selection_summary_section .summary_personalise_link');
+    checkPersonaliseYourRing();
 
 
     pause()
-
-    // I.say('SELECT A DIAMOND');
-    // I.seeInCurrentUrl('/engagement-ring/create/');
-    // I.wait(3);
-    // I.waitForText('Detail', 40, '//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
-    // I.click('//*[@id="body_table_results"]/tr[1]/td[10]/a/div');
-    // I.wait(3);
-    // I.click('Choose this diamond');
-    // I.wait(4);
-    // I.see('Review Your Ring', 'h2');
-    // I.click('#selection_summary_section .to_setting_list_from_summary');
-    // I.wait(4);
-    // I.seeInCurrentUrl('/engagement-ring/create/');
-    // I.click('#ring_list_section .ring_item .ring_detail_link');
-    // I.wait(3);
-    // I.click('Choose this design');
-    // I.wait(3);
-    // I.see('Review Your Ring', 'h2');
-    // I.click('#selection_summary_section .summary_personalise_link');
-    // checkPersonaliseYourRing();
 
 
     // Option Drop a hint
