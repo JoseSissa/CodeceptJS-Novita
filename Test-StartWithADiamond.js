@@ -232,7 +232,6 @@ Scenario('Buy a diamond', async ({ I }) => {
     
     // Form drop a Hint
     function formDropAHint() {
-        I.see('DROP A HINT');
         I.fillField('#drop_hint_recipientName', 'Jose Testing');
         I.fillField('#drop_hint_recipientEmail', 'testing@testing.com');
         I.fillField('#drop_hint_message', 'Test form, please ignore this request.');
@@ -242,7 +241,8 @@ Scenario('Buy a diamond', async ({ I }) => {
         I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
         pause();
         I.click('#drop_hint_send');
-        I.wait(3);
+        // I.wait(3);
+        I.waitForText('MESSAGE SENT', waitTime)
         I.see('MESSAGE SENT');
         I.click('.modal-content .modal-body button');
     }
@@ -487,6 +487,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.see('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
     I.forceClick('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
     I.waitForText('Choose this diamond', waitTime, '//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[2]')
+    I.seeElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]')
     I.click('Choose this diamond');
     I.waitForText('Review Your Ring', waitTime, 'h2')
     I.see('Review Your Ring', 'h2');
@@ -495,6 +496,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.say('CHANGE - RING')
     I.forceClick('Change', '.to_setting_list_from_summary')
     I.waitForElement('//*[@id="ring_list_section"]/div/div[1]/a', waitTime)
+    I.wait(1)
     I.seeElement('//*[@id="ring_list_section"]/div/div[1]/a')
     I.forceClick('//*[@id="ring_list_section"]/div/div[1]/a')
     I.click('Choose this design');
@@ -505,22 +507,31 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.click('#selection_summary_section .summary_personalise_link');
     checkPersonaliseYourRing();
 
+    // -------------------------------------------- RING SIZE --------------------------------------------
+    I.say('RING SIZE')
+    I.seeElement('//*[@id="engagement_ring_summary"]/div[2]/div[2]/div[9]/div[4]/a')
+    // I.forceClick('#select_ring_size')
+    I.selectOption('#select_ring_size', '1')
 
     pause()
 
+    // -------------------------------------------- DROP A HINT --------------------------------------------
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    I.say('OPTION DROP A HINT');
+    I.click('.social_network_icons .drop_a_hint a');
+    I.waitForText('Drop a hint', waitTime, 'h3')
+    I.see('Drop a hint', 'h3')
+    formDropAHint();
 
-    // Option Drop a hint
-    // I.wait(3);
-    // I.say('OPTION DROP A HINT');
-    // I.wait(3);
-    // I.click('.social_network_icons .drop_a_hint a');
-    // I.wait(3);
-    // formDropAHint();
-
-    // Option free shipping
     I.say('OPTION FREE SHIPPING');
     I.forceClick('.free_shipping a');
-    I.wait(3);
+    I.waitForText('FREE SHIPPING', waitTime, 'h2')
     I.see('FREE SHIPPING');
     I.click('> LEARN MORE');
     I.wait(4);
@@ -530,10 +541,9 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('.modal-content .modal-body button');
 
-    // Option free returns
     I.say('OPTION FREE RETURNS');
     I.click('.free_returns a');
-    I.wait(4);
+    I.waitForText('FREE 30 DAYS RETURN POLICY', waitTime, 'h3')
     I.see('FREE 30 DAYS RETURN POLICY', 'h3');
     I.click('> LEARN MORE');
     I.wait(4);
@@ -542,16 +552,11 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.closeCurrentTab();
     I.seeInCurrentUrl('/engagement-ring/create/');
     I.click('.modal-content .modal-body button');
-    I.wait(3);
-    
-    // check the socialmedia
+
     I.say('OPTION SHARE AND SOCIALMEDIA');
     I.click('.share a');
-    I.wait(3);
+    I.waitForText('SHARE THIS', waitTime, 'h3')
     I.see('SHARE THIS');
-    I.click('.modal-content .modal-body button');
-    I.click('.share a');
-    I.wait(3);
     I.click('Facebook');
     I.wait(4);
     I.switchToNextTab();
@@ -567,24 +572,17 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.switchToNextTab();
     I.see('Pinterest', 'h2');
     I.closeCurrentTab();
-    I.wait(3);
-    I.click('//*[@id="share_info"]/div[1]/div/div/button')
-    // I.click('#link_drop_hint');
-    // I.wait(3);
-    // formDropAHint();
-    I.click('Share');
-    I.wait(3);
+    I.say('COPY LINK')
     I.click('Copy Link');
     I.see('LINK COPIED TO THE CLIPBOARD');
     I.click('.modal-content .modal-body button');
-    I.wait(3);
 
+    // FALTA LA OPTION DROP A HINT
+
+    // -------------------- ADD TO CART
     I.say('ADD TO CART');
     I.click('#add_to_cart_submit');
-    I.wait(3);
-
-    // Select Ring Size
-    I.say('SELECT RING SIZE');
+    I.waitForText('SHOPPING CART', waitTime)
     I.see('SHOPPING CART');
     I.click('Help', '.link_to_ring_size a');
     I.wait(20);
@@ -593,21 +591,11 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.closeCurrentTab();
     I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
-    I.wait(3);
 
-    I.say('TERMS AND CODITIONS');
-    I.click('*Conditions apply');
-    I.wait(4);
-    I.switchToNextTab();
-    // I.seeInCurrentUrl('/terms-conditions-promo-voucher');
-    I.closeCurrentTab();
 
     I.say('CHECKOUT');
     I.click('CHECKOUT');
-    I.wait(3);
-    
-    // FORM WHERE DO YOU WANT THESE ITEMS SENT?
-    I.say('FORM WHERE DO YOU WANT THESE ITEMS SENT?');
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
@@ -666,6 +654,51 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.click('#checkbox_bank_wire_description');
     I.see('Paying By Bank Transfer');
     I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
+
+
+
+
+
+    
+
+    pause()
+
+
+    I.wait(3);
+    I.click('//*[@id="share_info"]/div[1]/div/div/button')
+    // I.click('#link_drop_hint');
+    // I.wait(3);
+    // formDropAHint();
+    I.click('Share');
+    I.wait(3);
+    
+    I.click('.modal-content .modal-body button');
+
+
+
+
+
+
+    // Select Ring Size
+    I.say('SELECT RING SIZE');
+    I.see('SHOPPING CART');
+    
+    I.wait(3);
+
+    I.say('TERMS AND CODITIONS');
+    I.click('*Conditions apply');
+    I.wait(4);
+    I.switchToNextTab();
+    // I.seeInCurrentUrl('/terms-conditions-promo-voucher');
+    I.closeCurrentTab();
+
+    I.say('CHECKOUT');
+    I.click('CHECKOUT');
+    I.wait(3);
+    
+    // FORM WHERE DO YOU WANT THESE ITEMS SENT?
+    I.say('FORM WHERE DO YOU WANT THESE ITEMS SENT?');
+    
     pause();
     // I.click('#bank_wire_submit');
     // I.see('Your order is confirmed!');
