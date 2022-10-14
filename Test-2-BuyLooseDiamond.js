@@ -482,10 +482,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     waitResponseAndtext();
     //----------------------------------------------- SHAPE FILTER -----------------------------------------------
     I.say('CHECKING SHAPE FILTER');
-    checkDiamondShape();
+    // checkDiamondShape();
     //----------------------------------------------- CARAT FILTER -----------------------------------------------
     I.say('CHECKING CARAT FILTER');
-    checkDiamondCarat();
+    // checkDiamondCarat();
     //----------------------------------------------- COLOUR FILTER -----------------------------------------------
     I.say('CHECKING COLOUR FILTER');
     checkDiamondColour();
@@ -523,7 +523,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     
     
 
-    
+
 
 
 
