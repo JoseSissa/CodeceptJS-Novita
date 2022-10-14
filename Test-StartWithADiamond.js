@@ -490,7 +490,22 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.waitForText('Review Your Ring', waitTime, 'h2')
     I.see('Review Your Ring', 'h2');
 
-    // -------------------------------------------- CHANGE DIAMOND --------------------------------------------
+    // -------------------------------------------- CHANGE RING --------------------------------------------
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    I.say('CHANGE RING')
+    I.forceClick('Change', '.to_setting_list_from_summary')
+    I.waitForElement('//*[@id="ring_list_section"]/div/div[1]/a', waitTime)
+    I.seeElement('//*[@id="ring_list_section"]/div/div[1]/a')
+    I.forceClick('//*[@id="ring_list_section"]/div/div[1]/a')
+    I.click('Choose this design');
+    I.waitForText('Review Your Ring', waitTime, 'h2')
+    I.see('Review Your Ring', 'h2');
+
     
 
 
