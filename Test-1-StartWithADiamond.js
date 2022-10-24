@@ -448,6 +448,7 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     // Choose this diamond
     I.say('CHOOSE THIS DIAMOND');
+    I.click('//*[@id="ring_list_section"]/div/div[2]/a');
     I.click('Choose this design');
     I.waitForText('Review Your Ring', waitTime, 'h2')
     I.see('Review Your Ring', 'h2');
