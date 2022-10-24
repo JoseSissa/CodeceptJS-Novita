@@ -23,7 +23,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         "priceTo" : 30000,
         "cut" : {
             "Ideal":[0, -500],
-            "ID/EX":[100, -500],
+            "Excellent":[100, -500],
             "Very Good":[180, -500],
             "Good":[500, 0],
         },
@@ -63,6 +63,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
@@ -93,6 +94,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
             if(res.url().includes('/api/product/diamonds')) {
                 results.push(await res.json());
                 if(results.length >= 2) {
+                    results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
@@ -125,6 +127,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
@@ -157,6 +160,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
             if(res.url().includes('/api/product/diamonds')) {
                 results.push(await res.json());
                 if(results.length >= 2) {
+                    results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
@@ -189,10 +193,11 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
-                                if(results[0].response.items[i].cut != elem) {
+                                if(results[0].response.items[i].cut != elem && results[0].response.items[i].cut != "-") {
                                     console.log(`>>> Error in values obtained from CUT filter: option ${elem.toUpperCase()}`);
                                     return false;
                                 }
@@ -220,6 +225,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
@@ -251,6 +257,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
@@ -283,6 +290,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
@@ -314,6 +322,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                 if(res.url().includes('/api/product/diamonds')) {
                     results.push(await res.json());
                     if(results.length >= 2) {
+                        results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                         if(results[0].response.total > 0) {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
@@ -346,6 +355,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
             if(res.url().includes('/api/product/diamonds')) {
                 results.push(await res.json());
                 if(results.length >= 2) {
+                    results[0].response.total > 0 ? results[0] = results[0] : results[0] = results[1];
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
@@ -482,10 +492,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     waitResponseAndtext();
     //----------------------------------------------- SHAPE FILTER -----------------------------------------------
     I.say('CHECKING SHAPE FILTER');
-    // checkDiamondShape();
+    checkDiamondShape();
     //----------------------------------------------- CARAT FILTER -----------------------------------------------
     I.say('CHECKING CARAT FILTER');
-    // checkDiamondCarat();
+    checkDiamondCarat();
     //----------------------------------------------- COLOUR FILTER -----------------------------------------------
     I.say('CHECKING COLOUR FILTER');
     checkDiamondColour();
@@ -495,6 +505,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     //----------------------------------------------- CUT FILTER --------------------------------------------------
     I.say('CHECKING CUT FILTER');
     checkDiamondCut();
+    pause()
     //----------------------------------------------- CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
     checkDiamondClarity();
@@ -514,17 +525,10 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     //----------------------------------------------- RATIO FILTER ------------------------------------------------
     I.say('CHECKING RATIO FILTER');
     checkDiamondRatio();
-
-
-
+    
 
 
     pause()
-    
-    
-
-
-
 
 
     // SORT RESULTS
