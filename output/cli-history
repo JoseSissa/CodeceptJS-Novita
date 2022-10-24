@@ -5,3 +5,9 @@ I.click('//*[@id="share_info"]/div[1]/div/div/button')
 
 <<< Recorded commands on Fri Oct 14 2022 09:12:13 GMT-0500 (hora estándar de Colombia)
 I.seeElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]')
+
+<<< Recorded commands on Mon Oct 24 2022 16:13:11 GMT-0500 (hora estándar de Colombia)
+I.click('IGI', `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(1) label`)
+
+<<< Recorded commands on Mon Oct 24 2022 18:09:42 GMT-0500 (hora estándar de Colombia)
+I.EXIT
