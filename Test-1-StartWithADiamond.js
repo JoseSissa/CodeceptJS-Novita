@@ -434,6 +434,7 @@ Scenario('Buy a diamond', async ({ I }) => {
 
     // 20% Deposit Available
     I.say('20% DEPOSIT AVAILABLE');
+    I.wait(5)
     I.switchToNextTab();
     I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
@@ -495,7 +496,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.waitForText('FREE SHIPPING', waitTime, 'h2')
     I.see('FREE SHIPPING');
     I.click('> LEARN MORE');
-    I.wait(4);
+    I.wait(5);
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-shipping');
     I.closeCurrentTab();
@@ -507,7 +508,7 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.waitForText('FREE 30 DAYS RETURN POLICY', waitTime, 'h3')
     I.see('FREE 30 DAYS RETURN POLICY', 'h3');
     I.click('> LEARN MORE');
-    I.wait(4);
+    I.wait(5);
     I.switchToNextTab();
     I.seeInCurrentUrl('/free-return');
     I.closeCurrentTab();
@@ -520,17 +521,17 @@ Scenario('Buy a diamond', async ({ I }) => {
     I.waitForText('SHARE THIS', waitTime, 'h3')
     I.see('SHARE THIS');
     I.click('Facebook');
-    I.wait(4);
+    I.wait(5);
     I.switchToNextTab();
     I.seeInCurrentUrl('facebook.com');
     I.closeCurrentTab();
     I.click('Twitter');
-    I.wait(4);
+    I.wait(5);
     I.switchToNextTab();
     I.seeInCurrentUrl('twitter.com');
     I.closeCurrentTab();
     I.click('Pinterest');
-    I.wait(4);
+    I.wait(5);
     I.switchToNextTab();
     I.see('Pinterest', 'h2');
     I.closeCurrentTab();

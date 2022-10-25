@@ -363,7 +363,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
                         for (let i = 0; i < total; i++) {
                             // The ratio response is null
                             // results[0].response.items[i].ratio < parseFloat(params.ratioFrom) || results[0].response.items[i].ratio > parseFloat(params.ratioTo)
-                            if(results[0].response.items[i].ratio != null) {
+                            if(results[0].response.items[i].ratio != null && (results[0].response.items[i].ratio < parseFloat(params.ratioFrom) || results[0].response.items[i].ratio > parseFloat(params.ratioTo))) {
                                 console.log(`>>> Error in values obtained from RATIO filter.`);
                                 return false;
                             }
@@ -386,27 +386,20 @@ Scenario('Buy a loose diamond', async ({ I }) => {
 
 
 
-
-
-
-
-    // Check the Symmetry filter
-    // Check the Ratio filter 
-    // Check the compare option
-    function compareDiamonds() {
+    const compareDiamonds = () => {
         I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
         I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
         I.click("#to_compare_diamonds_from_diamond_list");
     };
     // Check the option video
-    async function checkVideo() {
+    const checkVideo = async () => {
         // return await I.grabCssPropertyFrom('#diamond_detail_section .diamond_detail_tabs .video_tab', 'display');
         I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
         I.waitForText('Actual video of the diamond');
         I.see('Actual video of the diamond');
     };
     // SORT TABLE FOR PRICE
-    async function sortByPrice(order) {
+    const sortByPrice = async (order) => {
         const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
         let previousNumber = 0;
         if (order == "higher") {
@@ -429,7 +422,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         };
     };
     // SORT TABLE FOR CARAT
-    async function sortByCarat(order) {
+    const sortByCarat = async (order) => {
         const carat = await I.grabTextFromAll('tbody tr td:nth-child(3)');
         let previousNumber = 0;
         if (order == "higher") {
@@ -452,7 +445,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         };
     };
     // SORT TABLE FOR REPORT
-    async function sortByReport(order) {
+    const sortByReport = async (order) => {
         const report = await I.grabTextFromAll('tbody tr td:nth-child(7)');
         for (const elem of report) {
             if(order == "higher") {
@@ -467,14 +460,14 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         };
     };
     // Check URL of certificate
-    async function checkURLcertificate() {
+    const checkURLcertificate = async () => {
         let url =  await I.grabCurrentUrl();
         if(!(url.includes('https://www.gcalusa.com/certificate-search.html')) && !(url.includes('https://www.igi.org/reports/'))) {
             console.log('Error in current URL of certificate.');
         }
     };
     // SELECT DIAMOND
-    async function selectDiamond() {
+    const selectDiamond = async () => {
         const diamonds = await I.grabHTMLFromAll('#body_table_results tr td:last-child a');
         let i = 1;
         for (const elem of diamonds) {
@@ -498,19 +491,19 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     checkDiamondShape();
     //----------------------------------------------- CARAT FILTER -----------------------------------------------
     I.say('CHECKING CARAT FILTER');
-    // checkDiamondCarat();
+    checkDiamondCarat();
     //----------------------------------------------- COLOUR FILTER -----------------------------------------------
     I.say('CHECKING COLOUR FILTER');
-    // checkDiamondColour();
+    checkDiamondColour();
     //----------------------------------------------- PRICE FILTER -----------------------------------------------
     I.say('CHECKING PRICE FILTER');
     checkDiamondPrice();
     //----------------------------------------------- CUT FILTER --------------------------------------------------
     I.say('CHECKING CUT FILTER');
-    checkDiamondCut();
+    // checkDiamondCut();
     //----------------------------------------------- CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
-    // checkDiamondClarity();
+    checkDiamondClarity();
     //------------------------------------------- BUTTON ADVANCED FILTERS ------------------------------------------
     I.say('BUTTON ADVANCED FILTERS');
     I.click("#advanced_filters_button");
@@ -527,15 +520,11 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     //----------------------------------------------- RATIO FILTER ------------------------------------------------
     I.say('CHECKING RATIO FILTER');
     checkDiamondRatio();
-    
-
-
-    pause()
-
 
     // SORT RESULTS
     //------------------------------------------------------------------------------
     I.say('SORT RESULTS');
+    waitResponseAndtext();
     I.click('#price_table_header_img');
     waitResponseAndtext();
     sortByPrice('higher');
@@ -558,8 +547,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
 
     // OPTION COMPARE DIAMONDS
     I.say('OPTION COMPARE DIAMONDS');
-    compareDiamonds();    
-    
+    compareDiamonds();
     // Select Results options form the table
     I.click('#to_diamond_list_from_compare_diamonds');
 
@@ -579,7 +567,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     checkVideo();
     // Check the Certificate option
     I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
-    I.wait(2);
+    I.wait(10);
     I.switchToNextTab();
     checkURLcertificate();
     I.closeCurrentTab();
@@ -588,7 +576,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.click('#tab_diamond_image');
     // IGI Certified
     I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
-    I.wait(2);
+    I.wait(10);
     I.switchToNextTab();
     checkURLcertificate();
     I.closeCurrentTab();
@@ -596,7 +584,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
 
     // 20% Deposit Available
     I.click('20% Deposit Available');
-    I.wait(2);
+    I.wait(10);
     I.switchToNextTab();
     I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
@@ -605,11 +593,11 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
     I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
     I.click('#add_loose_diamond_to_cart_submit');
-    I.waitForText('SHOPPING CART', 10);
+    I.waitForText('SHOPPING CART', 30);
 
     I.checkOption('#loose_diamond_option_false');
     I.checkOption('#loose_diamond_option_true');
-    I.wait(1);
+    I.wait(5);
     I.fillField('#cart .custom-control p .name-input', 'Name member');
     I.selectOption('#select_ring_size', '3/4');
 
@@ -621,7 +609,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.say('CLICK IN CHECKOUT');
     I.click('#cart table tbody .order_summary_checkout_button a');
     I.wait(2);
-    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 10, 'h2');
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30, 'h2');
 
     I.say('SHIP TO MY ADDRESS FORM');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
@@ -649,7 +637,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.waitForText('PAYMENT METHOD', 10, 'h2');
+    I.waitForText('PAYMENT METHOD', 30, 'h2');
     I.click('#checkbox_bank_wire_description');
     I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
     pause();
