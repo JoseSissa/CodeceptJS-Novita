@@ -1,6 +1,6 @@
 Feature('Start with a Diamond');
 
-Scenario('Buy a diamond', async ({ I }) => {
+Scenario('Start with a Diamond', async ({ I }) => {
 
     const waitTime = 300; //Seconds
     const waitResponseInTable = () => {
