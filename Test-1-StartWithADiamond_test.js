@@ -278,7 +278,7 @@ Scenario('Start with a Diamond', async ({ I }) => {
     checkTypeMetal('rose gold')
     I.forceClick('#metal_type_4')
 
-    I.say('METAL TYPE - ROSE GOLD')
+    I.say('METAL TYPE - PLATINUM')
     I.forceClick('#metal_type_2');
     I.seeCheckboxIsChecked('#metal_type_2')
     checkTypeMetal('platinum')

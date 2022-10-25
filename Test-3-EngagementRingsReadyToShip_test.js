@@ -2,6 +2,99 @@ Feature('Engagement Rings Ready to Ship');
 
 Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
 
+    const waitTime = 300; //Seconds
+
+    // /api/product/engagement-rings-ready-to-ship
+
+    const checkTypeMetal = (typeMetal) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings-ready-to-ship')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                    for (let i = 0; i < total; i++) {
+                        if(!results[0].response.items[i].engring_metal_name.toLowerCase().includes(typeMetal)) {
+                            console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()}`);
+                            return false;
+                        }                        
+                    }
+                }else{
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;
+            }
+        }, waitTime)
+    };
+    const checkDiamondCarat = () => {
+        I.fillField('#from_carat_value_input', 2)
+        I.pressKey('Enter')
+        I.fillField('#to_carat_value_input', 3)
+        I.pressKey('Enter')
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings-ready-to-ship')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                    for (let i = 0; i < total; i++) {
+                        console.log(results[0].response.items[i].diamond_carat);
+                        if(results[0].response.items[i].diamond_carat < 2 || results[0].response.items[i].diamond_carat > 3) {
+                            console.log(`>>> Error in values obtained from CARAT filter.}`);
+                            return false;
+                        }
+                    }
+                }else{
+                    console.log('No record was found according to the filter in the response.');
+                    return true;
+                }
+                return true;
+                
+            }
+        }, waitTime)
+        // reset carat filter
+        I.fillField("#from_carat_value_input", 0.30);
+        I.pressKey("Enter");
+        I.fillField("#to_carat_value_input", 6);
+        I.pressKey("Enter");
+    };
+    const checkDiamondShape = () => {
+        const shapes = ["2", "7", "5", "6", "4", "3", "8", "9"]
+        const names = ["round", "pear", "oval", "emerald", "cushion", "princess", "radiant", "asscher"]
+        for (let i = 0; i < shapes.length; i++) {
+            I.forceClick(`#diamond_shape_${shapes[i]}`);
+            
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/engagement-rings-ready-to-ship')) {
+                    results.push(await res.json());
+                    if(results[0].response.total > 0) {
+                        const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                        for (let j = 0; j < total; j++) {
+                            console.log(results[0].response.items[j].diamond_shape_slug);
+                            if(results[0].response.items[j].diamond_shape_slug != names[i]) {
+                                console.log(`>>> Error in values obtained from SHAPE filter: option ${names[i].toUpperCase()}`);
+                                return false;
+                            }
+                        }
+                    }else{
+                        console.log(`No record was found according to the filter DIAMOND SHAPE ${names[i].toUpperCase()} in the response.`);
+                        return true;
+                    }
+                    return true;                    
+                }
+            }, waitTime)
+
+            I.forceClick(`#diamond_shape_${shapes[i]}`);
+        }
+    };
+
+
+    // -------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------
     
     // Functions of metal types filters
     async function checkAllMetal() {
@@ -125,10 +218,55 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     I.say('TEST - CUSTOM ENGAGEMENT RINGS');
     I.amOnPage("/");
     I.forceClick("ENGAGEMENT RINGS READY TO SHIP");
+    I.waitForText('ENGAGEMENT RINGS READY TO SHIP', 30);
     I.seeInCurrentUrl("/engagement-ring/ready-to-ship");
-    I.waitForText('ENGAGEMENT RINGS READY TO SHIP', 10);
 
-    // Filter metal type
+    // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
+    I.say('FILTER CHECK - METAL TYPE')
+    I.forceClick('#metal_type_1')
+
+    // I.say('METAL TYPE - WHITE GOLD')
+    // I.forceClick('#metal_type_3')
+    // I.seeCheckboxIsChecked('#metal_type_3')
+    // checkTypeMetal('white gold')
+    // I.forceClick('#metal_type_3')
+
+    // I.say('METAL TYPE - YELLOW GOLD')
+    // I.forceClick('#metal_type_5')
+    // I.seeCheckboxIsChecked('#metal_type_5')
+    // checkTypeMetal('yellow gold')
+    // I.forceClick('#metal_type_5')
+
+    // I.say('METAL TYPE - ROSE GOLD')
+    // I.forceClick('#metal_type_4')
+    // I.seeCheckboxIsChecked('#metal_type_4')
+    // checkTypeMetal('rose gold')
+    // I.forceClick('#metal_type_4')
+
+    // I.say('METAL TYPE - PLATINUM')
+    // I.forceClick('#metal_type_2');
+    // I.seeCheckboxIsChecked('#metal_type_2')
+    // checkTypeMetal('platinum')
+    // I.forceClick('#metal_type_2')
+
+    // I.forceClick('#metal_type_1')
+    // -------------------------------------------- DIAMOND CARAT FILTER --------------------------------------------
+    // I.say('FILTER CHECK - DIAMOND CARAT')
+    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[2]/div[1]/div/div')
+    // checkDiamondCarat();
+    // I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
+
+    // -------------------------------------------- DIAMOND SHAPE FILTER --------------------------------------------
+    I.say('CHECKING SHAPE FILTER');
+    checkDiamondShape();
+
+    
+
+    pause();
+
+
+
+
     // I.say('FILTER METAL TYPE');
     // I.forceClick('#metal_type_1');
     // checkAllMetal();
@@ -144,6 +282,16 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     // I.forceClick('#metal_type_2');
     // checkPlatinumMetal();
     // I.forceClick('#metal_type_2');
+
+
+
+
+
+
+
+
+
+
 
     // Filter Diamond Carat
     // I.wait(3);

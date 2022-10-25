@@ -382,16 +382,12 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         I.fillField('#to_ratio_value_input', 3);
         I.pressKey('Enter');
     };
-
-
-
-
     const compareDiamonds = () => {
         I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
         I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
         I.click("#to_compare_diamonds_from_diamond_list");
     };
-    // Check the option video
+    // Check that the diamond has the video option
     const checkVideo = async () => {
         // return await I.grabCssPropertyFrom('#diamond_detail_section .diamond_detail_tabs .video_tab', 'display');
         I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
