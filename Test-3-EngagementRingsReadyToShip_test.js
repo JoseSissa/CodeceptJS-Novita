@@ -148,6 +148,68 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
             I.dragSlider('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[6]', -700);
         };
     };
+    const checkDiamondClarity = () => {
+        const clarity = {
+            "FL" : [0, -700],
+            "IF" : [80, -700],
+            "VVS1" : [150, -700],
+            "VVS2" : [200, -700],
+            "VS1" : [250, -700],
+            "VS2" : [350, -700],
+            "SI1" : [400, -700],
+            "SI2" : [450, -700],
+            "I1" : [700, 0],
+        }
+        for (const elem of Object.keys(clarity)) {
+
+            I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
+            I.moveCursorTo('//*[@id="settings_search_form"]/div/div[5]/div[1]/div/div')
+            I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]')
+            I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', clarity[elem][0]);
+            I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[7]')
+            I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[7]', clarity[elem][1]);
+            if(elem == 'I1') {
+                I.moveCursorTo('//*[@id="settings_search_form"]/div/div[4]/div[1]/div/div')
+                I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]')
+                I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', -700);
+                I.moveCursorTo('//*[@id="settings_search_form"]/div/div[4]/div[1]/div/div')
+                I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]')
+                I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', 700);
+            }
+            
+            let results = [];
+            I.waitForResponse(async res => {
+                if(res.url().includes('/api/product/engagement-rings-ready-to-ship')) {
+                results.push(await res.json());
+                    if(results[0].response.total > 0) {
+                        const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                        for (let i = 0; i < total; i++) {
+                            console.log('OPTION >>', elem);
+                            console.log(results[0].response.items[i].diamond_clarity_name);
+                            // if(results[0].response.items[i].clarity != elem) {
+                            //     console.log(`>>> Error in values obtained from CLARITY filter: option ${elem.toUpperCase()}`);
+                            //     return false;
+                            // }
+                        }
+                    }else{
+                        console.log(`No record was found according to the filter DIAMOND CLARITY OPTION: ${elem.toUpperCase()} in the response.`);
+                        return true;
+                    }
+                    return true;
+                }                
+            }, waitTime)
+
+            I.moveCursorTo('//*[@id="settings_search_form"]/div/div[5]/div[1]/div/div')
+            I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[7]')
+            I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[7]', 700);
+            I.moveCursorTo('//*[@id="settings_search_form"]/div/div[5]/div[1]/div/div')
+            I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]')
+            I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', 700);
+            I.moveCursorTo('//*[@id="settings_search_form"]/div/div[5]/div[1]/div/div')
+            I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]')
+            I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', -700);
+        };
+    };
 
 
     // -------------------------------------------------------------------------------------------
@@ -317,11 +379,15 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
 
     // -------------------------------------------- DIAMOND SHAPE FILTER --------------------------------------------
     I.say('CHECKING SHAPE FILTER');
-    // checkDiamondShape();
+    checkDiamondShape();
     // -------------------------------------------- DIAMOND COLOUR FILTER --------------------------------------------
     I.say('CHECKING COLOUR FILTER');
     checkDiamondColour();
-    
+    //----------------------------------------------- CLARITY FILTER -----------------------------------------------
+    I.say('CHECKING CLARITY FILTER');
+    pause()
+    checkDiamondClarity();
+
 
     
 
