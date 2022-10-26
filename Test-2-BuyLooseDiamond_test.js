@@ -382,10 +382,6 @@ Scenario('Buy a loose diamond', async ({ I }) => {
         I.fillField('#to_ratio_value_input', 3);
         I.pressKey('Enter');
     };
-
-
-
-
     const compareDiamonds = () => {
         I.click('//*[@id="body_table_results"]/tr[1]/td[9]/div/span[1]/img');
         I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
