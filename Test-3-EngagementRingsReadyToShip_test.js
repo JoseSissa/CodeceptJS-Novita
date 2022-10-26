@@ -241,11 +241,10 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
-                        console.log(results[0].response.items[i].price);
-                        // if(results[0].response.items[i].diamond_carat < 2 || results[0].response.items[i].diamond_carat > 3) {
-                        //     console.log(`>>> Error in values obtained from PRICE filter.}`);
-                        //     return false;
-                        // }
+                        if(results[0].response.items[i].diamond_carat < 10000 || results[0].response.items[i].diamond_carat > 40000) {
+                            console.log(`>>> Error in values obtained from PRICE filter.}`);
+                            return false;
+                        }
                     }
                 }else{
                     console.log(`No record was found according to the filter DIAMOND PRICE in the response.`);
