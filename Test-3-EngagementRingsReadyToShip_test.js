@@ -209,6 +209,27 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
             I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', -700);
         };
     };
+    const checkDiamondStyle = (style) => {
+        let results = [];
+        I.waitForResponse(async res => {
+            if(res.url().includes('/api/product/engagement-rings-ready-to-ship')) {
+                results.push(await res.json());
+                if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total
+                    for (let i = 0; i < total; i++) {
+                        if(results[0].response.items[i].engring_style_name != style) {
+                            console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()}`);
+                            return false;
+                        }
+                    }
+                }else{
+                    console.log(`No record was found according to the filter DIAMOND STYLE OPTION: ${style.toUpperCase()} in the response.`);
+                    return true;
+                }
+                return true;
+            }
+        }, waitTime)
+    };
 
 
     // -------------------------------------------------------------------------------------------
@@ -384,7 +405,38 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     // checkDiamondColour();
     //----------------------------------------------- CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
-    checkDiamondClarity();
+    // checkDiamondClarity();
+    //----------------------------------------------- RING SIZE -----------------------------------------------
+
+    //----------------------------------------------- DIAMOND STYLE -----------------------------------------------
+    I.say('CHECKING STYLE FILTER');
+
+    I.say('DIAMOND STYLE - SOLITAIRE')
+    I.moveCursorTo('//*[@id="settings_search_form"]/div/div[7]/div[1]/div/div')
+    I.forceClick('#engagement_ring_style_2')
+    I.seeCheckboxIsChecked('#engagement_ring_style_2')
+    checkDiamondStyle('Solitaire')
+    I.forceClick('#engagement_ring_style_2')
+
+    I.say('METAL STYLE - SIDE STONE')
+    I.forceClick('#engagement_ring_style_4')
+    I.seeCheckboxIsChecked('#engagement_ring_style_4')
+    checkDiamondStyle('Side Stone')
+    I.forceClick('#engagement_ring_style_4')
+
+    I.say('METAL STYLE - HALO')
+    I.forceClick('#engagement_ring_style_3')
+    I.seeCheckboxIsChecked('#engagement_ring_style_3')
+    checkDiamondStyle('Halo')
+    I.forceClick('#engagement_ring_style_3')
+
+    I.say('METAL STYLE - THREE STONE')
+    I.forceClick('#engagement_ring_style_5')
+    I.seeCheckboxIsChecked('#engagement_ring_style_5')
+    checkDiamondStyle('Three Stone')
+    I.forceClick('#engagement_ring_style_5')
+
+    I.forceClick('#engagement_ring_style_1')
 
 
     
