@@ -125,33 +125,24 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
-                            console.log('OPTION: >', elem);
-                            console.log('>>>>', results[0].response.items[i].diamond_colour_name);
-                            // if(results[0].response.items[i].diamond_colour_name != elem) {
-                            //     console.log(`>>> Error in values obtained from COLOUR filter: option ${elem.toUpperCase()}`);
-                            //     return true;
-                            // }
+                            if(results[0].response.items[i].diamond_colour_name != elem) {
+                                console.log(`>>> Error in values obtained from COLOUR filter: option ${elem.toUpperCase()}`);
+                                return false;
+                            }
                         }
                     }else{
                         console.log(`No record was found according to the filter DIAMOND COLOUR OPTION: ${elem.toUpperCase()} in the response.`);
                         return true;
                     }
                     return true;
-                }
-                
+                }                
             }, waitTime)
-
-            // I.wait(2)
-            // I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
-
             I.moveCursorTo('//*[@id="settings_search_form"]/div/div[4]/div[1]/div/div')
             I.click('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[7]')
             I.dragSlider('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[7]', 700);
-
             I.moveCursorTo('//*[@id="settings_search_form"]/div/div[4]/div[1]/div/div')
             I.click('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[6]')
             I.dragSlider('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[6]', 700);
-
             I.moveCursorTo('//*[@id="settings_search_form"]/div/div[4]/div[1]/div/div')
             I.click('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[6]')
             I.dragSlider('//*[@id="settings_search_form"]/div/div[4]/div[2]/div[1]/span/span[6]', -700);
@@ -328,10 +319,9 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     I.say('CHECKING SHAPE FILTER');
     // checkDiamondShape();
     // -------------------------------------------- DIAMOND COLOUR FILTER --------------------------------------------
-    // pause()
-    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[4]/div[1]/div/div')
     I.say('CHECKING COLOUR FILTER');
     checkDiamondColour();
+    
 
     
 
