@@ -68,7 +68,6 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let j = 0; j < total; j++) {
-                            console.log(results[0].response.items[j].diamond_shape_slug);
                             if(results[0].response.items[j].diamond_shape_slug != names[i]) {
                                 console.log(`>>> Error in values obtained from SHAPE filter: option ${names[i].toUpperCase()}`);
                                 return false;
@@ -268,33 +267,33 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
 
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
     I.say('FILTER CHECK - METAL TYPE')
-    // I.forceClick('#metal_type_1')
+    I.forceClick('#metal_type_1')
 
-    // I.say('METAL TYPE - WHITE GOLD')
-    // I.forceClick('#metal_type_3')
-    // I.seeCheckboxIsChecked('#metal_type_3')
-    // checkTypeMetal('white gold')
-    // I.forceClick('#metal_type_3')
+    I.say('METAL TYPE - WHITE GOLD')
+    I.forceClick('#metal_type_3')
+    I.seeCheckboxIsChecked('#metal_type_3')
+    checkTypeMetal('white gold')
+    I.forceClick('#metal_type_3')
 
-    // I.say('METAL TYPE - YELLOW GOLD')
-    // I.forceClick('#metal_type_5')
-    // I.seeCheckboxIsChecked('#metal_type_5')
-    // checkTypeMetal('yellow gold')
-    // I.forceClick('#metal_type_5')
+    I.say('METAL TYPE - YELLOW GOLD')
+    I.forceClick('#metal_type_5')
+    I.seeCheckboxIsChecked('#metal_type_5')
+    checkTypeMetal('yellow gold')
+    I.forceClick('#metal_type_5')
 
-    // I.say('METAL TYPE - ROSE GOLD')
-    // I.forceClick('#metal_type_4')
-    // I.seeCheckboxIsChecked('#metal_type_4')
-    // checkTypeMetal('rose gold')
-    // I.forceClick('#metal_type_4')
+    I.say('METAL TYPE - ROSE GOLD')
+    I.forceClick('#metal_type_4')
+    I.seeCheckboxIsChecked('#metal_type_4')
+    checkTypeMetal('rose gold')
+    I.forceClick('#metal_type_4')
 
-    // I.say('METAL TYPE - PLATINUM')
-    // I.forceClick('#metal_type_2');
-    // I.seeCheckboxIsChecked('#metal_type_2')
-    // checkTypeMetal('platinum')
-    // I.forceClick('#metal_type_2')
+    I.say('METAL TYPE - PLATINUM')
+    I.forceClick('#metal_type_2');
+    I.seeCheckboxIsChecked('#metal_type_2')
+    checkTypeMetal('platinum')
+    I.forceClick('#metal_type_2')
 
-    // I.forceClick('#metal_type_1')
+    I.forceClick('#metal_type_1')
     // ----------------------------------------------- CARAT FILTER -----------------------------------------------
     I.say('FILTER CHECK - DIAMOND CARAT')
     // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[2]/div[1]/div/div')
@@ -309,7 +308,7 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     // checkDiamondColour();
     //------------------------------------------------ CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
-    checkDiamondClarity();
+    // checkDiamondClarity();
     //------------------------------------------------ RING SIZE ----------------------------------------------------
     I.moveCursorTo('//*[@id="settings_search_form"]/div/div[6]/div[1]/div/div')
     I.fillField('#react-select-2-input', 'J')
@@ -318,53 +317,88 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     I.say('CHECKING STYLE FILTER');
 
     I.say('DIAMOND STYLE - SOLITAIRE')
-    I.moveCursorTo('//*[@id="settings_search_form"]/div/div[7]/div[1]/div/div')
-    I.forceClick('#engagement_ring_style_2')
-    I.seeCheckboxIsChecked('#engagement_ring_style_2')
-    checkDiamondStyle('Solitaire')
-    I.forceClick('#engagement_ring_style_2')
+    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[7]/div[1]/div/div')
+    // I.forceClick('#engagement_ring_style_2')
+    // I.seeCheckboxIsChecked('#engagement_ring_style_2')
+    // checkDiamondStyle('Solitaire')
+    // I.forceClick('#engagement_ring_style_2')
 
-    I.say('METAL STYLE - SIDE STONE')
-    I.forceClick('#engagement_ring_style_4')
-    I.seeCheckboxIsChecked('#engagement_ring_style_4')
-    checkDiamondStyle('Side Stone')
-    I.forceClick('#engagement_ring_style_4')
+    // I.say('METAL STYLE - SIDE STONE')
+    // I.forceClick('#engagement_ring_style_4')
+    // I.seeCheckboxIsChecked('#engagement_ring_style_4')
+    // checkDiamondStyle('Side Stone')
+    // I.forceClick('#engagement_ring_style_4')
 
-    I.say('METAL STYLE - HALO')
-    I.forceClick('#engagement_ring_style_3')
-    I.seeCheckboxIsChecked('#engagement_ring_style_3')
-    checkDiamondStyle('Halo')
-    I.forceClick('#engagement_ring_style_3')
+    // I.say('METAL STYLE - HALO')
+    // I.forceClick('#engagement_ring_style_3')
+    // I.seeCheckboxIsChecked('#engagement_ring_style_3')
+    // checkDiamondStyle('Halo')
+    // I.forceClick('#engagement_ring_style_3')
 
-    I.say('METAL STYLE - THREE STONE')
-    I.forceClick('#engagement_ring_style_5')
-    I.seeCheckboxIsChecked('#engagement_ring_style_5')
-    checkDiamondStyle('Three Stone')
-    I.forceClick('#engagement_ring_style_5')
+    // I.say('METAL STYLE - THREE STONE')
+    // I.forceClick('#engagement_ring_style_5')
+    // I.seeCheckboxIsChecked('#engagement_ring_style_5')
+    // checkDiamondStyle('Three Stone')
+    // I.forceClick('#engagement_ring_style_5')
 
-    I.forceClick('#engagement_ring_style_1')
+    // I.forceClick('#engagement_ring_style_1')
 
     //----------------------------------------------- DIAMOND PRICE -----------------------------------------------
     I.say('FILTER CHECK - DIAMOND PRICE')
-    I.moveCursorTo('//*[@id="settings_search_form"]/div/div[8]/div[1]/div/div')
-    I.wait(4)
-    checkDiamondPrice();
-    I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
+    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[8]/div[1]/div/div')
+    // I.wait(4)
+    // checkDiamondPrice();
+    // I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
     
     //----------------------------------------------- SELECT OPTION -----------------------------------------------
+    I.wait(4)
     I.say('SELECT FIRST OPTION')
     I.click('//*[@id="ring_list_section"]/div/div/div/div[1]/a')
     // Select Ring Size
     I.selectOption('#select_ring_size', 'J')
     I.click('#add_product_to_cart_submit')
 
-    I.waitForText('SHOPPING CART', 30)
+    I.waitForText('SHOPPING CART', waitTime)
+    pause()
     I.seeInCurrentUrl('/cart')
-
     I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
 
-    pause();
+    // ----------------------------------- WHERE DO YOU WANT THESE ITEMS SENT?-----------------------------------------
 
-    
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
+    I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_shippingCountry');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+    // Use the same address for billing and shipping
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
+    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_billingCountry');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    I.click('#cart_shipping_content .last_row .right_submit input');
+    I.seeInCurrentUrl('/cart/payment-information');
+
+    pause()
+
+    I.click('#bank_wire_submit')
+    I.waitForText('Your order is confirmed!', 30);
+    I.see('Your order is confirmed!');
 
 });
