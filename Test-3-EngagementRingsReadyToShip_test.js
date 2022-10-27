@@ -355,11 +355,12 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     I.say('SELECT FIRST OPTION')
     I.click('//*[@id="ring_list_section"]/div/div/div/div[1]/a')
     // Select Ring Size
+    I.wait(4)
     I.selectOption('#select_ring_size', 'J')
-    I.click('#add_product_to_cart_submit')
+    I.wait(4)
+    I.forceClick('#add_product_to_cart_submit')
 
     I.waitForText('SHOPPING CART', waitTime)
-    pause()
     I.seeInCurrentUrl('/cart')
     I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
 
@@ -393,10 +394,12 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.seeInCurrentUrl('/cart/payment-information');
+    I.waitInUrl('/cart/payment-information', waitTime);
 
+    I.waitForText('PAYMENT METHOD', waitTime)
+    I.forceClick('#checkbox_bank_wire')
+    I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
     pause()
-
     I.click('#bank_wire_submit')
     I.waitForText('Your order is confirmed!', 30);
     I.see('Your order is confirmed!');
