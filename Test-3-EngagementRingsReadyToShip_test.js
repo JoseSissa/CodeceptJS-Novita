@@ -168,7 +168,6 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
             I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[7]')
             I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[7]', clarity[elem][1]);
             if(elem == 'I1') {
-                I.say('ENTRE A ESTOOOOOO')
                 I.moveCursorTo('//*[@id="settings_search_form"]/div/div[5]/div[1]/div/div')
                 I.click('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]')
                 I.dragSlider('//*[@id="settings_search_form"]/div/div[5]/div[2]/div[1]/span/span[6]', -700);
@@ -184,7 +183,7 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
-                            if(results[0].response.items[i].clarity != elem) {
+                            if(results[0].response.items[i].diamond_clarity_name != elem) {
                                 console.log(`>>> Error in values obtained from CLARITY filter: option ${elem.toUpperCase()}`);
                                 return false;
                             }
@@ -241,7 +240,7 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
-                        if(results[0].response.items[i].diamond_carat < 10000 || results[0].response.items[i].diamond_carat > 40000) {
+                        if(results[0].response.items[i].price < 10000 || results[0].response.items[i].price > 40000) {
                             console.log(`>>> Error in values obtained from PRICE filter.}`);
                             return false;
                         }
@@ -394,7 +393,7 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
 
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
     I.say('FILTER CHECK - METAL TYPE')
-    I.forceClick('#metal_type_1')
+    // I.forceClick('#metal_type_1')
 
     // I.say('METAL TYPE - WHITE GOLD')
     // I.forceClick('#metal_type_3')
@@ -421,52 +420,52 @@ Scenario('Engagement Rings Ready to Ship', async ({ I }) => {
     // I.forceClick('#metal_type_2')
 
     // I.forceClick('#metal_type_1')
-    // -------------------------------------------- DIAMOND CARAT FILTER --------------------------------------------
-    // I.say('FILTER CHECK - DIAMOND CARAT')
+    // ----------------------------------------------- CARAT FILTER -----------------------------------------------
+    I.say('FILTER CHECK - DIAMOND CARAT')
     // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[2]/div[1]/div/div')
     // checkDiamondCarat();
     // I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
 
-    // -------------------------------------------- DIAMOND SHAPE FILTER --------------------------------------------
+    // ----------------------------------------------- SHAPE FILTER ------------------------------------------------
     I.say('CHECKING SHAPE FILTER');
     // checkDiamondShape();
-    // -------------------------------------------- DIAMOND COLOUR FILTER --------------------------------------------
+    // ----------------------------------------------- COLOUR FILTER -----------------------------------------------
     I.say('CHECKING COLOUR FILTER');
     // checkDiamondColour();
-    //----------------------------------------------- CLARITY FILTER -----------------------------------------------
+    //------------------------------------------------ CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
-    // checkDiamondClarity();
-    //----------------------------------------------- RING SIZE -----------------------------------------------
+    checkDiamondClarity();
+    //------------------------------------------------ RING SIZE ----------------------------------------------------
 
-    //----------------------------------------------- DIAMOND STYLE -----------------------------------------------
+    //------------------------------------------------ DIAMOND STYLE ------------------------------------------------
     I.say('CHECKING STYLE FILTER');
 
-    // I.say('DIAMOND STYLE - SOLITAIRE')
-    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[7]/div[1]/div/div')
-    // I.forceClick('#engagement_ring_style_2')
-    // I.seeCheckboxIsChecked('#engagement_ring_style_2')
-    // checkDiamondStyle('Solitaire')
-    // I.forceClick('#engagement_ring_style_2')
+    I.say('DIAMOND STYLE - SOLITAIRE')
+    I.moveCursorTo('//*[@id="settings_search_form"]/div/div[7]/div[1]/div/div')
+    I.forceClick('#engagement_ring_style_2')
+    I.seeCheckboxIsChecked('#engagement_ring_style_2')
+    checkDiamondStyle('Solitaire')
+    I.forceClick('#engagement_ring_style_2')
 
-    // I.say('METAL STYLE - SIDE STONE')
-    // I.forceClick('#engagement_ring_style_4')
-    // I.seeCheckboxIsChecked('#engagement_ring_style_4')
-    // checkDiamondStyle('Side Stone')
-    // I.forceClick('#engagement_ring_style_4')
+    I.say('METAL STYLE - SIDE STONE')
+    I.forceClick('#engagement_ring_style_4')
+    I.seeCheckboxIsChecked('#engagement_ring_style_4')
+    checkDiamondStyle('Side Stone')
+    I.forceClick('#engagement_ring_style_4')
 
-    // I.say('METAL STYLE - HALO')
-    // I.forceClick('#engagement_ring_style_3')
-    // I.seeCheckboxIsChecked('#engagement_ring_style_3')
-    // checkDiamondStyle('Halo')
-    // I.forceClick('#engagement_ring_style_3')
+    I.say('METAL STYLE - HALO')
+    I.forceClick('#engagement_ring_style_3')
+    I.seeCheckboxIsChecked('#engagement_ring_style_3')
+    checkDiamondStyle('Halo')
+    I.forceClick('#engagement_ring_style_3')
 
-    // I.say('METAL STYLE - THREE STONE')
-    // I.forceClick('#engagement_ring_style_5')
-    // I.seeCheckboxIsChecked('#engagement_ring_style_5')
-    // checkDiamondStyle('Three Stone')
-    // I.forceClick('#engagement_ring_style_5')
+    I.say('METAL STYLE - THREE STONE')
+    I.forceClick('#engagement_ring_style_5')
+    I.seeCheckboxIsChecked('#engagement_ring_style_5')
+    checkDiamondStyle('Three Stone')
+    I.forceClick('#engagement_ring_style_5')
 
-    // I.forceClick('#engagement_ring_style_1')
+    I.forceClick('#engagement_ring_style_1')
 
     //----------------------------------------------- DIAMOND PRICE -----------------------------------------------
     I.say('FILTER CHECK - DIAMOND PRICE')
