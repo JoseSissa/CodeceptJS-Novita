@@ -1,6 +1,6 @@
-Feature('Buy loose diamond');
+Feature('ENGAGEMENT RINGS');
 
-Scenario('Buy a loose diamond', async ({ I }) => {    
+Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {    
 
     const waitTime = 300; //Seconds
     const params = {
@@ -496,7 +496,7 @@ Scenario('Buy a loose diamond', async ({ I }) => {
     checkDiamondPrice();
     //----------------------------------------------- CUT FILTER --------------------------------------------------
     I.say('CHECKING CUT FILTER');
-    // checkDiamondCut();
+    checkDiamondCut();
     //----------------------------------------------- CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
     checkDiamondClarity();
