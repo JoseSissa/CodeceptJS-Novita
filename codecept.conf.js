@@ -24,11 +24,6 @@ exports.config = {
     JSONResponse: {
       requestHelper: 'Playwright',
     },
-    plugins: {
-      screenshotOnFail: {
-        enabled: false
-      }
-   }
     // MyHelper: {
     //   require: './Test-Playwright.js'
     // }
