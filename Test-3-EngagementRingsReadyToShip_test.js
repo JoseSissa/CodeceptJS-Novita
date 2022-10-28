@@ -303,13 +303,13 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
 
     // ----------------------------------------------- SHAPE FILTER ------------------------------------------------
     I.say('CHECKING SHAPE FILTER');
-    // checkDiamondShape();
+    checkDiamondShape();
     // ----------------------------------------------- COLOUR FILTER -----------------------------------------------
     I.say('CHECKING COLOUR FILTER');
-    // checkDiamondColour();
+    checkDiamondColour();
     //------------------------------------------------ CLARITY FILTER -----------------------------------------------
     I.say('CHECKING CLARITY FILTER');
-    // checkDiamondClarity();
+    checkDiamondClarity();
     //------------------------------------------------ RING SIZE ----------------------------------------------------
     I.moveCursorTo('//*[@id="settings_search_form"]/div/div[6]/div[1]/div/div')
     I.fillField('#react-select-2-input', 'J')
