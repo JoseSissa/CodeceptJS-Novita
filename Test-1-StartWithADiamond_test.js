@@ -1,6 +1,6 @@
-Feature('Start with a Diamond');
+Feature('ENGAGEMENT RINGS');
 
-Scenario('Start with a Diamond', async ({ I }) => {
+Scenario('START WITH A DIAMOND', async ({ I }) => {
 
     const waitTime = 300; //Seconds
     const waitResponseInTable = () => {
