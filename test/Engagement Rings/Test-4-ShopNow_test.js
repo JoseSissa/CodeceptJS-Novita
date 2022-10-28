@@ -11,7 +11,6 @@ Scenario('SHOP NOW', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
-                        console.log(results[0].response.items[i].metal_name.toLowerCase());
                         if(!results[0].response.items[i].metal_name.toLowerCase().includes(typeMetal)) {
                             console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()}`);
                             return false;
@@ -38,7 +37,6 @@ Scenario('SHOP NOW', async ({ I }) => {
                     if(results[0].response.total > 0) {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let j = 0; j < total; j++) {
-                            console.log(results[0].response.items[j].shape_slug);
                             if(results[0].response.items[j].shape_slug != names[i]) {
                                 console.log(`>>> Error in values obtained from SHAPE filter: option ${names[i].toUpperCase()}`);
                                 return false;
@@ -61,7 +59,6 @@ Scenario('SHOP NOW', async ({ I }) => {
             if(res.url().includes('/api/product/engagement-rings')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(results[0].response.items[i].engagement_ring_styles[0].style_name != style) {
                             console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()}, the response is: ${results[0].response.items[i].engagement_ring_styles[0].style_name}.`);
@@ -83,7 +80,6 @@ Scenario('SHOP NOW', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
                     for (let i = 0; i < total; i++) {
-                        console.log(results[0].response.items[i].price);
                         if(typePrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
                                 console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 and Under`);
@@ -116,7 +112,7 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.amOnPage("/");
     I.forceClick("SHOP NOW");
     I.waitForText('CREATE YOUR RING', 30);
-    I.seeInCurrentUrl("/engagement-ring/create/ring");
+    I.seeInCurrentUrl("/engagement-ring/create/rings");
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
     I.say('FILTER CHECK - METAL TYPE')
     I.forceClick('#metal_type_1')

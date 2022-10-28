@@ -352,57 +352,57 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
     I.moveCursorTo('//*[@id="header_desktop"]/section[1]/div/div[2]/a/img')
     
     //----------------------------------------------- SELECT OPTION -----------------------------------------------
-    I.wait(4)
-    I.say('SELECT FIRST OPTION')
-    I.click('//*[@id="ring_list_section"]/div/div/div/div[1]/a')
-    // Select Ring Size
-    I.wait(4)
-    I.selectOption('#select_ring_size', 'J')
-    I.wait(4)
-    I.forceClick('#add_product_to_cart_submit')
+    // I.wait(4)
+    // I.say('SELECT FIRST OPTION')
+    // I.click('//*[@id="ring_list_section"]/div/div/div/div[1]/a')
+    // // Select Ring Size
+    // I.wait(4)
+    // I.selectOption('#select_ring_size', 'J')
+    // I.wait(4)
+    // I.forceClick('#add_product_to_cart_submit')
 
-    I.waitForText('SHOPPING CART', waitTime)
-    I.seeInCurrentUrl('/cart')
-    I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
+    // I.waitForText('SHOPPING CART', waitTime)
+    // I.seeInCurrentUrl('/cart')
+    // I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
 
-    // ----------------------------------- WHERE DO YOU WANT THESE ITEMS SENT?-----------------------------------------
+    // // ----------------------------------- WHERE DO YOU WANT THESE ITEMS SENT?-----------------------------------------
 
-    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
-    I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
-    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
-    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
-    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
-    I.click('#shipping_billing_information_form_shippingCountry');
-    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
-    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
-    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
-    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
-    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
-    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
-    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
-    // Use the same address for billing and shipping
-    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
-    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+    // I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
+    // I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
+    // I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    // I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    // I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
+    // I.click('#shipping_billing_information_form_shippingCountry');
+    // I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    // I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    // I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
+    // I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    // I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    // I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    // I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    // I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+    // // Use the same address for billing and shipping
+    // I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
+    // I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
 
-    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
-    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
-    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
-    I.click('#shipping_billing_information_form_billingCountry');
-    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
-    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
-    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
-    I.click('#cart_shipping_content .last_row .right_submit input');
-    I.waitInUrl('/cart/payment-information', waitTime);
+    // I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    // I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    // I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
+    // I.click('#shipping_billing_information_form_billingCountry');
+    // I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    // I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    // I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
+    // I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    // I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    // I.click('#cart_shipping_content .last_row .right_submit input');
+    // I.waitInUrl('/cart/payment-information', waitTime);
 
-    I.waitForText('PAYMENT METHOD', waitTime)
-    I.forceClick('#checkbox_bank_wire')
-    I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
-    pause()
-    I.click('#bank_wire_submit')
-    I.waitForText('Your order is confirmed!', 30);
-    I.see('Your order is confirmed!');
+    // I.waitForText('PAYMENT METHOD', waitTime)
+    // I.forceClick('#checkbox_bank_wire')
+    // I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
+    // pause()
+    // I.click('#bank_wire_submit')
+    // I.waitForText('Your order is confirmed!', 30);
+    // I.see('Your order is confirmed!');
 
 });
