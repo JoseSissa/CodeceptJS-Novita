@@ -56,8 +56,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     }
     const checkDiamondShape = () => {
         for(const shape of params.shapes) {
-            I.click(`.${shape.toLocaleLowerCase()}-shape`);
-            
+            I.click(`.${shape.toLocaleLowerCase()}-shape`);            
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -68,19 +67,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
                                 if(!results[0].response.items[i].shape == shape) {
-                                    console.log(`>>> Error in values obtained from SHAPE filter: option ${shape.toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from DIAMOND SHAPE filter: option ${shape.toUpperCase()} expected, but ${results[0].response.items[i].shape.toUpperCase()} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: DIAMOND SHAPE, option ${shape.toUpperCase()}`);
                             return true;
                         }
                         return true;
                     }
                 }
             }, waitTime)
-
             I.click(`.${shape.toLocaleLowerCase()}-shape`);
         };
     };
@@ -99,19 +96,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
                             if(results[0].response.items[i].carat < parseFloat(params.caratFrom) || results[0].response.items[i].carat > parseFloat(params.caratTo)) {
-                                console.log(`>>> Error in values obtained from CARAT filter.}`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND CARAT filter: option ${params.caratFrom} to ${params.caratTo} expected, but ${results[0].response.items[i].carat} was found.`);
                             }
                         }
                     }else{
-                        console.log('No record was found according to the filter in the response.');
+                        console.log(`>>> No record was found according to the filter: DIAMOND CARAT, option ${params.caratFrom} to ${params.caratTo}.`);
                         return true;
                     }
                     return true;
                 }
             }
         }, waitTime)
-        // reset carat filter
         I.fillField("#from_carat_value_input", 0.30);
         I.pressKey("Enter");
         I.fillField("#to_carat_value_input", 6);
@@ -121,7 +116,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         for (const elem of Object.keys(params.colour)) {
             I.dragSlider("#search_form .diamond_filter_color_content .from", params.colour[elem][0]);
             I.dragSlider("#search_form .diamond_filter_color_content .to", params.colour[elem][1]);
-
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -132,19 +126,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
                                 if(results[0].response.items[i].color != elem) {
-                                    console.log(`>>> Error in values obtained from COLOUR filter: option ${elem.toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from DIAMOND COLOUR filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].color} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: DIAMOND COLOUR, option ${elem.toUpperCase()}.`);
                             return true;
                         }
                         return true;
                     }
                 }
             }, waitTime)
-
             I.dragSlider("#search_form .diamond_filter_color_content .from", -500);
             I.dragSlider("#search_form .diamond_filter_color_content .to", 500);
         };
@@ -154,7 +146,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         I.pressKey('Enter');
         I.fillField("#to_price_value_input", params.priceTo);
         I.pressKey('Enter');
-
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/diamonds')) {
@@ -165,19 +156,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
                             if(results[0].response.items[i].price < params.priceFrom || results[0].response.items[i].price > params.priceTo) {
-                                console.log(`>>> Error in values obtained from PRICE filter.`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option option ${params.priceFrom} to ${params.priceTo} expected, but ${results[0].response.items[i].price} was found.`)
                             }
                         }
                     }else{
-                        console.log('No record was found according to the filter in the response.');
+                        console.log(`>>> No record was found according to the filter: DIAMOND PRICE, option ${params.priceFrom} to ${params.priceTo}.`);
                         return true;
                     }
                     return true;
                 }
             }
         }, waitTime)
-
         I.fillField("#from_price_value_input", 250);
         I.pressKey('Enter');
         I.fillField("#to_price_value_input", 70000);
@@ -187,7 +176,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         for (const elem of Object.keys(params.cut)) {
             I.dragSlider("#search_form .diamond_filter_cut_content .from", params.cut[elem][0]);
             I.dragSlider("#search_form .diamond_filter_cut_content .to", params.cut[elem][1]);
-
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -198,19 +186,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
                                 if(results[0].response.items[i].cut != elem && results[0].response.items[i].cut != "-") {
-                                    console.log(`>>> Error in values obtained from CUT filter: option ${elem.toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from DIAMOND CUT filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].cut} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: DIAMOND CUT, option ${elem.toUpperCase()}.`);
                             return true;
                         }
                         return true;
                     }
                 }
-            }, waitTime)
-             
+            }, waitTime)             
             I.dragSlider("#search_form .diamond_filter_cut_content .from", -500);
             I.dragSlider("#search_form .diamond_filter_cut_content .to", 500);
         };
@@ -218,8 +204,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     const checkDiamondClarity = () => {
         for (const elem of Object.keys(params.clarity)) {
             I.dragSlider("#search_form .diamond_filter_clarity_content .from", params.clarity[elem][0]);
-            I.dragSlider("#search_form .diamond_filter_clarity_content .to", params.clarity[elem][1]);
-            
+            I.dragSlider("#search_form .diamond_filter_clarity_content .to", params.clarity[elem][1]);            
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -230,19 +215,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
                                 if(results[0].response.items[i].clarity != elem) {
-                                    console.log(`>>> Error in values obtained from CLARITY filter: option ${elem.toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from DIAMOND CLARITY filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].clarity} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: DIAMOND CLARITY, option ${elem.toUpperCase()}.`);
                             return true;
                         }
                         return true;
                     }
                 }
             }, waitTime)
-
             I.dragSlider("#search_form .diamond_filter_clarity_content .from", -500);
             I.dragSlider("#search_form .diamond_filter_clarity_content .to", 500);
         };
@@ -251,7 +234,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         for (const elem of Object.keys(params.polish)) {
             I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", params.polish[elem][0]);
             I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", params.polish[elem][1]);
-
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -262,19 +244,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
                                 if(results[0].response.items[i].polish != elem) {
-                                    console.log(`>>> Error in values obtained from POLISH filter: option ${elem.toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from POLISH filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].polish} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: POLISH, option ${elem.toUpperCase()}.`);
                             return true;
                         }
                         return true;
                     }
                 }
             }, waitTime)
-
             I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .from", -500);
             I.dragSlider("#advanced_filters_content .diamond_filter_polish_content .to", 500);
         }
@@ -284,7 +264,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         for (const elem of Object.keys(params.symmetry)) {
             I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", params.symmetry[elem][0]);
             I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", params.symmetry[elem][1]);
-
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -295,30 +274,24 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let i = 0; i < total; i++) {
                                 if(results[0].response.items[i].symmetry != elem) {
-                                    console.log(`>>> Error in values obtained from SYMMETRY filter: option ${elem.toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from SYMMETRY filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].symmetry} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: SYMMETRY, option ${elem.toUpperCase()}.`);
                             return true;
                         }
                         return true;
                     }
                 }
             }, waitTime)
-
             I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .from", -500);
             I.dragSlider("#advanced_filters_content .diamond_filter_symmetry_content .to", 500);
         }
     };
     const checkDiamondReport = () => {
-
         for (let i = 0; i < params.reports.length; i++) {
-            // const c = i+1;
-            // I.click(params.reports[i]);
             I.forceClick(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-
             let results = [];
             I.waitForResponse(async res => {
                 if(res.url().includes('/api/product/diamonds')) {
@@ -329,21 +302,18 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             const total = results[0].response.total > 10 ? 10 : results[0].response.total
                             for (let j = 0; j < total; j++) {
                                 if(results[0].response.items[j].certificate_laboratory != params.reports[i]) {
-                                    console.log(`>>> Error in values obtained from REPORT filter: option ${params.reports[i].toUpperCase()}`);
-                                    return false;
+                                    console.log(`>>> Error in values obtained from REPORT filter: option ${params.reports[i].toUpperCase()} expected, but ${results[0].response.items[i].certificate_laboratory} was found.`);
                                 }
                             }
                         }else{
-                            console.log('No record was found according to the filter in the response.');
+                            console.log(`>>> No record was found according to the filter: REPORT, option ${params.reports[i].toUpperCase()}.`);
                             return true;
                         }
                         return true;
                     }
                 }
             }, waitTime)
-
             I.forceClick(params.reports[i], `#advanced_filters_content .diamond_filter_certificate_content ul li:nth-child(${i+1}) label`);
-            // I.click(params.reports[i]);
         }
     };
     const checkDiamondRatio = () => {
@@ -351,7 +321,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         I.pressKey('Enter');
         I.fillField('#to_ratio_value_input', params.ratioTo);
         I.pressKey('Enter');
-
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/diamonds')) {
@@ -365,18 +334,17 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
                             // results[0].response.items[i].ratio < parseFloat(params.ratioFrom) || results[0].response.items[i].ratio > parseFloat(params.ratioTo)
                             if(results[0].response.items[i].ratio != null && (results[0].response.items[i].ratio < parseFloat(params.ratioFrom) || results[0].response.items[i].ratio > parseFloat(params.ratioTo))) {
                                 console.log(`>>> Error in values obtained from RATIO filter.`);
-                                return false;
+                                console.log(`>>> Error in values obtained from RATIO filter: option ${params.ratioFrom} to ${params.ratioTo} expected, but ${results[0].response.items[i].ratio} was found.`);
                             }
                         }
                     }else{
-                        console.log('No record was found according to the filter in the response.');
+                        console.log(`>>> No record was found according to the filter: RATIO, option ${params.ratioFrom} to ${params.ratioTo}.`);
                         return true;
                     }
                     return true;
                 }
             }
         }, waitTime)
-
         I.fillField('#from_ratio_value_input', 1);
         I.pressKey('Enter');
         I.fillField('#to_ratio_value_input', 3);
