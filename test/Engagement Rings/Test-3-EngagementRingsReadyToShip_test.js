@@ -13,12 +13,11 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(!results[0].response.items[i].engring_metal_name.toLowerCase().includes(typeMetal)) {
-                            console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()}`);
-                            return false;
+                            console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()} expected, but ${results[0].response.items[i].engring_metal_name.toUpperCase()} was found.`);
                         }                        
                     }
                 }else{
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`>>> No record was found according to the filter: METAL TYPE, option ${typeMetal.toUpperCase()}`);
                     return true;
                 }
                 return true;
@@ -38,19 +37,17 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(results[0].response.items[i].diamond_carat < 2 || results[0].response.items[i].diamond_carat > 3) {
-                            console.log(`>>> Error in values obtained from CARAT filter.}`);
-                            return false;
+                            console.log(`>>> Error in values obtained from DIAMOND CARAT filter: option 2 to 3 expected, but ${results[0].response.items[i].diamond_carat} was found.`);
                         }
                     }
                 }else{
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`>>> No record was found according to the filter: DIAMOND CARAT, option 2 to 3.`);
                     return true;
                 }
                 return true;
                 
             }
         }, waitTime)
-        // reset carat filter
         I.fillField("#from_carat_value_input", 0.30);
         I.pressKey("Enter");
         I.fillField("#to_carat_value_input", 6);
@@ -70,12 +67,11 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let j = 0; j < total; j++) {
                             if(results[0].response.items[j].diamond_shape_slug != names[i]) {
-                                console.log(`>>> Error in values obtained from SHAPE filter: option ${names[i].toUpperCase()}`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND SHAPE filter: option ${names[i].toUpperCase()} expected, but ${results[0].response.items[i].diamond_shape_slug.toUpperCase()} was found.`);
                             }
                         }
                     }else{
-                        console.log(`No record was found according to the filter DIAMOND SHAPE ${names[i].toUpperCase()} in the response.`);
+                        console.log(`>>> No record was found according to the filter: DIAMOND SHAPE, option ${names[i].toUpperCase()}`);
                         return true;
                     }
                     return true;                    
@@ -122,12 +118,11 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
                             if(results[0].response.items[i].diamond_colour_name != elem) {
-                                console.log(`>>> Error in values obtained from COLOUR filter: option ${elem.toUpperCase()}`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND COLOUR filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].diamond_colour_name} was found.`);
                             }
                         }
                     }else{
-                        console.log(`No record was found according to the filter DIAMOND COLOUR OPTION: ${elem.toUpperCase()} in the response.`);
+                        console.log(`>>> No record was found according to the filter: DIAMOND COLOUR, option ${elem.toUpperCase()}.`);
                         return true;
                     }
                     return true;
@@ -181,12 +176,11 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let i = 0; i < total; i++) {
                             if(results[0].response.items[i].diamond_clarity_name != elem) {
-                                console.log(`>>> Error in values obtained from CLARITY filter: option ${elem.toUpperCase()}`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND CLARITY filter: option ${elem.toUpperCase()} expected, but ${results[0].response.items[i].diamond_clarity_name} was found.`);
                             }
                         }
                     }else{
-                        console.log(`No record was found according to the filter DIAMOND CLARITY OPTION: ${elem.toUpperCase()} in the response.`);
+                        console.log(`>>> No record was found according to the filter: DIAMOND CLARITY, option ${elem.toUpperCase()}.`);
                         return true;
                     }
                     return true;
@@ -213,12 +207,11 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(results[0].response.items[i].engring_style_name != style) {
-                            console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()}`);
-                            return false;
+                            console.log(`>>> Error in values obtained from STYLE filter: option ${style.toUpperCase()} expected, but ${results[0].response.items[i].engring_style_name} was found.`);
                         }
                     }
                 }else{
-                    console.log(`No record was found according to the filter DIAMOND STYLE OPTION: ${style.toUpperCase()} in the response.`);
+                    console.log(`>>> No record was found according to the filter: STYLE, option ${style.toUpperCase()}.`);
                     return true;
                 }
                 return true;
@@ -238,27 +231,23 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(results[0].response.items[i].price < 10000 || results[0].response.items[i].price > 40000) {
-                            console.log(`>>> Error in values obtained from PRICE filter.}`);
-                            return false;
+                            console.log(`>>> Error in values obtained from PRICE filter: option 10000 to 40000 expected, but ${results[0].response.items[i].price} was found.`);
                         }
                     }
                 }else{
-                    console.log(`No record was found according to the filter DIAMOND PRICE in the response.`);
+                    console.log(`>>> No record was found according to the filter: PRICE, option option 10000 to 40000.`);
                     return true;
                 }
-                return true;
-                
+                return true;                
             }
         }, waitTime)
-        // reset carat filter
         I.fillField("#from_price_value_input", 1000);
         I.pressKey("Enter");
         I.fillField("#to_price_value_input", 60000);
         I.pressKey("Enter"); 
     };
 
-    // -------------------------------------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------
+    // ==========================================================================================================
 
     I.say('TEST - CUSTOM ENGAGEMENT RINGS');
     I.amOnPage("/");
