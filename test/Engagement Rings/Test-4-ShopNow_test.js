@@ -12,12 +12,11 @@ Scenario('SHOP NOW', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(!results[0].response.items[i].metal_name.toLowerCase().includes(typeMetal)) {
-                            console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()}`);
-                            return false;
+                            console.log(`>>> Error in values obtained from METAL TYPE filter: option ${typeMetal.toUpperCase()} expected, but ${results[0].response.items[i].metal_name.toUpperCase()} was found.`);
                         }                        
                     }
                 }else{
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`>>> No record was found according to the filter: METAL TYPE, option ${typeMetal.toUpperCase()}.`);
                     return true;
                 }
                 return true;
@@ -38,12 +37,11 @@ Scenario('SHOP NOW', async ({ I }) => {
                         const total = results[0].response.total > 10 ? 10 : results[0].response.total
                         for (let j = 0; j < total; j++) {
                             if(results[0].response.items[j].shape_slug != names[i]) {
-                                console.log(`>>> Error in values obtained from SHAPE filter: option ${names[i].toUpperCase()}`);
-                                return false;
+                                console.log(`>>> Error in values obtained from SHAPE filter: option ${names[i].toUpperCase()} expected, but ${results[0].response.items[i].shape_slug.toUpperCase()} was found.`);                                
                             }
                         }
                     }else{
-                        console.log(`No record was found according to the filter DIAMOND SHAPE ${names[i].toUpperCase()} in the response.`);
+                        console.log(`>>> No record was found according to the filter: SHAPE, option ${names[i].toUpperCase()}.`);
                         return true;
                     }
                     return true;                    
@@ -61,18 +59,18 @@ Scenario('SHOP NOW', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     for (let i = 0; i < total; i++) {
                         if(results[0].response.items[i].engagement_ring_styles[0].style_name != style) {
-                            console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()}, the response is: ${results[0].response.items[i].engagement_ring_styles[0].style_name}.`);
+                            console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()} expected, but ${results[0].response.items[i].engagement_ring_styles[0].style_name} was found.`);
                         }
                     }
                 }else{
-                    console.log(`No record was found according to the filter DIAMOND STYLE OPTION: ${style.toUpperCase()} in the response.`);
+                    console.log(`>>> No record was found according to the filter: STYLE, option ${style.toUpperCase()}.`);
                     return true;
                 }
                 return true;
             }
         }, waitTime)
     };
-    const checkDiamondPrice = (typePrice) => {
+    const checkDiamondPrice = (typePrice, option) => {
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/engagement-rings')) {
@@ -82,23 +80,20 @@ Scenario('SHOP NOW', async ({ I }) => {
                     for (let i = 0; i < total; i++) {
                         if(typePrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
-                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 and Under`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 and Under, ${results[0].response.items[i].price} was found.`);
                             }
                         }else if(typePrice == 'between') {
                             if(!(results[0].response.items[i].price >= 1000 && results[0].response.items[0].price <= 2000)) {
-                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 to $2000.`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option $1000 to $2000, ${results[0].response.items[i].price} was found.`);
                             }
                         }else if(typePrice == 'over') {
                             if(!(results[0].response.items[i].price > 2000)) {
-                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option over $2000`);
-                                return false;
+                                console.log(`>>> Error in values obtained from DIAMOND PRICE filter: option over $2000, ${results[0].response.items[i].price} was found.`);
                             }
                         }
                     }
                 }else {
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`No record was found according to the filter: DIAMOND PRICE, option ${option.toUpperCase()}.`);
                     return true;
                 }
                 return true;
@@ -179,22 +174,20 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.say('PRICE - $1000 and Under');
     I.forceClick('#setting_price_range_2');
     I.seeCheckboxIsChecked('#setting_price_range_2');
-    checkDiamondPrice('under');
+    checkDiamondPrice('under', '$1000 and Under');
     I.forceClick('#setting_price_range_2');
 
     I.say('PRICE - BETWEEN $1000 to $2000');
     I.forceClick('#setting_price_range_3');
     I.seeCheckboxIsChecked('#setting_price_range_3');
-    checkDiamondPrice('between');
+    checkDiamondPrice('between', '$1000 to $2000');
     I.forceClick('#setting_price_range_3');
 
     I.say('PRICE - OVER $2000');
     I.forceClick('#setting_price_range_4');
     I.seeCheckboxIsChecked('#setting_price_range_4');
-    checkDiamondPrice('over');
+    checkDiamondPrice('over', 'OVER $2000');
     I.forceClick('#setting_price_range_4');
     
     I.forceClick('#setting_price_range_1');
-
-
 })
