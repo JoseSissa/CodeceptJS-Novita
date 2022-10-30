@@ -1,4 +1,4 @@
-Feature('ENGAGEMENT RINGS');
+Feature('ENGAGEMENT RINGS - BUY LOOSE DIAMONDS');
 
 Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {    
 

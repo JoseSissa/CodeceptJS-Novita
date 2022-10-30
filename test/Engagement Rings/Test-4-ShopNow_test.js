@@ -1,4 +1,4 @@
-Feature('ENGAGEMENT RINGS');
+Feature('ENGAGEMENT RINGS - SHOP NOW');
 
 Scenario('SHOP NOW', async ({ I }) => {
 
@@ -57,6 +57,7 @@ Scenario('SHOP NOW', async ({ I }) => {
             if(res.url().includes('/api/product/engagement-rings')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
                         if(results[0].response.items[i].engagement_ring_styles[0].style_name != style) {
                             console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()} expected, but ${results[0].response.items[i].engagement_ring_styles[0].style_name} was found.`);
@@ -107,7 +108,7 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.amOnPage("/");
     I.forceClick("SHOP NOW");
     I.waitForText('CREATE YOUR RING', 30);
-    I.seeInCurrentUrl("/engagement-ring/create/rings");
+    I.seeInCurrentUrl("/engagement-ring/create/ring");
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
     I.say('FILTER CHECK - METAL TYPE')
     I.forceClick('#metal_type_1')
@@ -144,7 +145,7 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.say('CHECKING STYLE FILTER');
 
     I.say('DIAMOND STYLE - SOLITAIRE')
-    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[7]/div[1]/div/div')
+    // I.moveCursorTo('//*[@id="settings_search_form"]/div/div[3]/div[1]/div')
     I.forceClick('#engagement_ring_style_2')
     I.seeCheckboxIsChecked('#engagement_ring_style_2')
     checkDiamondStyle('Solitaire')
