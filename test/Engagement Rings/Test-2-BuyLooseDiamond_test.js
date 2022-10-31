@@ -510,98 +510,100 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     waitResponseAndtext();
 
     // OPTION COMPARE DIAMONDS
-    // I.say('OPTION COMPARE DIAMONDS');
-    // compareDiamonds();
-    // // Select Results options form the table
-    // I.click('#to_diamond_list_from_compare_diamonds');
+    I.say('OPTION COMPARE DIAMONDS');
+    compareDiamonds();
+    // Select Results options form the table
+    I.click('#to_diamond_list_from_compare_diamonds');
 
-    // // Select one diamond (Click on detail)
-    // I.say('SELECT ONE DIAMOND');
-    // const video = await selectDiamond();
-    // I.wait(4);
-    // I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
-    // I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
+    // Select one diamond (Click on detail)
+    I.say('SELECT ONE DIAMOND');
+    const video = await selectDiamond();
+    I.wait(4);
+    I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
 
-    // I.say('CHECKING BACK BUTTON');
-    // I.click('#diamond_detail_section .to_diamond_list_from_diamond_detail');
-    // I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
-    // I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
+    I.say('CHECKING BACK BUTTON');
+    I.click('#diamond_detail_section .to_diamond_list_from_diamond_detail');
+    I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
 
-    // // Check if diamond has Video option
-    // checkVideo();
-    // // Check the Certificate option
-    // I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
-    // I.wait(10);
-    // I.switchToNextTab();
-    // checkURLcertificate();
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
-    // // Image
-    // I.click('#tab_diamond_image');
-    // // IGI Certified
-    // I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
-    // I.wait(10);
-    // I.switchToNextTab();
-    // checkURLcertificate();
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
+    // Check if diamond has Video option
+    checkVideo();
+    // Check the Certificate option
+    I.click('#diamond_detail_section .diamond_detail_tabs .certificate_tab');
+    I.wait(10);
+    I.switchToNextTab();
+    checkURLcertificate();
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
+    // Image
+    I.click('#tab_diamond_image');
+    // IGI Certified
+    I.click('#diamond_detail_section .diamond_detail_content_features .er_details_column_one a');
+    I.wait(10);
+    I.switchToNextTab();
+    checkURLcertificate();
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
 
-    // // 20% Deposit Available
-    // I.click('20% Deposit Available');
-    // I.wait(10);
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('/deposit');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
+    // 20% Deposit Available
+    I.click('20% Deposit Available');
+    I.wait(10);
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
     
-    // // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
-    // I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
-    // I.click('#add_loose_diamond_to_cart_submit');
-    // I.waitForText('SHOPPING CART', 30);
+    // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
+    I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
+    I.click('#add_loose_diamond_to_cart_submit');
+    I.waitForText('SHOPPING CART', 30);
 
-    // I.checkOption('#loose_diamond_option_false');
-    // I.checkOption('#loose_diamond_option_true');
-    // I.wait(5);
-    // I.fillField('#cart .custom-control p .name-input', 'Name member');
-    // I.selectOption('#select_ring_size', '3/4');
+    I.checkOption('#loose_diamond_option_false');
+    I.checkOption('#loose_diamond_option_true');
+    I.wait(5);
+    I.fillField('#cart .custom-control p .name-input', 'Name member');
+    I.selectOption('#select_ring_size', '3/4');
 
-    // I.say('PAY DEPOSIT OPTION');
-    // I.click('table tbody .deposit_row .checkbox_label');
-    // I.click('#accept_deposit_policy');
-    // I.click('table tbody .total_row .checkbox_label');
+    I.say('PAY DEPOSIT OPTION');
+    I.click('table tbody .deposit_row .checkbox_label');
+    I.click('#accept_deposit_policy');
+    I.click('table tbody .total_row .checkbox_label');
     
-    // I.say('CLICK IN CHECKOUT');
-    // I.click('#cart table tbody .order_summary_checkout_button a');
-    // I.wait(2);
-    // I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30, 'h2');
+    I.say('CLICK IN CHECKOUT');
+    I.click('#cart table tbody .order_summary_checkout_button a');
+    I.wait(2);
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30, 'h2');
 
-    // I.say('SHIP TO MY ADDRESS FORM');
-    // I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
-    // I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-    // I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
-    // I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-    // I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
-    // I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
-    // I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
-    // I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
-    // I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+    I.say('SHIP TO MY ADDRESS FORM');
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
 
-    // // Use the same address for billing and shipping
-    // I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+    // Use the same address for billing and shipping
+    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
 
-    // I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING FORM');
-    // I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
-    // I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-    // I.fillField('#shipping_billing_information_form_billingState', 'Testing');
-    // I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-    // I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
-    // I.fillField('#shipping_billing_information_form_billingPhone', '123456');
-    // I.click('#cart_shipping_content .last_row .right_submit input');
-    // I.waitForText('PAYMENT METHOD', 30, 'h2');
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING FORM');
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    I.click('#cart_shipping_content .last_row .right_submit input');
+    I.waitForText('PAYMENT METHOD', 30, 'h2');
+    pause()
+
     // I.click('#checkbox_bank_wire_description');
     // I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
     // pause();
