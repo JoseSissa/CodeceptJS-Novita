@@ -14,7 +14,7 @@ exports.config = {
   helpers: {
     Playwright: {
       browser: 'chromium',
-      show: true,
+      show: false,
       url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
       // url: 'https://manmadediamonds.com.au/',

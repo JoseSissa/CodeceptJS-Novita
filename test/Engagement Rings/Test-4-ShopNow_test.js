@@ -308,5 +308,4 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
-    pause()
 })

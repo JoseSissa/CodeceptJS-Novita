@@ -1,8 +1,0 @@
-
-
-<<< Recorded commands on Thu Oct 27 2022 10:22:00 GMT-0500 (hora estándar de Colombia)
-I.selectOption("#select_ring_size", "J")
-I.click('#add_product_to_cart_submit')
-
-<<< Recorded commands on Thu Oct 27 2022 10:49:36 GMT-0500 (hora estándar de Colombia)
-I.see('PAYMENT METHOD')

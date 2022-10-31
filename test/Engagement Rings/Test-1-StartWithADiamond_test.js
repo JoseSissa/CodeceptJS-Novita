@@ -463,7 +463,7 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
     I.say('CHANGE - RING')
     I.forceClick('Change', '.to_setting_list_from_summary')
     I.waitForElement('//*[@id="ring_list_section"]/div/div[1]/a', waitTime)
-    I.wait(1)
+    I.wait(5)
     I.seeElement('//*[@id="ring_list_section"]/div/div[1]/a')
     I.forceClick('//*[@id="ring_list_section"]/div/div[1]/a')
     I.click('Choose this design');
@@ -580,7 +580,6 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
-    pause()
 
     // // -------------------------------------------- PAYMENT METHOD --------------------------------------------
     // I.say('PAYMENT METHOD');
