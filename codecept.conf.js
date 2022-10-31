@@ -8,13 +8,12 @@ setCommonPlugins();
 
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
-  // tests: './test/Wedding Rings/*_test.js',
   tests: './test/**/*_test.js',
   output: './output',
   helpers: {
     Playwright: {
       browser: 'chromium',
-      show: false,
+      show: true,
       url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
       // url: 'https://manmadediamonds.com.au/',
