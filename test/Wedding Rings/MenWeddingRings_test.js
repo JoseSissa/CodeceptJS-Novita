@@ -154,7 +154,7 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     I.say('STYLE PAVE');
     I.forceClick('#jewellery_category_2');
     I.seeCheckboxIsChecked('#jewellery_category_2');
-    waitResponseStyleRing('pave');
+    waitResponseStyleRing('plain');
     I.forceClick('#jewellery_category_2');
 
     // Style Pattern
@@ -220,6 +220,96 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     I.forceClick('#jewellery_price_range_4');
     
     I.forceClick('#jewellery_price_range_1');
+
+    // -------------------------------------------- I SELECT FIRST ITEM/ELEMENT --------------------------------------------
+    I.say('FIRST ITEM SELECTED');
+    I.waitForElement('#jewellery_list_section .jewellery_list .jewellery_detail_link', waitTime)
+    I.click('#jewellery_list_section .jewellery_list .jewellery_detail_link')
+    // 15 days express
+    I.click('//*[@id="express_included_col"]/div[1]/label/div/img[1]')
+    // 20% Deposit Available
+    I.say('20% DEPOSIT AVAILABLE');
+    I.click('//*[@id="pay_deposit_box"]/div/a')
+    I.wait(5)
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/mens-wedding-bands-mens-wedding-rings-wedding-bands-for-men');
+    // Add Engraving
+    I.click('//*[@id="add_engraving"]/div/a')
+    I.see('Add Engraving(+$50)')
+    // Font
+    I.click('#fontdropdown')
+    I.click('#font_trebuchet')
+    I.fillField('#engraving_textarea', 'Jose Testing')
+    I.click('//*[@id="engraving_form_container"]/div[3]/a/div/label/div/img[1]')
+    I.click('#save_engraving_message_link')
+
+    // Test of cancel button
+    I.click('//*[@id="add_engraving"]/div/a')
+    I.see('Add Engraving(+$50)')
+    I.click('#cancel_engraving_message_link')
+    // Ring Size
+    I.selectOption('#select_ring_size', '2')
+    // More info
+    I.click('#more_info_link')
+    I.waitForText('PRODUCT DETAILS', 30)
+    I.see('PRODUCT DETAILS')
+    I.click('//*[@id="jewellery_more_details_box"]/button')
+    // Add to Cart
+    I.say('ADD TO CART')
+    I.click('#add_product_to_cart_submit')
+    I.waitForText('SHOPPING CART', 30)
+    I.see('SHOPPING CART')
+    // Jewellery Personalisation - Change
+    I.say('JEWELLERY PERSONALISATION')
+    I.click('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/a')
+    I.waitForText('PERSONALISE YOUR JEWELLERY', 30)
+    I.see('PERSONALISE YOUR JEWELLERY')
+    I.click('//*[@id="personalised_jewellery_select_engraving"]')
+    I.click('#jewellery_engraving_font_type')
+    I.click('//*[@id="change_jewellery_engraving_font_select"]/a[2]')
+    I.fillField('#jewellery_engraving_textarea', 'Jose Testing')
+    I.click('#save_jewellery_engraving_message_link')
+    I.click('#save_jewellery_store_personalisation')
+    I.wait(5)
+    // Pay deposit
+    I.say('PAY DEPOSIT')
+    I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[2]/td[1]/label')
+    I.click('#accept_deposit_policy')
+    I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
+    // Checkout
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30)
+    I.see('WHERE DO YOU WANT THESE ITEMS SENT?')
+    // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_shippingCountry');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+
+    // Use the same address for billing and shipping
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
+    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_billingCountry');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    I.click('#cart_shipping_content .last_row .right_submit input');
+    I.seeInCurrentUrl('/cart/payment-information');
     
 });
 

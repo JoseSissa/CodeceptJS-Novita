@@ -233,8 +233,6 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
 
     // 15 days express
     I.click('//*[@id="express_included_col"]/div[1]/label/div/img[1]')
-    // 5 - 7 weeks turnaround
-    // I.click('//*[@id="express_job_option"]/div[2]/div[1]/div/label/div/img[1]')
     // 20% Deposit Available
     I.say('20% DEPOSIT AVAILABLE');
     I.click('//*[@id="pay_deposit_box"]/div/a')
@@ -261,17 +259,18 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.selectOption('#select_ring_size', '2')
     // More info
     I.click('#more_info_link')
-    I.waitForText('PRODUCT DETAILS', 10)
+    I.waitForText('PRODUCT DETAILS', 30)
     I.see('PRODUCT DETAILS')
     I.click('//*[@id="jewellery_more_details_box"]/button')
     // Add to Cart
     I.say('ADD TO CART')
     I.click('#add_product_to_cart_submit')
-    I.waitForText('SHOPPING CART')
+    I.waitForText('SHOPPING CART', 30)
     I.see('SHOPPING CART')
     // Jewellery Personalisation - Change
     I.say('JEWELLERY PERSONALISATION')
     I.click('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/a')
+    I.waitForText('PERSONALISE YOUR JEWELLERY', 30)
     I.see('PERSONALISE YOUR JEWELLERY')
     I.click('//*[@id="personalised_jewellery_select_engraving"]')
     I.click('#jewellery_engraving_font_type')
@@ -286,7 +285,7 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.click('#accept_deposit_policy')
     I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
     // Checkout
-    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime)
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30)
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?')
     // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
@@ -317,9 +316,6 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
-
-
-    pause()
 
 
 });
