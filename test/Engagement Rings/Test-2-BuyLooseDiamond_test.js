@@ -518,7 +518,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     // // Select one diamond (Click on detail)
     // I.say('SELECT ONE DIAMOND');
     // const video = await selectDiamond();
-    // I.wait(1);
+    // I.wait(4);
     // I.click(`//*[@id="body_table_results"]/tr[${video}]/td[10]/a/div`);
     // I.seeInCurrentUrl('/buy-loose-diamond-start-buying');
 

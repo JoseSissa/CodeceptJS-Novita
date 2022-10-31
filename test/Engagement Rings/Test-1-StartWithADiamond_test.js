@@ -209,12 +209,13 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
         I.fillField('#drop_hint_yourName', 'Jose Testing');
         I.fillField('#drop_hint_yourEmail', 'testing@testing.com');
         I.checkOption('#drop_hint_newStyleOfferUpdate');
-        I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
-        pause();
-        I.click('#drop_hint_send');
-        I.waitForText('MESSAGE SENT', waitTime)
-        I.see('MESSAGE SENT');
-        I.click('.modal-content .modal-body button');
+        I.click('//*[@id="drop_a_hint"]/div/div/div/button')
+        // I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
+        // pause();
+        // I.click('#drop_hint_send');
+        // I.waitForText('MESSAGE SENT', waitTime)
+        // I.see('MESSAGE SENT');
+        // I.click('.modal-content .modal-body button');
     };
 
     // ----------------------------------------------------
@@ -403,182 +404,183 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
     searchInputRingDesign('allegro accent');
     I.fillField('#create_engage_ring_container .select_ring_container .search-section .input-group input', '');
     I.pressKey('Enter');
+    I.wait(4)
 
     // // -------------------------------------------- I SELECT FIRST ITEM/ELEMENT --------------------------------------------
-    // I.say('FIRST ITEM SELECTED');
-    // I.waitForElement('#ring_list_section .ring_item .ring_detail_link', waitTime)
-    // I.click('#ring_list_section .ring_item .ring_detail_link');
-    // // 20 days express (+$150)
-    // I.checkOption('#include_express_job_id .pink_checkbox_icon');
+    I.say('FIRST ITEM SELECTED');
+    I.waitForElement('#ring_list_section .ring_item .ring_detail_link', waitTime)
+    I.click('#ring_list_section .ring_item .ring_detail_link');
+    I.wait(4)
+    // 20 days express (+$150)
+    I.checkOption('#include_express_job_id .pink_checkbox_icon');
 
-    // // 20% Deposit Available
-    // I.click('#express_job_option .pink_checkbox_box_legend a');
+    // 20% Deposit Available
+    I.click('#express_job_option .pink_checkbox_box_legend a');
     
-    // // Personalise your ring
-    // I.say('PERSONALISE YOUR RING');
-    // I.click('#personalise_ring_link .pink_checkbox_icon');
-    // checkPersonaliseYourRing();
-    // // Button cancel
-    // I.say('PERSONALISE YOUR RING, BUTTON CANCEL');
-    // I.click('Personalise your ring');
-    // I.click('#cancel_store_personalisation');
+    // Personalise your ring
+    I.say('PERSONALISE YOUR RING');
+    I.click('#personalise_ring_link .pink_checkbox_icon');
+    checkPersonaliseYourRing();
+    // Button cancel
+    I.say('PERSONALISE YOUR RING, BUTTON CANCEL');
+    I.click('Personalise your ring');
+    I.click('#cancel_store_personalisation');
 
-    // // 20% Deposit Available
-    // I.say('20% DEPOSIT AVAILABLE');
-    // I.wait(5)
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('/deposit');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/engagement-ring/create/');
+    // 20% Deposit Available
+    I.say('20% DEPOSIT AVAILABLE');
+    I.wait(5)
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/deposit');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
 
-    // // More information
-    // I.say('MORE INFORMATION');
-    // I.click('#more_info_link');
-    // I.waitForText('PRODUCT DETAILS', waitTime, 'h2')
-    // I.see('PRODUCT DETAILS', 'h2');
-    // I.click('#ring_more_details_box button');
+    // More information
+    I.say('MORE INFORMATION');
+    I.click('#more_info_link');
+    I.waitForText('PRODUCT DETAILS', waitTime, 'h2')
+    I.see('PRODUCT DETAILS', 'h2');
+    I.click('#ring_more_details_box button');
 
-    // // Choose this diamond
-    // I.say('CHOOSE THIS DIAMOND');
-    // I.click('//*[@id="ring_list_section"]/div/div[2]/a');
-    // I.click('Choose this design');
-    // I.waitForText('Review Your Ring', waitTime, 'h2')
-    // I.see('Review Your Ring', 'h2');
+    // Choose this diamond
+    I.say('CHOOSE THIS DIAMOND');
+    I.click('//*[@id="ring_list_section"]/div/div[2]/a');
+    I.click('Choose this design');
+    I.waitForText('Review Your Ring', waitTime, 'h2')
+    I.see('Review Your Ring', 'h2');
 
     // // -------------------------------------------- CHANGE DIAMOND --------------------------------------------
-    // I.say('CHANGE - DIAMOND')
-    // I.forceClick('Change', '.to_diamond_list_from_summary')
-    // waitResponseInTable()
-    // I.see('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
-    // I.forceClick('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
-    // I.seeElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]')
-    // I.click('Choose this diamond');
-    // I.waitForText('Review Your Ring', waitTime, 'h2')
-    // I.see('Review Your Ring', 'h2');
+    I.say('CHANGE - DIAMOND')
+    I.forceClick('Change', '.to_diamond_list_from_summary')
+    waitResponseInTable()
+    I.see('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
+    I.forceClick('Detail', '//*[@id="body_table_results"]/tr[1]/td[10]/a/div')
+    I.seeElement('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]')
+    I.click('Choose this diamond');
+    I.waitForText('Review Your Ring', waitTime, 'h2')
+    I.see('Review Your Ring', 'h2');
 
     // // -------------------------------------------- CHANGE RING --------------------------------------------
-    // I.say('CHANGE - RING')
-    // I.forceClick('Change', '.to_setting_list_from_summary')
-    // I.waitForElement('//*[@id="ring_list_section"]/div/div[1]/a', waitTime)
-    // I.wait(1)
-    // I.seeElement('//*[@id="ring_list_section"]/div/div[1]/a')
-    // I.forceClick('//*[@id="ring_list_section"]/div/div[1]/a')
-    // I.click('Choose this design');
-    // I.waitForText('Review Your Ring', waitTime, 'h2')
-    // I.see('Review Your Ring', 'h2');
+    I.say('CHANGE - RING')
+    I.forceClick('Change', '.to_setting_list_from_summary')
+    I.waitForElement('//*[@id="ring_list_section"]/div/div[1]/a', waitTime)
+    I.wait(1)
+    I.seeElement('//*[@id="ring_list_section"]/div/div[1]/a')
+    I.forceClick('//*[@id="ring_list_section"]/div/div[1]/a')
+    I.click('Choose this design');
+    I.waitForText('Review Your Ring', waitTime, 'h2')
+    I.see('Review Your Ring', 'h2');
 
-    // I.say('CHANGE - RING PERSONALISATION')
-    // I.click('#selection_summary_section .summary_personalise_link');
-    // checkPersonaliseYourRing();
+    I.say('CHANGE - RING PERSONALISATION')
+    I.click('#selection_summary_section .summary_personalise_link');
+    checkPersonaliseYourRing();
 
     // // -------------------------------------------- RING SIZE --------------------------------------------
-    // I.say('RING SIZE')
-    // I.seeElement('//*[@id="engagement_ring_summary"]/div[2]/div[2]/div[9]/div[4]/a')
-    // I.selectOption('#select_ring_size', '1')
+    I.say('RING SIZE')
+    I.seeElement('//*[@id="engagement_ring_summary"]/div[2]/div[2]/div[9]/div[4]/a')
+    I.selectOption('#select_ring_size', '1')
     // // -------------------------------------------- DROP A HINT --------------------------------------------
-    // I.say('OPTION DROP A HINT');
-    // I.click('.social_network_icons .drop_a_hint a');
-    // I.waitForText('Drop a hint', waitTime, 'h3')
-    // I.see('DROP A HINT', 'h3')
-    // formDropAHint();
+    I.say('OPTION DROP A HINT');
+    I.click('.social_network_icons .drop_a_hint a');
+    I.waitForText('Drop a hint', waitTime, 'h3')
+    I.see('DROP A HINT', 'h3')
+    formDropAHint();
 
-    // I.say('OPTION FREE SHIPPING');
-    // I.forceClick('.free_shipping a');
-    // I.waitForText('FREE SHIPPING', waitTime, 'h2')
-    // I.see('FREE SHIPPING');
-    // I.click('> LEARN MORE');
-    // I.wait(5);
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('/free-shipping');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/engagement-ring/create/');
-    // I.click('.modal-content .modal-body button');
+    I.say('OPTION FREE SHIPPING');
+    I.forceClick('.free_shipping a');
+    I.waitForText('FREE SHIPPING', waitTime, 'h2')
+    I.see('FREE SHIPPING');
+    I.click('> LEARN MORE');
+    I.wait(5);
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/free-shipping');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
+    I.click('.modal-content .modal-body button');
 
-    // I.say('OPTION FREE RETURNS');
-    // I.click('.free_returns a');
-    // I.waitForText('FREE 30 DAYS RETURN POLICY', waitTime, 'h3')
-    // I.see('FREE 30 DAYS RETURN POLICY', 'h3');
-    // I.click('> LEARN MORE');
-    // I.wait(5);
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('/free-return');
-    // I.closeCurrentTab();
-    // I.seeInCurrentUrl('/engagement-ring/create/');
-    // I.click('.modal-content .modal-body button');
+    I.say('OPTION FREE RETURNS');
+    I.click('.free_returns a');
+    I.waitForText('FREE 30 DAYS RETURN POLICY', waitTime, 'h3')
+    I.see('FREE 30 DAYS RETURN POLICY', 'h3');
+    I.click('> LEARN MORE');
+    I.wait(10);
+    I.switchToNextTab();
+    I.seeInCurrentUrl('/free-return');
+    I.closeCurrentTab();
+    I.seeInCurrentUrl('/engagement-ring/create/');
+    I.click('.modal-content .modal-body button');
 
     // // -------------------------------------------- SOCIALMEDIA --------------------------------------------
-    // I.say('OPTION SHARE AND SOCIALMEDIA');
-    // I.click('.share a');
-    // I.waitForText('SHARE THIS', waitTime, 'h3')
-    // I.see('SHARE THIS');
-    // I.click('Facebook');
-    // I.wait(5);
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('facebook.com');
-    // I.closeCurrentTab();
-    // I.click('Twitter');
-    // I.wait(5);
-    // I.switchToNextTab();
-    // I.seeInCurrentUrl('twitter.com');
-    // I.closeCurrentTab();
-    // I.click('Pinterest');
-    // I.wait(5);
-    // I.switchToNextTab();
-    // I.see('Pinterest', 'h2');
-    // I.closeCurrentTab();
-    // I.say('COPY LINK')
-    // I.click('Copy Link');
-    // I.see('LINK COPIED TO THE CLIPBOARD');
-    // I.click('.modal-content .modal-body button');
-
-    // // FALTA LA OPTION DROP A HINT
+    I.say('OPTION SHARE AND SOCIALMEDIA');
+    I.click('.share a');
+    I.waitForText('SHARE THIS', waitTime, 'h3')
+    I.see('SHARE THIS');
+    I.click('Facebook');
+    I.wait(5);
+    I.switchToNextTab();
+    I.seeInCurrentUrl('facebook.com');
+    I.closeCurrentTab();
+    I.click('Twitter');
+    I.wait(5);
+    I.switchToNextTab();
+    I.seeInCurrentUrl('twitter.com');
+    I.closeCurrentTab();
+    I.click('Pinterest');
+    I.wait(5);
+    I.switchToNextTab();
+    I.see('Pinterest', 'h2');
+    I.closeCurrentTab();
+    I.say('COPY LINK')
+    I.click('Copy Link');
+    I.see('LINK COPIED TO THE CLIPBOARD');
+    I.click('.modal-content .modal-body button');
 
     // // -------------------------------------------- ADD TO CART --------------------------------------------
-    // I.say('ADD TO CART');
-    // I.click('#add_to_cart_submit');
-    // I.waitForText('SHOPPING CART', waitTime)
-    // I.see('SHOPPING CART');
-    // I.waitForElement('.link_to_ring_size a', waitTime)
-    // I.click('Help', '.link_to_ring_size a');
-    // I.wait(20);
-    // I.switchToNextTab();
-    // I.see('HOW TO FIND YOUR RING SIZE');
-    // I.closeCurrentTab();
-    // I.see('SHOPPING CART');
-    // I.selectOption('.summary_setting_size .select_ring_size', '3/4');
+    I.say('ADD TO CART');
+    I.click('#add_to_cart_submit');
+    I.waitForText('SHOPPING CART', waitTime)
+    I.see('SHOPPING CART');
+    I.waitForElement('.link_to_ring_size a', waitTime)
+    I.click('Help', '.link_to_ring_size a');
+    I.wait(20);
+    I.switchToNextTab();
+    I.see('HOW TO FIND YOUR RING SIZE');
+    I.closeCurrentTab();
+    I.see('SHOPPING CART');
+    I.selectOption('.summary_setting_size .select_ring_size', '3/4');
 
-    // I.say('CHECKOUT');
-    // I.click('CHECKOUT');
-    // I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
-    // I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
-    // I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
-    // I.click('#shipping_billing_information_form_shippingCountry');
-    // I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
-    // I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
-    // I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-    // I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
-    // I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
-    // I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
-    // I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
-    // I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+    I.say('CHECKOUT');
+    I.click('CHECKOUT');
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
+    I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_shippingCountry');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
 
-    // // Use the same address for billing and shipping
-    // I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
-    // I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+    // Use the same address for billing and shipping
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
+    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
 
-    // I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
-    // I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
-    // I.click('#shipping_billing_information_form_billingCountry');
-    // I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-    // I.fillField('#shipping_billing_information_form_billingState', 'Testing');
-    // I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-    // I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
-    // I.fillField('#shipping_billing_information_form_billingPhone', '123456');
-    // I.click('#cart_shipping_content .last_row .right_submit input');
-    // I.seeInCurrentUrl('/cart/payment-information');    
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_billingCountry');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    I.click('#cart_shipping_content .last_row .right_submit input');
+    I.seeInCurrentUrl('/cart/payment-information');
+    pause()
 
     // // -------------------------------------------- PAYMENT METHOD --------------------------------------------
     // I.say('PAYMENT METHOD');
