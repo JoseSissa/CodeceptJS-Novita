@@ -109,7 +109,7 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     I.amOnPage('/');
     I.forceClick("MEN's WEDDING RINGS");
     I.seeInCurrentUrl('/mens-wedding-bands-mens-wedding-rings-wedding-bands-for-men');
-    I.waitForElement('.jewellery_detail_link', 10);
+    I.waitForElement('.jewellery_detail_link', 30);
 
     // ------------------------ METAL FILTER -----------------------------------
     // METAL: 18ct White Gold
