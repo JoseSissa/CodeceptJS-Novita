@@ -1,7 +1,8 @@
-Feature('Diamond Jewellery - Diamond Studs');
+Feature('DIAMOND JEWELLERY - DIAMOND EARRINGS');
 
-Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
+Scenario('DIAMOND EARRINGS', async ({ I }) => {
 
+    const waitTime = 300; //Seconds
     const waitResponseMetalType = (metalType) => {
         let results = [];
         I.waitForResponse(async res => {
@@ -12,17 +13,16 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
                     // Analize the first 10 elements from response
                     for (let i = 0; i < total; i++) {
                         if(!(results[0].response.items[i].metal_name.includes(metalType))) {
-                            console.log(`Error in response, Metal filter, expected elements with Metal Name: ${metalType} but not found.`);
-                            return false;
+                            console.log(`>>> Error in values obtained from METAL TYPE filter: ${metalType.toUpperCase()} expected, but ${results[0].response.items[i].metal_name.toUpperCase()} was found.`);
                         }
                     }
                 }else {
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`>>> No record was found according to the filter: METAL TYPE, option ${metalType.toUpperCase()}`);
                     return true
                 }   
                 return true;
             }
-        }, 40);
+        }, waitTime);
     }
     const waitResponseType = (type) => {
         let results = [];
@@ -30,24 +30,21 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
             if(res.url().includes('/api/product/diamond-jewellery')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;                 
-                    // Analize the first 10 elements from response
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
                     for (let i = 0; i < total; i++) {
-                        console.log(results[0].response.items[i].type);
                         if(!(results[0].response.items[i].type.toLowerCase().includes(type) || results[0].response.items[i].category_slug.toLowerCase().includes(type))) {
-                            console.log(`Error in response, Type filter, expected elements with Type: ${metalType}, but not found.`);
-                            return false;
+                            console.log(`>>> Error in values obtained from TYPE filter: ${type.toUpperCase()} expected, but it was found.`);
                         }
                     }                    
                 }else {
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`>>> No record was found according to the filter: TYPE, option ${type.toUpperCase()}`);
                     return true
                 }
                 return true;
             }
-        }, 20);
+        }, waitTime);
     }
-    const waitResponseRingsPrice = (ringPrice) => {
+    const waitResponseRingsPrice = (ringPrice, option) => {
         let results = [];
         I.waitForResponse(async res => {
             if(res.url().includes('/api/product/diamond-jewellery')) {
@@ -57,28 +54,25 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
                     for (let i = 0; i < total; i++) {
                         if(ringPrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
-                                console.log(`Error in response, expected elements with price under $1000 but not found.`);
-                                return false;
+                                console.log(`>>> Error in values obtained from PRICE filter: option ${option} expected, but ${results[0].response.items[i].price} was found.`);
                             }
                         }else if(ringPrice == 'between') {
                             if(!(results[0].response.items[i].price > 1000 && results[0].response.items[0].width <= 2000)) {
-                                console.log(`Error in response, expected elements with price between $1000 to $1500 but not found.`);
-                                return false;
+                                console.log(`>>> Error in values obtained from PRICE filter: option ${option} expected, but ${results[0].response.items[i].price} was found.`);
                             }
                         }else if(ringPrice == 'over') {
                             if(!(results[0].response.items[i].price > 2000)) {
-                                console.log(`Error in response, expected elements with price above $1500 but not found.`);
-                                return false;
+                                console.log(`>>> Error in values obtained from PRICE filter: option ${option} expected, but ${results[0].response.items[i].price} was found.`);
                             }
                         }
                     }
                 }else {
-                    console.log('No record was found according to the filter in the response.');
+                    console.log(`>>> No record was found according to the filter: PRICE, option ${option}.`);
                     return true
                 }
                 return true;
             }
-        }, 20);
+        }, waitTime);
     }
 
     I.amOnPage('/');
@@ -123,21 +117,21 @@ Scenario('Diamond Jewellery - Diamond Studs', async ({ I }) => {
     I.say('PRICE $1000 and Under');
     I.forceClick('#jewellery_price_range_2');
     I.seeCheckboxIsChecked('#jewellery_price_range_2');
-    waitResponseRingsPrice('under');
+    waitResponseRingsPrice('under', '$1000 AND UNDER');
     I.forceClick('#jewellery_price_range_2');
 
     // PRICE BETWEEN $1000 to $2000
     I.say('PRICE BETWEEN $1000 to $2000');
     I.forceClick('#jewellery_price_range_3');
     I.seeCheckboxIsChecked('#jewellery_price_range_3');
-    waitResponseRingsPrice('between');
+    waitResponseRingsPrice('between', '$1000 TO $2000');
     I.forceClick('#jewellery_price_range_3');
 
     // PRICE Over $2000
     I.say('PRICE OVER $2000');
     I.forceClick('#jewellery_price_range_4');
     I.seeCheckboxIsChecked('#jewellery_price_range_4');
-    waitResponseRingsPrice('over');
+    waitResponseRingsPrice('over', 'OVER $2000');
     I.forceClick('#jewellery_price_range_4');
     
     I.forceClick('#jewellery_price_range_1');

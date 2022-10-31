@@ -32,8 +32,7 @@ Scenario('DIAMOND STUDS', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total;
                     for (let i = 0; i < total; i++) {
                         if(!(results[0].response.items[i].type.toLowerCase().includes(type) || results[0].response.items[i].category_slug.toLowerCase().includes(type))) {
-                            console.log(`>>> Error in values obtained from TYPE filter: ${type.toUpperCase()} expected, but ${results[0].response.items[i].type.toUpperCase()} was found.`);
-                            return false;
+                            console.log(`>>> Error in values obtained from TYPE filter: ${type.toUpperCase()} expected, but it was found.`);
                         }
                     }
                 }else {
