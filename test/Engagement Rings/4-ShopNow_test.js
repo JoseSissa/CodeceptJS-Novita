@@ -135,7 +135,7 @@ Scenario('SHOP NOW', async ({ I }) => {
     // -------------------------------------------------------------------------------------------
     I.say('TEST - CUSTOM ENGAGEMENT RINGS');
     I.amOnPage("/");
-    I.forceClick("SHOP NOW");
+    I.forceClick('//*[@id="main_menu_container"]/div[2]/div/div[1]/div/div[2]/div/div/div/a');
     I.waitForText('CREATE YOUR RING', 30);
     I.seeInCurrentUrl("/engagement-ring/create/ring");
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
