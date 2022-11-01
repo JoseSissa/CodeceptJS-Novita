@@ -269,10 +269,11 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.see('SHOPPING CART')
     // Jewellery Personalisation - Change
     I.say('SHOPPING CART')
-    I.forceClick('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/a')
-    I.waitForText('PERSONALISE YOUR JEWELLERY', 30)
+    I.wait(5)
+    I.click('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/a')
+    // I.waitForText('PERSONALISE YOUR JEWELLERY', 30)
     I.see('PERSONALISE YOUR JEWELLERY')
-
+    I.waitForElement('#personalised_jewellery_select_engraving', 30)
     I.click('#personalised_jewellery_select_engraving')
     I.click('#jewellery_engraving_font_type')
     I.click('//*[@id="change_jewellery_engraving_font_select"]/a[2]')
