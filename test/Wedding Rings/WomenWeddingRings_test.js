@@ -236,7 +236,7 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     // 20% Deposit Available
     I.say('20% DEPOSIT AVAILABLE');
     I.click('//*[@id="pay_deposit_box"]/div/a')
-    I.wait(5)
+    I.wait(10)
     I.switchToNextTab();
     I.seeInCurrentUrl('/deposit');
     I.closeCurrentTab();
@@ -268,17 +268,19 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.waitForText('SHOPPING CART', 30)
     I.see('SHOPPING CART')
     // Jewellery Personalisation - Change
-    I.say('JEWELLERY PERSONALISATION')
-    I.click('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/a')
+    I.say('SHOPPING CART')
+    I.forceClick('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/a')
     I.waitForText('PERSONALISE YOUR JEWELLERY', 30)
     I.see('PERSONALISE YOUR JEWELLERY')
-    I.click('//*[@id="personalised_jewellery_select_engraving"]')
+
+    I.click('#personalised_jewellery_select_engraving')
     I.click('#jewellery_engraving_font_type')
     I.click('//*[@id="change_jewellery_engraving_font_select"]/a[2]')
+    
     I.fillField('#jewellery_engraving_textarea', 'Jose Testing')
     I.click('#save_jewellery_engraving_message_link')
     I.click('#save_jewellery_store_personalisation')
-    I.wait(5)
+    I.wait(8)
     // Pay deposit
     I.say('PAY DEPOSIT')
     I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[2]/td[1]/label')

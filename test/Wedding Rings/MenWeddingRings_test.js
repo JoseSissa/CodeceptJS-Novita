@@ -263,7 +263,7 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     I.see('SHOPPING CART')
     // Jewellery Personalisation - Change
     I.say('JEWELLERY PERSONALISATION')
-    I.click('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/a')
+    I.forceClick('//*[@id="cart"]/div/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/a')
     I.waitForText('PERSONALISE YOUR JEWELLERY', 30)
     I.see('PERSONALISE YOUR JEWELLERY')
     I.click('//*[@id="personalised_jewellery_select_engraving"]')
