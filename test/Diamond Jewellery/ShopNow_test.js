@@ -94,9 +94,9 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.amOnPage('/');
     I.forceClick('//*[@id="main_menu_container"]/div[2]/div/div[3]/div/div[2]/div/div/div/a');
     I.seeInCurrentUrl('/lab-grown-diamond-earrings-lab-created-diamond-earrings-lab-grown-diamond-jewellery')
-    I.waitForElement('.jewellery_detail_link', 30);
+    I.waitForElement('.jewellery_detail_link', waitTime);
     I.forceClick('#jewellery_category_1')
-    I.waitForElement('.jewellery_detail_link', 30);
+    I.waitForElement('.jewellery_detail_link', waitTime);
     
     // ------------------------ METAL FILTER -----------------------------------
     // METAL: 18ct White Gold
@@ -204,7 +204,7 @@ Scenario('SHOP NOW', async ({ I }) => {
      I.click('#jewellery_list_section .jewellery_list .jewellery_detail_link')
      // More Info
      I.click('#more_info_link')
-     I.waitForText('PRODUCT DESCRIPTION', 30)
+     I.waitForText('PRODUCT DESCRIPTION', waitTime)
      I.see('PRODUCT DESCRIPTION')
      I.click('//*[@id="jewellery_more_details_box"]/button')
      // 20% Deposit Available
@@ -216,14 +216,14 @@ Scenario('SHOP NOW', async ({ I }) => {
      I.seeInCurrentUrl('/lab-grown-diamond-earrings-lab-created-diamond-earrings-lab-grown-diamond-jewellery')
      // Add to cart
      I.click('#add_product_to_cart_submit')
-     I.waitForText('SHOPPING CART', 30)
+     I.waitForText('SHOPPING CART', waitTime)
      I.see('SHOPPING CART')
      // Pay Deposit
      I.forceClick('#pay_deposit_value')
      I.click('#accept_deposit_policy')
      // Checkout
      I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
-     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30)
+     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime)
      I.see('CHECKOUT')
      // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
      I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
@@ -253,7 +253,7 @@ Scenario('SHOP NOW', async ({ I }) => {
      I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
      I.fillField('#shipping_billing_information_form_billingPhone', '123456');
      I.click('#cart_shipping_content .last_row .right_submit input');
-     I.waitForText('PAYMENT METHOD', 30)
+     I.waitForText('PAYMENT METHOD', waitTime)
      I.see('PAYMENT METHOD')
      I.seeInCurrentUrl('/cart/payment-information');
 })

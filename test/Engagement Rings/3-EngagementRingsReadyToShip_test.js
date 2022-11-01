@@ -251,7 +251,7 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
     I.say('TEST - CUSTOM ENGAGEMENT RINGS');
     I.amOnPage("/");
     I.forceClick("ENGAGEMENT RINGS READY TO SHIP");
-    I.waitForText('ENGAGEMENT RINGS READY TO SHIP', 30);
+    I.waitForText('ENGAGEMENT RINGS READY TO SHIP', waitTime);
     I.seeInCurrentUrl("/engagement-ring/ready-to-ship");
 
     // -------------------------------------------- METAL TYPE FILTER --------------------------------------------
@@ -390,7 +390,7 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
     // I.say('PLEASE, ACTIVATE THE CAPTCHA AND WRITE "exit" IN THE CONSOLE AND PRESS ENTER');
     // pause()
     // I.click('#bank_wire_submit')
-    // I.waitForText('Your order is confirmed!', 30);
+    // I.waitForText('Your order is confirmed!', waitTime);
     // I.see('Your order is confirmed!');
 
 });

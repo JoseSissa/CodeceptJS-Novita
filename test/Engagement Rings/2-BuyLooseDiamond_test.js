@@ -550,7 +550,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     // TO CHOOSE 'ADD LOOSE DIAMOND TO CART' OPTION
     I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
     I.click('#add_loose_diamond_to_cart_submit');
-    I.waitForText('SHOPPING CART', 30);
+    I.waitForText('SHOPPING CART', waitTime);
 
     I.checkOption('#loose_diamond_option_false');
     I.checkOption('#loose_diamond_option_true');
@@ -566,7 +566,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     I.say('CLICK IN CHECKOUT');
     I.click('#cart table tbody .order_summary_checkout_button a');
     I.wait(2);
-    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30, 'h2');
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2');
 
     I.say('SHIP TO MY ADDRESS FORM');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
@@ -594,7 +594,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.waitForText('PAYMENT METHOD', 30, 'h2');
+    I.waitForText('PAYMENT METHOD', waitTime, 'h2');
 
     // I.click('#checkbox_bank_wire_description');
     // I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
