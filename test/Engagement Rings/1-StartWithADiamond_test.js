@@ -165,7 +165,6 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
                     if(!(results[0].response.items[0].name.toLowerCase().includes(name))) {
-                        console.log(`>>> Error, No record was found with the SEARCH TEXT entered.`)
                         console.log(`>>> Error in values obtained from SEARCH PRODUCT filter: ${name.toUpperCase()} expected.`)
                     }
                 }else{

@@ -221,7 +221,7 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     
     I.forceClick('#jewellery_price_range_1');
 
-    // -------------------------------------------- I SELECT FIRST ITEM/ELEMENT --------------------------------------------
+    // -------------------------------------------- SELECT FIRST ITEM/ELEMENT --------------------------------------------
     I.say('FIRST ITEM SELECTED');
     I.waitForElement('#jewellery_list_section .jewellery_list .jewellery_detail_link', waitTime)
     I.click('#jewellery_list_section .jewellery_list .jewellery_detail_link')

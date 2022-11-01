@@ -355,14 +355,12 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
         I.click('//*[@id="body_table_results"]/tr[2]/td[9]/div/span[1]/img');
         I.click("#to_compare_diamonds_from_diamond_list");
     };
-    // Check the option video
     const checkVideo = async () => {
         // return await I.grabCssPropertyFrom('#diamond_detail_section .diamond_detail_tabs .video_tab', 'display');
         I.click('#diamond_detail_section .diamond_detail_tabs .video_tab');
         I.waitForText('Actual video of the diamond');
         I.see('Actual video of the diamond');
     };
-    // SORT TABLE FOR PRICE
     const sortByPrice = async (order) => {
         const prices = await I.grabTextFromAll('tbody tr td:nth-child(1)');
         let previousNumber = 0;
@@ -385,7 +383,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
             previousNumber = actualNumber;
         };
     };
-    // SORT TABLE FOR CARAT
     const sortByCarat = async (order) => {
         const carat = await I.grabTextFromAll('tbody tr td:nth-child(3)');
         let previousNumber = 0;
@@ -408,7 +405,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
             previousNumber = actualNumber;
         };
     };
-    // SORT TABLE FOR REPORT
     const sortByReport = async (order) => {
         const report = await I.grabTextFromAll('tbody tr td:nth-child(7)');
         for (const elem of report) {
@@ -423,14 +419,12 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
             }
         };
     };
-    // Check URL of certificate
     const checkURLcertificate = async () => {
         let url =  await I.grabCurrentUrl();
         if(!(url.includes('https://www.gcalusa.com/certificate-search.html')) && !(url.includes('https://www.igi.org/reports/'))) {
             console.log('Error in current URL of certificate.');
         }
     };
-    // SELECT DIAMOND
     const selectDiamond = async () => {
         const diamonds = await I.grabHTMLFromAll('#body_table_results tr td:last-child a');
         let i = 1;
@@ -441,7 +435,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
             i++;
         };
     };
-
 
     // ----------------------------------------------------
     // ----------------------------------------------------
