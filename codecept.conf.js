@@ -13,20 +13,17 @@ exports.config = {
   helpers: {
     Playwright: {
       browser: 'chromium',
-      show: false,
-      url: 'https://novitadiamonds.com/',
+      show: true,
+      // url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
-      // url: 'https://manmadediamonds.com.au/',
+      url: 'https://manmadediamonds.com.au/',
       waitForAction: 300,
       waitForNavigation: 'load',
       windowSize: "1300x650"
     },
     JSONResponse: {
       requestHelper: 'Playwright',
-    },
-    // MyHelper: {
-    //   require: './Test-Playwright.js'
-    // }
+    }
   },
   include: {
     I: './steps_file.js'
