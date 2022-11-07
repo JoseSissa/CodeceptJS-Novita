@@ -2,7 +2,7 @@ Feature("TESTING PAGE URLs");
 
 Scenario("TESTING PAGE URLs", async ({ I }) => {
 
-    const waitTime = 30;
+    const waitTime = 300;
 
     I.amOnPage('/');
     // Links of Engagement Rings ---------------------------------------------->

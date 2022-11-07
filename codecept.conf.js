@@ -12,18 +12,18 @@ exports.config = {
   output: './output',
   helpers: {
     Playwright: {
-      browser: 'chromium',
-      show: true,
-      // url: 'https://novitadiamonds.com/',
+      browser: 'firefox',
+      show: false,
+      url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
-      url: 'https://manmadediamonds.com.au/',
+      // url: 'https://manmadediamonds.com.au/',
       waitForAction: 300,
       waitForNavigation: 'load',
       windowSize: "1300x650"
     },
-    JSONResponse: {
-      requestHelper: 'Playwright',
-    }
+    // JSONResponse: {
+    //   requestHelper: 'Playwright',
+    // }
   },
   include: {
     I: './steps_file.js'

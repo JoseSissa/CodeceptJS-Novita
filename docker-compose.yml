@@ -8,6 +8,8 @@ services:
       - .:/tests
   firefox:
     image: selenium/standalone-firefox-debug:2.53.0
+    # image: selenium/standalone-chrome-debug
+    # image: playwright/chromium
     ports:
       - '4444'
       - '5900'
