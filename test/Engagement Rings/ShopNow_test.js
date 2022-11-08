@@ -62,7 +62,8 @@ Scenario('SHOP NOW', async ({ I }) => {
                 if(results[0].response.total > 0) {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total
                     for (let i = 0; i < total; i++) {
-                        if(results[0].response.items[i].engagement_ring_styles[0].style_name != style) {
+                        const condition = results[0].response.items[i].engagement_ring_styles.find(elem => elem.style_name == style)
+                        if(condition === undefined) {
                             console.log(`>>> Error in values obtained from DIAMOND STYLE filter: option ${style.toUpperCase()} expected, but ${results[0].response.items[i].engagement_ring_styles[0].style_name} was found.`);
                         }
                     }

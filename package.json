@@ -8,12 +8,7 @@
         "codeceptjs:ui": "codecept-ui --app",
         "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples",
         "codeceptjs:demo:headless": "HEADLESS=true codeceptjs run --steps -c node_modules/@codeceptjs/examples",
-        "codeceptjs:demo:ui": "codecept-ui --app  -c node_modules/@codeceptjs/examples",
-        "test1": "npx codeceptjs run Test-1-StartWithADiamond.js --steps",
-        "test2": "npx codeceptjs run Test-2-BuyLooseDiamond.js --steps",
-        "test3": "npx codeceptjs run Test-3-EngagementRingsReadyToShip_test.js --steps",
-        "test4": "npx codeceptjs run Test-4-ShopNow.js --steps",
-        "url": "npx codeceptjs run Test-of-URL.js --steps"
+        "codeceptjs:demo:ui": "codecept-ui --app  -c node_modules/@codeceptjs/examples"
     },
     "devDependencies": {
         "@codeceptjs/configure": "^0.8.0",
