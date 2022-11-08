@@ -273,12 +273,14 @@ Scenario('SHOP NOW', async ({ I }) => {
     I.say('ADD TO CART');
     I.click('#add_to_cart_submit');
     I.waitForText('SHOPPING CART', waitTime)
+    I.wait(2)
     I.see('SHOPPING CART');
     I.selectOption('.summary_setting_size .select_ring_size', '3/4');
 
     I.say('CHECKOUT');
     I.click('CHECKOUT');
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
+    I.wait(4)
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');

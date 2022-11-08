@@ -200,6 +200,7 @@ Scenario('DIAMOND NECKLACES', async ({ I }) => {
      // -------------------------------------------- SELECT FIRST ITEM/ELEMENT --------------------------------------------
      I.say('FIRST ITEM SELECTED');
      I.waitForElement('#jewellery_list_section .jewellery_list .jewellery_detail_link', waitTime)
+     I.wait(2)
      I.click('#jewellery_list_section .jewellery_list .jewellery_detail_link')
      // More Info
      I.click('#more_info_link')
@@ -217,6 +218,7 @@ Scenario('DIAMOND NECKLACES', async ({ I }) => {
      I.click('#add_product_to_cart_submit')
      I.waitForText('SHOPPING CART', waitTime)
      I.see('SHOPPING CART')
+     I.wait(2)
      // Pay Deposit
      I.forceClick('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[2]/td[1]/label')
      I.click('#accept_deposit_policy')
@@ -224,6 +226,7 @@ Scenario('DIAMOND NECKLACES', async ({ I }) => {
      I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
      I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime)
      I.see('CHECKOUT')
+     I.wait(4)
      // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
      I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
      I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');

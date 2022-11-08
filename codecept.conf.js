@@ -9,21 +9,18 @@ setCommonPlugins();
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
   tests: './test/**/*_test.js',
-  output: './output',
+  // output: './output',
   helpers: {
     Playwright: {
       browser: 'firefox',
-      show: false,
+      show: true,
       url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
       // url: 'https://manmadediamonds.com.au/',
-      waitForAction: 300,
+      waitForAction: 400,
       waitForNavigation: 'load',
       windowSize: "1300x650"
     },
-    // JSONResponse: {
-    //   requestHelper: 'Playwright',
-    // }
   },
   include: {
     I: './steps_file.js'

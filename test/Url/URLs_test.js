@@ -41,11 +41,11 @@ Scenario("TESTING PAGE URLs", async ({ I }) => {
     I.say("WOMEN's WEDDINGS RINGS")
     I.waitForText("WOMEN's WEDDING RINGS", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[2]/div/div[1]/div[1]/div/a')
     I.forceClick("WOMEN's WEDDING RINGS")
-    I.seeInCurrentUrl('/lab-grown-diamond-wedding-band-lab-diamond-wedding-band-lab-created-diamond-wedding-band')
+    I.waitInUrl('/lab-grown-diamond-wedding-band-lab-diamond-wedding-band-lab-created-diamond-wedding-band', waitTime)
     I.say("MEN's WEDDING RINGS")
     I.waitForText("MEN's WEDDING RINGS", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[2]/div/div[1]/div[2]/div/a')
     I.forceClick("MEN's WEDDING RINGS")
-    I.seeInCurrentUrl('/mens-wedding-bands-mens-wedding-rings-wedding-bands-for-men')
+    I.waitInUrl('/mens-wedding-bands-mens-wedding-rings-wedding-bands-for-men', waitTime)
 
     // Links of Diamond Jewellery ---------------------------------------------->
     I.say('LINKS OF DIAMOND JEWELLERY')

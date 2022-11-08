@@ -230,10 +230,12 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
     I.say('STEP - RING DESIGN')
     I.waitForElement('//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a', waitTime)
     I.forceClick('Browse settings', '//*[@id="diamond_list_section"]/div[1]/div[2]/div[3]/div[2]/a')
+    I.wait(2)
     I.seeInCurrentUrl('/engagement-ring/create/ring')
     I.waitForElement('//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a', waitTime)
     I.say('STEP - SELECT DIAMOND')
     I.forceClick('Browse diamonds', '//*[@id="create_engage_ring_container"]/section[3]/div[1]/div[1]/div[3]/div[2]/a')
+    I.wait(2)
     I.seeInCurrentUrl('/engagement-ring/create/diamond')
     waitResponseInTable()
 
@@ -537,6 +539,7 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
     I.say('ADD TO CART');
     I.click('#add_to_cart_submit');
     I.waitForText('SHOPPING CART', waitTime)
+    I.wait(2)
     I.see('SHOPPING CART');
     I.waitForElement('.link_to_ring_size a', waitTime)
     I.click('Help', '.link_to_ring_size a');
@@ -551,6 +554,7 @@ Scenario('START WITH A DIAMOND', async ({ I }) => {
     I.click('CHECKOUT');
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
+    I.wait(4)
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');

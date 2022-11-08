@@ -260,6 +260,7 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     I.say('ADD TO CART')
     I.click('#add_product_to_cart_submit')
     I.waitForText('SHOPPING CART', 30)
+    I.wait(2)
     I.see('SHOPPING CART')
     // Jewellery Personalisation - Change
     I.say('JEWELLERY PERSONALISATION')
@@ -283,6 +284,7 @@ Scenario("MEN's WEDDING RINGS", ({ I }) => {
     // Checkout
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30)
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?')
+    I.wait(4)
     // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');

@@ -550,6 +550,7 @@ Scenario('START WITH A RING DESIGN', async ({ I }) => {
     I.click('//*[@id="diamond_detail_section"]/div[2]/div[2]/div[6]/a[2]')
     // Add to cart
     I.waitForElement('#add_to_cart_form', waitTime)
+    I.wait(2)
     I.click('#add_to_cart_submit')
     // Shopping cart
     I.waitForText('SHOPPING CART', waitTime)
@@ -561,6 +562,7 @@ Scenario('START WITH A RING DESIGN', async ({ I }) => {
 
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2')
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?', 'h2');
+    I.wait(4)
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');

@@ -551,6 +551,7 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     I.say('TO CHOOSE "ADD LOOSE DIAMOND TO CART" OPTION');
     I.click('#add_loose_diamond_to_cart_submit');
     I.waitForText('SHOPPING CART', waitTime);
+    I.wait(2)
 
     I.checkOption('#loose_diamond_option_false');
     I.checkOption('#loose_diamond_option_true');
@@ -567,7 +568,8 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     I.click('#cart table tbody .order_summary_checkout_button a');
     I.wait(2);
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime, 'h2');
-
+    I.wait(4)
+    
     I.say('SHIP TO MY ADDRESS FORM');
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');

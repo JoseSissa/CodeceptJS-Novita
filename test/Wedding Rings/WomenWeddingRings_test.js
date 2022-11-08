@@ -291,6 +291,7 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30)
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?')
     // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
+    I.wait(4)
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
