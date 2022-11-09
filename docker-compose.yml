@@ -7,7 +7,6 @@ services:
     volumes:
       - .:/tests
   chromium:
-    # image: selenium/standalone-firefox:4.6.0-20221104
     image: playwright/chromium
     ports:
       - '4444:4444'
