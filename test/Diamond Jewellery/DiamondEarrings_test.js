@@ -9,8 +9,7 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
             if(res.url().includes('/api/product/diamond-jewellery')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;                 
-                    // Analize the first 10 elements from response
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
                     for (let i = 0; i < total; i++) {
                         if(!(results[0].response.items[i].metal_name.includes(metalType))) {
                             console.log(`>>> Error in values obtained from METAL TYPE filter: ${metalType.toUpperCase()} expected, but ${results[0].response.items[i].metal_name.toUpperCase()} was found.`);
@@ -33,7 +32,7 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total;
                     for (let i = 0; i < total; i++) {
                         if(!(results[0].response.items[i].type.toLowerCase().includes(type) || results[0].response.items[i].category_slug.toLowerCase().includes(type))) {
-                            console.log(`>>> Error in values obtained from TYPE filter: ${type.toUpperCase()} expected, but it was found.`);
+                            console.log(`>>> Error in values obtained from TYPE filter: ${type.toUpperCase()} expected, but ${results[0].response.items[i].type} was found.`);
                         }
                     }                    
                 }else {
@@ -50,7 +49,7 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
             if(res.url().includes('/api/product/diamond-jewellery')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
-                    const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
+                    const total = results[0].response.total > 10 ? 10 : results[0].response.total;
                     for (let i = 0; i < total; i++) {
                         if(ringPrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
@@ -98,7 +97,6 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
     I.waitForElement('.jewellery_detail_link', waitTime);
     I.forceClick('#jewellery_category_1')
     I.waitForElement('.jewellery_detail_link', waitTime);
-    // waitResponseType('earring');
     // ------------------------ METAL FILTER -----------------------------------
     // METAL: 18ct White Gold
     I.say('FILTER METAL: 18ct White Gold');
@@ -130,6 +128,42 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
 
     I.forceClick('#metal_type_1');
 
+    // ------------------------ TYPE  -----------------------------------
+    I.forceClick('#jewellery_category_1')
+
+    // FILTER TYPE: RINGS
+    I.say('TYPE METAL: RINGS');
+    I.forceClick('#jewellery_category_2');
+    I.seeCheckboxIsChecked('#jewellery_category_2');
+    waitResponseType('ring');
+    I.forceClick('#jewellery_category_2');
+    // FILTER TYPE: STUDS
+    I.say('TYPE METAL: STUDS');
+    I.forceClick('#earring_style_slug_1');
+    I.seeCheckboxIsChecked('#earring_style_slug_1');
+    waitResponseType('stud');
+    I.forceClick('#earring_style_slug_1');
+    // FILTER TYPE: EARRINGS
+    I.say('TYPE METAL: EARRINGS');
+    I.forceClick('#jewellery_category_3');
+    I.seeCheckboxIsChecked('#jewellery_category_3');
+    waitResponseType('earring');
+    I.forceClick('#jewellery_category_3');
+    // FILTER TYPE: BRACELETS
+    I.say('TYPE METAL: BRACELETS');
+    I.forceClick('#jewellery_category_4');
+    I.seeCheckboxIsChecked('#jewellery_category_4');
+    waitResponseType('bracelet');
+    I.forceClick('#jewellery_category_4');
+    // FILTER TYPE: NECKLACES
+    I.say('TYPE METAL: NECKLACES');
+    I.forceClick('#jewellery_category_5');
+    I.seeCheckboxIsChecked('#jewellery_category_5');
+    waitResponseType('necklace');
+    I.forceClick('#jewellery_category_5');
+
+    I.forceClick('#jewellery_category_1')
+
     // ------------------------ PRICE FILTER -----------------------------------
     // PRICE $1000 and Under
     I.say('PRICE $1000 and Under');
@@ -153,7 +187,7 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
     I.forceClick('#jewellery_price_range_4');
     
     I.forceClick('#jewellery_price_range_1');
-    // ------------------------ PRICE FILTER -----------------------------------
+    // ------------------------ INPUT FILTER -----------------------------------
     I.say('TEXT SEARCH INPUT');
     I.fillField('//*[@id="jewellery_order_section"]/div[2]/div/input', 'white')
     I.pressKey('Enter')
