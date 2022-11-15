@@ -599,13 +599,6 @@ Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
-
-    // I.click('#checkbox_bank_wire_description');
-    // I.say('PLEASE, ACTIVATE THE CAPTCHA THEN TYPE "exit" IN THE CONSOLE AND PRESS ENTER TO CONTINUE');
-    // pause();
-    // I.click('#bank_wire_submit')
-    // I.waitForText('Your order is confirmed!', 10);
-    // I.see('Your order is confirmed!');
 });
 
 

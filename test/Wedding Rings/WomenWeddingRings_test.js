@@ -79,10 +79,8 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
             if(res.url().includes('/api/product/wedding-bands')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
-                    console.log(ringPrice, option);
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
                     for (let i = 0; i < total; i++) {
-                        console.log();
                         if(ringPrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
                                 console.log(`>>> Error in values obtained from PRICE filter: option ${option} expected, but ${results[0].response.items[i].price} was found.`);
