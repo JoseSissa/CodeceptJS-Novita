@@ -195,65 +195,63 @@ Scenario('DIAMOND EARRINGS', async ({ I }) => {
     I.fillField('//*[@id="jewellery_order_section"]/div[2]/div/input', '')
     I.pressKey('Enter')
     I.wait(4)
-     // -------------------------------------------- SELECT FIRST ITEM/ELEMENT --------------------------------------------
-     I.say('FIRST ITEM SELECTED');
-     I.waitForElement('#jewellery_list_section .jewellery_list .jewellery_detail_link', waitTime)
-     I.wait(2)
-     I.click('#jewellery_list_section .jewellery_list .jewellery_detail_link')
-     // More Info
-     I.click('#more_info_link')
-     I.waitForText('PRODUCT DESCRIPTION', waitTime)
-     I.see('PRODUCT DESCRIPTION')
-     I.click('//*[@id="jewellery_more_details_box"]/button')
-     // 20% Deposit Available
-     I.click('//*[@id="pay_deposit_box"]/div/a')
-     I.wait(5)
-     I.switchToNextTab()
-     I.seeInCurrentUrl('/deposit')
-     I.closeCurrentTab()
-     I.seeInCurrentUrl('/lab-grown-diamond-earrings-lab-created-diamond-earrings-lab-grown-diamond-jewellery')
-     // Add to cart
-     I.click('#add_product_to_cart_submit')
-     I.waitForText('SHOPPING CART', waitTime)
-     I.see('SHOPPING CART')
-     I.wait(2)
-     // Pay Deposit
-     I.forceClick('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[2]/td[1]/label')
-     I.click('#accept_deposit_policy')
-     // Checkout
-     I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
-     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime)
-     I.see('CHECKOUT')
-     I.wait(4)
-     // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
-     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
-     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
-     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
-     I.click('#shipping_billing_information_form_shippingCountry');
-     I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
-     I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
-     I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-     I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
-     I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
-     I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
-     I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
-     I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
- 
-     // Use the same address for billing and shipping
-     I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
-     I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
- 
-     I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
-     I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
-     I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
-     I.click('#shipping_billing_information_form_billingCountry');
-     I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
-     I.fillField('#shipping_billing_information_form_billingState', 'Testing');
-     I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-     I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
-     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
-     I.click('#cart_shipping_content .last_row .right_submit input');
-     I.waitForText('PAYMENT METHOD', waitTime)
-     I.see('PAYMENT METHOD')
-     I.seeInCurrentUrl('/cart/payment-information');
+    // -------------------------------------------- SELECT FIRST ITEM/ELEMENT --------------------------------------------
+    I.say('FIRST ITEM SELECTED');
+    I.waitForElement('#jewellery_list_section .jewellery_list .jewellery_detail_link', waitTime)
+    I.wait(2)
+    I.click('#jewellery_list_section .jewellery_list .jewellery_detail_link')
+    // More Info
+    I.click('#more_info_link')
+    I.waitForText('PRODUCT DESCRIPTION', waitTime)
+    I.see('PRODUCT DESCRIPTION')
+    I.click('//*[@id="jewellery_more_details_box"]/button')
+    // 20% Deposit Available
+    I.click('//*[@id="pay_deposit_box"]/div/a')
+    I.wait(5)
+    I.switchToNextTab()
+    I.seeInCurrentUrl('/deposit')
+    I.closeCurrentTab()
+    I.seeInCurrentUrl('/lab-grown-diamond-earrings-lab-created-diamond-earrings-lab-grown-diamond-jewellery')
+    // Add to cart
+    I.click('#add_product_to_cart_submit')
+    I.waitForText('SHOPPING CART', waitTime)
+    I.see('SHOPPING CART')
+    I.wait(2)
+    // Pay Deposit
+    I.forceClick('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[2]/td[1]/label')
+    I.click('#accept_deposit_policy')
+    // Checkout
+    I.click('//*[@id="cart"]/div/div[2]/div[2]/table/tbody/tr[4]/td/a')
+    I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', waitTime)
+    I.see('CHECKOUT')
+    I.wait(4)
+    // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
+    I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_shippingCountry');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'Australia');
+    I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', '4000');
+    I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
+    I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
+    I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+
+    // Use the same address for billing and shipping
+    I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
+    I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
+
+    I.fillField('#shipping_billing_information_form_billingFirstName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
+    I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
+    I.click('#shipping_billing_information_form_billingCountry');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'Australia');
+    I.fillField('#shipping_billing_information_form_billingState', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
+    I.fillField('#shipping_billing_information_form_billingPostcode', '4000');
+    I.fillField('#shipping_billing_information_form_billingPhone', '123456');
+    I.click('#cart_shipping_content .last_row .right_submit input');
+    I.seeInCurrentUrl('/cart/payment-information');
 });

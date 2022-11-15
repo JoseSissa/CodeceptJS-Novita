@@ -233,10 +233,10 @@ Scenario('DIAMOND STUDS', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
     I.click('#shipping_billing_information_form_shippingCountry');
-    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'Australia');
     I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
     I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', '4000');
     I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
     I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
     I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
@@ -250,13 +250,11 @@ Scenario('DIAMOND STUDS', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
     I.click('#shipping_billing_information_form_billingCountry');
-    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'Australia');
     I.fillField('#shipping_billing_information_form_billingState', 'Testing');
     I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPostcode', '4000');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.waitForText('PAYMENT METHOD', waitTime)
-    I.see('PAYMENT METHOD')
     I.seeInCurrentUrl('/cart/payment-information');
 })

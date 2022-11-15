@@ -363,14 +363,15 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
     I.click('#shipping_billing_information_form_shippingCountry');
-    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'Australia');
     I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
     I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', '4000');
     I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
     I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
     I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
     I.fillField('#shipping_billing_information_form_shippingEmail', 'testing@testing.com');
+
     // Use the same address for billing and shipping
     I.say('USE THE SAME ADDRESS FOR BILLING AND SHIPPING');
     I.click('#cart_shipping_content .same_shipping_billing_fields label .form-check');
@@ -379,13 +380,13 @@ Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
     I.click('#shipping_billing_information_form_billingCountry');
-    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'Australia');
     I.fillField('#shipping_billing_information_form_billingState', 'Testing');
     I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPostcode', '4000');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
-    I.waitInUrl('/cart/payment-information', waitTime);
+    I.seeInCurrentUrl('/cart/payment-information');
 
     // I.waitForText('PAYMENT METHOD', waitTime)
     // I.forceClick('#checkbox_bank_wire')

@@ -79,8 +79,10 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
             if(res.url().includes('/api/product/wedding-bands')) {
                 results.push(await res.json());
                 if(results[0].response.total > 0) {
+                    console.log(ringPrice, option);
                     const total = results[0].response.total > 10 ? 10 : results[0].response.total; 
                     for (let i = 0; i < total; i++) {
+                        console.log();
                         if(ringPrice == 'under') {
                             if(!(results[0].response.items[i].price <= 1000)) {
                                 console.log(`>>> Error in values obtained from PRICE filter: option ${option} expected, but ${results[0].response.items[i].price} was found.`);
@@ -290,16 +292,16 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     // Checkout
     I.waitForText('WHERE DO YOU WANT THESE ITEMS SENT?', 30)
     I.see('WHERE DO YOU WANT THESE ITEMS SENT?')
-    // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
     I.wait(4)
+    // WHERE DO YOU WANT THESE ITEMS SENT? - FORM
     I.fillField('#shipping_billing_information_form_shippingFirstName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_shippingAddressLineOne', 'Test Address');
     I.click('#shipping_billing_information_form_shippingCountry');
-    I.selectOption('#shipping_billing_information_form_shippingCountry', 'United Kingdom');
+    I.selectOption('#shipping_billing_information_form_shippingCountry', 'Australia');
     I.fillField('#shipping_billing_information_form_shippingState', 'Testing');
     I.fillField('#shipping_billing_information_form_shippingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_shippingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_shippingPostcode', '4000');
     I.fillField('#shipping_billing_information_form_shippingPhone', '1234567');
     I.fillField('#shipping_billing_information_form_deliveryInstructions', 'Test form, please ignore this request.');
     I.fillField('#shipping_billing_information_form_customerNotesProposalDate', 'Test form, please ignore this request.');
@@ -313,10 +315,10 @@ Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
     I.fillField('#shipping_billing_information_form_billingLastName', 'Jose Testing');
     I.fillField('#shipping_billing_information_form_billingAddressLineOne', 'Test Address');
     I.click('#shipping_billing_information_form_billingCountry');
-    I.selectOption('#shipping_billing_information_form_billingCountry', 'United Kingdom');
+    I.selectOption('#shipping_billing_information_form_billingCountry', 'Australia');
     I.fillField('#shipping_billing_information_form_billingState', 'Testing');
     I.fillField('#shipping_billing_information_form_billingSuburb', 'Testing');
-    I.fillField('#shipping_billing_information_form_billingPostcode', 'AA9A9AA');
+    I.fillField('#shipping_billing_information_form_billingPostcode', '4000');
     I.fillField('#shipping_billing_information_form_billingPhone', '123456');
     I.click('#cart_shipping_content .last_row .right_submit input');
     I.seeInCurrentUrl('/cart/payment-information');
