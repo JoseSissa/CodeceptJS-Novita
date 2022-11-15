@@ -2,7 +2,7 @@ Feature("TESTING PAGE URLs");
 
 Scenario("TESTING PAGE URLs", async ({ I }) => {
 
-    const waitTime = 300;
+    const waitTime = 60;
 
     I.amOnPage('/');
     // Links of Engagement Rings ---------------------------------------------->
@@ -138,59 +138,59 @@ Scenario("TESTING PAGE URLs", async ({ I }) => {
     I.seeInCurrentUrl('/contact')
 
     I.say('LINKS OF CONTACT - ABOUT US')
-    I.waitForText("ABOUT US", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[5]/div/div[1]/div/div/ul/li[3]/div/div/a')
+    I.waitForText("ABOUT US", waitTime)
     I.forceClick('ABOUT US')
     I.seeInCurrentUrl('/our_story')
 
     I.say('LINKS OF CONTACT - SHOWROOMS')
 
     I.say('AUSTRALIA - SIDNEY')
-    I.waitForText("Sydney (NSW)", waitTime, '//*[@id="collapse1"]/div/a[1]')
-    I.forceClick('Sydney (NSW)', '#collapse1')
+    I.waitForText("Sydney (NSW)", waitTime)
+    I.forceClick('Sydney (NSW)')
     I.seeInCurrentUrl('/lab-grown-diamonds-sydney-lab-diamonds-sydney')
 
     I.say('AUSTRALIA - PARRAMATTA')
-    I.waitForText("Parramatta (NSW)", waitTime, '//*[@id="collapse1"]/div/a[2]')
-    I.forceClick('Parramatta (NSW)', '#collapse1')
+    I.waitForText("Parramatta (NSW)", waitTime)
+    I.forceClick('Parramatta (NSW)')
     I.seeInCurrentUrl('/lab-grown-diamonds-parramatta-lab-diamonds-parramatta')
 
     I.say('AUSTRALIA - MELBOURNE')
-    I.waitForText("Melbourne (VIC)", waitTime, '//*[@id="collapse1"]/div/a[3]')
-    I.forceClick('Melbourne (VIC)', '#collapse1')
+    I.waitForText("Melbourne (VIC)")
+    I.forceClick('Melbourne (VIC)')
     I.seeInCurrentUrl('/lab-grown-diamonds-melbourne-lab-diamonds-melbourne')
 
     I.say('AUSTRALIA - PERTH')
-    I.waitForText("Perth (WA)", waitTime, '//*[@id="collapse1"]/div/a[4]')
-    I.forceClick('Perth (WA)', '#collapse1')
+    I.waitForText("Perth (WA)", waitTime)
+    I.forceClick('Perth (WA)')
     I.seeInCurrentUrl('/lab-grown-diamonds-perth-lab-diamonds-perth')
 
     I.say('AUSTRALIA - ADELAIDE')
-    I.waitForText("Adelaide (SA)", waitTime, '//*[@id="collapse1"]/div/a[5]')
-    I.forceClick('Adelaide (SA)', '#collapse1')
+    I.waitForText("Adelaide (SA)", waitTime)
+    I.forceClick('Adelaide (SA)')
     I.seeInCurrentUrl('/lab-grown-diamonds-adelaide-lab-diamonds-adelaide')
 
     I.say('AUSTRALIA - BRISBANE')
-    I.waitForText("Brisbane (QLD)", waitTime, '//*[@id="collapse1"]/div/a[6]')
-    I.forceClick('Brisbane (QLD)', '#collapse1')
+    I.waitForText("Brisbane (QLD)", waitTime)
+    I.forceClick('Brisbane (QLD)')
     I.seeInCurrentUrl('/lab-grown-diamonds-brisbane-lab-diamonds-brisbane')
 
-    I.say('SINGAPORE')
-    I.waitForText("Singapore", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[5]/div/div[2]/div/div/div[2]/ul/li[2]/a')
-    I.forceClick('Singapore')
-    I.seeInCurrentUrl('/contact')
-
     I.say('NEW ZEALAND')
-    I.waitForText("New Zealand", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[5]/div/div[2]/div/div/div[2]/ul/li[3]/a')
+    I.waitForText("New Zealand", waitTime)
     I.forceClick('New Zealand')
     I.seeInCurrentUrl('/lab-grown-diamonds-nz-lab-diamonds-nz-man-made-diamonds-nz')
 
+    I.say('SINGAPORE')
+    // I.waitForText("Singapore", waitTime, '.sublinks_contact .links .custom-ul-right')
+    I.forceClick('Singapore')
+    I.seeInCurrentUrl('/contact')    
+
     I.say('UK')
-    I.waitForText("UK", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[5]/div/div[2]/div/div/div[2]/ul/li[4]/a')
+    // I.waitForText("UK", waitTime, '.sublinks_contact .links .custom-ul-right')
     I.forceClick('UK')
     I.seeInCurrentUrl('/contact')
 
     I.say('GERMANY')
-    I.waitForText("Germany", waitTime, '//*[@id="main_menu_container"]/div[2]/div/div[5]/div/div[2]/div/div/div[2]/ul/li[5]/a')
+    // I.waitForText("Germany", waitTime, '.sublinks_contact .links .custom-ul-right')
     I.forceClick('Germany')
     I.seeInCurrentUrl('/contact')
 
