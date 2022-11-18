@@ -15,6 +15,7 @@ Scenario('FORMS: CONTACT, FEEDBACK, RING SIZE REQUEST', async ({ I }) => {
     I.forceClick('//*[@id="contactForm"]/div[6]/div/div[2]/input')
     I.waitForText("Captcha validation wasn't success. Please try again.", waitTime)
     I.see("Captcha validation wasn't success. Please try again.")
+    I.wait(2)
 
     // Feedback
     I.click('FEEDBACK')
@@ -27,6 +28,7 @@ Scenario('FORMS: CONTACT, FEEDBACK, RING SIZE REQUEST', async ({ I }) => {
     I.forceClick('//*[@id="contactForm"]/div[6]/div/div[2]/input')
     I.waitForText("Captcha validation wasn't success. Please try again.", waitTime)
     I.see("Captcha validation wasn't success. Please try again.")
+    I.wait(2)
 
     // Ring size request
     I.forceClick('Find Your Ring Size', '//*[@id="main_menu_container"]/div[2]/div/div[4]/div/div[2]/div[1]/div[2]/ul/li[1]/a')
@@ -40,14 +42,7 @@ Scenario('FORMS: CONTACT, FEEDBACK, RING SIZE REQUEST', async ({ I }) => {
     I.selectOption('#ring_sizer_request_form_province', 'Australian Capital Territory')
     I.fillField('#ring_sizer_request_form_postalCode', '4000')
     I.fillField('#ring_sizer_request_form_message', 'Test form, please ignore this request.')
-    pause()
-    I.forceClick('//*[@id="ring_sizer_request_form"]/div/div[6]/div[2]/div/input')
-    I.waitForText("Captcha validation wasn't success. Please try again.", waitTime)
-    I.see("Captcha validation wasn't success. Please try again.")
-
-    pause()
-
-
-
-
+    // I.click('//*[@id="ring_sizer_request_form"]/div/div[6]/div[2]/div/input')
+    // I.waitForText("Captcha validation wasn't success. Please try again.", waitTime)
+    // I.see("Captcha validation wasn't success. Please try again.")
 })
