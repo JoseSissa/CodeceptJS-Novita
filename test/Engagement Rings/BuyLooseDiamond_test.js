@@ -1,6 +1,6 @@
 Feature('ENGAGEMENT RINGS - BUY LOOSE DIAMONDS');
 
-Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {    
+Scenario('BUY LOOSE DIAMONDS', async ({ I }) => {
 
     const waitTime = 300; //Seconds
     const params = {
