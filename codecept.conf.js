@@ -13,11 +13,12 @@ exports.config = {
   helpers: {
     Playwright: {
       browser: 'chromium',
-      show: true,
+      disableScreenshots: true,
+      show: false,
       // url: 'https://novitadiamonds.com/',
       // url: 'http://novitadiamonds.localhost',
       url: 'https://manmadediamonds.com.au/',
-      waitForAction: 400,
+      waitForAction: 500,
       waitForNavigation: 'load',
       windowSize: "1300x650"
     },
