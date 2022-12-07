@@ -10,11 +10,24 @@ setCommonPlugins();
 exports.config = {
   tests: './test/**/*_test.js',
   output: './output',
+  "mocha": {
+    "codeceptjs-cli-reporter": {
+      "stdout": "-",
+      "options": {
+        "verbose": false,
+        "steps": false,
+      }
+    },
+    "reporterOptions": {
+        "reportDir": "output",
+        "reportFilename": "report"
+    }
+  },
   helpers: {
     Playwright: {
       browser: 'chromium',
       disableScreenshots: true,
-      show: true,
+      show: false,
       url: 'https://manmadediamonds.com.au/',
       waitForAction: 500,
       waitForNavigation: 'load',
