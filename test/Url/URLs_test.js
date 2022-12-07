@@ -8,7 +8,7 @@ Scenario("TESTING PAGE URLs", async ({ I }) => {
     // Links of Engagement Rings ---------------------------------------------->
     I.say('LINKS OF ENGAGEMENT RINGS')
     I.say('START WITH A DIAMOND')
-    I.forceClick('Startt With a Diamond')
+    I.forceClick('Start With a Diamond')
     I.waitInUrl('/engagement-ring/create/diamond', waitTime)
 
     I.say('START WITH A RING DESIGND')
