@@ -2,6 +2,7 @@
     "name": "codeceptjs-tests",
     "version": "0.1.0",
     "private": true,
+    "type": "commonjs",
     "scripts": {
         "report": "npx codeceptjs run --grep 'TESTING PAGE URLs' --reporter mochawesome",
         "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",

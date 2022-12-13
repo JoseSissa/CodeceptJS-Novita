@@ -10,19 +10,6 @@ setCommonPlugins();
 exports.config = {
   tests: './test/**/*_test.js',
   output: './output',
-  "mocha": {
-    "codeceptjs-cli-reporter": {
-      "stdout": "-",
-      "options": {
-        "verbose": true,
-        "steps": true,
-      }
-    },
-    "reporterOptions": {
-        "reportDir": "output",
-        "reportFilename": "report"
-    }
-  },
   helpers: {
     Playwright: {
       browser: 'chromium',
@@ -53,21 +40,9 @@ exports.config = {
     }
   },
   async teardown() {
-    const res = require('./output/mochawesome.json')
-    const me = 'Cool, one of the workers have finished'
-
-    const suites = res.results[0].suites
-    for (const elem of suites) {
-      const title = elem.tests[0].title
-      const state = elem.tests[0].state
-      const err = elem.tests[0].err.message
-      console.log({me, title, state, err});
-    }
-
-  },
-  async teardownAll() {
-    console.log('All workers have finished running tests so we should clean up the temp folder');
-    // fs.rmdirSync(tempFolder);
+    const report = require('./output/mochawesome.json')
+    const sendReport = require('./sendReport.js')
+    sendReport(report)
   },
   include: {
     I: './steps_file.js'
