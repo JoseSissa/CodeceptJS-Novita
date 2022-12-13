@@ -1,4 +1,4 @@
-Feature("WEDDING RINGS - WOMEN's WEDDING RINGS");
+Feature("WEDDING RINGS");
 
 Scenario("WOMEN's WEDDING RINGS", ({ I }) => {
 

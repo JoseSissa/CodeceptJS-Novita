@@ -1,4 +1,4 @@
-Feature('ENGAGEMENT RINGS - SHOP NOW');
+Feature('ENGAGEMENT RINGS');
 
 Scenario('SHOP NOW', async ({ I }) => {
 

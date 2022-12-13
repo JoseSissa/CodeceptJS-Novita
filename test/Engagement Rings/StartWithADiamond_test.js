@@ -1,4 +1,4 @@
-Feature('ENGAGEMENT RINGS - START WITH A DIAMOND');
+Feature('ENGAGEMENT RINGS');
 
 Scenario('START WITH A DIAMOND', async ({ I }) => {
 

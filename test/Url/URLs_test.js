@@ -1,6 +1,6 @@
-Feature("TESTING PAGE URLs");
+Feature("URL");
 
-Scenario("TESTING PAGE URLs", async ({ I }) => {
+Scenario("URLs TEST", async ({ I }) => {
 
     const waitTime = 60;
 
