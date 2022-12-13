@@ -28,12 +28,8 @@ exports.config = {
       browser: 'chromium',
       disableScreenshots: true,
       show: false,
-<<<<<<< HEAD
       // url: 'https://manmadediamonds.com.au/',
       url: 'https://novitadiamonds.com/',
-=======
-      url: 'https://manmadediamonds.com.au/',
->>>>>>> 914298b175c30e34d36cf30aefd5543fd48ec44e
       waitForAction: 500,
       waitForNavigation: 'load',
       windowSize: "1300x650"
