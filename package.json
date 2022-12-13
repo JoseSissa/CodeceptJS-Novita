@@ -20,6 +20,7 @@
         "playwright": "^1.25.1"
     },
     "dependencies": {
-        "mochawesome": "^7.1.3"
+        "mochawesome": "^7.1.3",
+        "nodemailer": "^6.8.0"
     }
 }
