@@ -1,4 +1,4 @@
-Feature('ENGAGEMENT RINGS - ENGAGEMENT READY TO SHIP');
+Feature('ENGAGEMENT RINGS');
 
 Scenario('ENGAGEMENT READY TO SHIP', async ({ I }) => {
 

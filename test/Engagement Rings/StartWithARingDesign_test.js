@@ -1,4 +1,4 @@
-Feature('ENGAGEMENT RINGS - START WITH A RING DESIGN');
+Feature('ENGAGEMENT RINGS');
 
 Scenario('START WITH A RING DESIGN', async ({ I }) => {
 

@@ -1,4 +1,4 @@
-Feature('DIAMOND JEWELLERY - DIAMOND EARRINGS');
+Feature('DIAMOND JEWELLERY - ');
 
 Scenario('DIAMOND EARRINGS', async ({ I }) => {
 

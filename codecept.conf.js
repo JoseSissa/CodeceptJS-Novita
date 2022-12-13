@@ -41,7 +41,7 @@ exports.config = {
   },
   async teardown() {
     const report = require('./output/mochawesome.json')
-    const sendReport = require('./sendReport.js')
+    const sendReport = require('./sendReport/sendReport.js')
     sendReport(report)
   },
   include: {
