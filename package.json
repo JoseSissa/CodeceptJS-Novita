@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "codeceptjs": "codeceptjs run --steps",
+        "report": "npx codeceptjs run --grep 'TESTING PAGE URLs' --reporter mochawesome",
         "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
         "codeceptjs:ui": "codecept-ui --app",
         "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples",
@@ -16,5 +16,8 @@
         "@codeceptjs/ui": "^0.4.7",
         "codeceptjs": "^3.3.5",
         "playwright": "^1.25.1"
+    },
+    "dependencies": {
+        "mochawesome": "^7.1.3"
     }
 }

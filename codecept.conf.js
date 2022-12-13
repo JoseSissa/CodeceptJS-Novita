@@ -14,12 +14,47 @@ exports.config = {
     Playwright: {
       browser: 'chromium',
       disableScreenshots: true,
-      show: true,
-      url: 'https://manmadediamonds.com.au/',
+      show: false,
+      // url: 'https://manmadediamonds.com.au/',
+      url: 'https://novitadiamonds.com/',
       waitForAction: 500,
       waitForNavigation: 'load',
       windowSize: "1300x650"
     },
+  },
+  "mocha": {
+    "reporterOptions": {
+        "reportDir": "output"
+    },
+    "mochawesome": {
+      "stdout": "./output/console.log",
+      "options": {
+        "reportDir": "./output",
+        "reportFilename": "report"
+      }
+    }
+  },
+  plugins: {
+    tryTo: {
+      enabled: true
+    }
+  },
+  async teardown() {
+    const res = require('./output/mochawesome.json')
+    const me = 'Cool, one of the workers have finished'
+
+    const suites = res.results[0].suites
+    for (const elem of suites) {
+      const title = elem.tests[0].title
+      const state = elem.tests[0].state
+      const err = elem.tests[0].err.message
+      console.log({me, title, state, err});
+    }
+
+  },
+  async teardownAll() {
+    console.log('All workers have finished running tests so we should clean up the temp folder');
+    // fs.rmdirSync(tempFolder);
   },
   include: {
     I: './steps_file.js'
